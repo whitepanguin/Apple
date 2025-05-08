@@ -30,4 +30,7 @@ export const config = {
     database: required("DB_DATABASE"),
     port: parseInt(required("DB_PORT", 3306)),
   },
+  mongodb: {
+    url: required("MONGODB"),
+  },
 };
