@@ -14,5 +14,14 @@ export async function createPlace(placeData) {
 
 // id(idx)로 사용자 조회
 export async function findPlaceid(id) {
-  return Place.findPlaceid(id);
+  return Place.findById(id);
+}
+
+export async function getAllByUserid(userid) {
+  return Place.find({ userid });
+}
+
+// 전체 장소 조회
+export async function getAll() {
+  return Place.find();
 }

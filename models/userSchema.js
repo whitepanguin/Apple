@@ -6,7 +6,7 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true }, //이메일
     password: { type: String }, //비밀번호
     name: { type: String }, //이름
-    nickName: { type: String }, //닉네임
+    userid: { type: String }, //닉네임
     birthDate: { type: Number }, //생일
     address: { type: String }, //주소
     profile: { type: String, default: "" }, //프로필
