@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import * as postRepository from "../repositories/postRepository.js";
+=======
+>>>>>>> 435f98a40471afb06284d245c0bfc900293f7219
 // 모든 포스트를 / 해당 아이디에 대한 포스트를 가져오는 함수
 export async function getPosts(req, res, next) {
   const userid = req.query.userid;
@@ -20,6 +23,7 @@ export async function getPostId(req, res, next) {
 }
 
 // 포스트 생성하는 함수
+<<<<<<< HEAD
 // export async function createPost(req, res, next) {
 //   const { text } = req.body;
 //   console.log("req.useridx: ", req.useridx);
@@ -69,6 +73,26 @@ export async function updatePost(req, res, next) {
     console.error("업데이트 중 에러:", error);
     return res.status(500).json({ message: "서버 오류" });
   }
+=======
+export async function createPost(req, res, next) {
+  const { text } = req.body;
+  console.log("req.useridx: ", req.useridx);
+  const posts = await postRepository.create(text, req.useridx);
+  res.status(201).json(posts);
+}
+
+// 포스트 수정하는 함수
+export async function updatePost(req, res, next) {
+  const id = req.params.id;
+  const text = req.body.text;
+  const post = await postRepository.update(id, text);
+  if (post) {
+    res.status(201).json(post);
+  } else {
+    res.status(404).json({ message: `${id}의 포스트가 없습니다.` });
+  }
+  next();
+>>>>>>> 435f98a40471afb06284d245c0bfc900293f7219
 }
 
 // 포스트 삭제하는 함수
@@ -80,7 +104,11 @@ export async function deletePost(req, res, next) {
   if (!post) {
     return res.status(404).json({ message: `${id}의 포스트가 없습니다` });
   }
+<<<<<<< HEAD
   if (post.userid.toString() !== req.useridx.toString()) {
+=======
+  if (post.useridx !== req.useridx) {
+>>>>>>> 435f98a40471afb06284d245c0bfc900293f7219
     return res.sendStatus(403);
   }
   await postRepository.remove(id);
