@@ -29,7 +29,8 @@ export const isAuth = async (req, res, next) => {
     console.log("user.idx: ", user._id);
     console.log("user.userid: ", user.userid);
     req.useridx = user._id.toString();
-
+    req.useremail = user.email;
+    req.userid = user.userid;
     next();
   });
 };

@@ -33,7 +33,7 @@ export async function createPost(req, res, next) {
   const { text, tittle, img, category, price } = req.body;
   const post = await postRepository.createPost({
     text,
-    userid: req.useridx,
+    userid: req.userid,
     tittle,
     img,
     category,
@@ -55,18 +55,40 @@ export async function createPost(req, res, next) {
 //   next();
 // }
 
+// 포스트 수정 (Mongo DB)
+// export async function updatePost(req, res, next) {
+//   const id = req.params.id;
+//   const updateFields = req.body;
+
+//   try {
+//     const post = await postRepository.update(id, updateFields);
+
+//     if (!post) {
+//       return res.status(404).json({ message: `${id}의 포스트가 없습니다.` });
+//     }
+
+//     return res.status(200).json(post); // 수정 후 결과 반환
+//   } catch (error) {
+//     console.error("업데이트 중 에러:", error);
+//     return res.status(500).json({ message: "서버 오류" });
+//   }
+// }
+
+// 포스트 수정 userid 비교
 export async function updatePost(req, res, next) {
   const id = req.params.id;
   const updateFields = req.body;
 
   try {
-    const post = await postRepository.update(id, updateFields);
-
+    const post = await postRepository.getById(id);
     if (!post) {
       return res.status(404).json({ message: `${id}의 포스트가 없습니다.` });
     }
-
-    return res.status(200).json(post); // 수정 후 결과 반환
+    if (post.userid !== req.userid) {
+      return res.sendStatus(403); // 본인 글이 아니면 수정 불가
+    }
+    const updated = await postRepository.update(id, updateFields);
+    return res.status(200).json(updated);
   } catch (error) {
     console.error("업데이트 중 에러:", error);
     return res.status(500).json({ message: "서버 오류" });
@@ -83,7 +105,7 @@ export async function deletePost(req, res, next) {
     return res.status(404).json({ message: `${id}의 포스트가 없습니다` });
   }
 
-  if (post.userid.toString() !== req.useridx.toString()) {
+  if (post.userid.toString() !== req.userid.toString()) {
     return res.sendStatus(403);
   }
   await postRepository.remove(id);
