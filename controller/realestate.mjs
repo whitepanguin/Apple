@@ -1,5 +1,5 @@
 // controllers/placeController.js
-import * as realestateRepository from "../repositories/realestateRepository.js";
+import * as realestateRepository from "../repositories/realestateRepository.mjs";
 
 // /places - 새로운 장소 생성
 export async function createReal(req, res) {

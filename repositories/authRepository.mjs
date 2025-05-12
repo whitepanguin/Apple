@@ -1,5 +1,5 @@
 // repositories/authRepository.js
-import User from "../models/userSchema.js";
+import User from "../models/userSchema.mjs";
 
 // 사용자 조회 (userid → email 기반 가정)
 export async function findByUserid(email) {

@@ -1,5 +1,5 @@
 // repositories/authRepository.js
-import Realestate from "../models/realestateSchema.js";
+import Realestate from "../models/realestateSchema.mjs";
 
 // postId로 위치 찾기
 export async function findByPostId(Id) {

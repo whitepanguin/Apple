@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { getCurrentTime } from "../utils/utils.js";
+import { getCurrentTime } from "../utils/utils.mjs";
 
 const userSchema = new Schema(
   {

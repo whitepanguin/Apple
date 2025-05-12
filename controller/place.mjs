@@ -1,5 +1,5 @@
 // controllers/placeController.js
-import * as placeRepository from "../repositories/placeRepository.js";
+import * as placeRepository from "../repositories/placeRepository.mjs";
 
 // /places - 새로운 장소 생성
 export async function createPlace(req, res) {

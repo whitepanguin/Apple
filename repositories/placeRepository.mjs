@@ -1,5 +1,5 @@
 // repositories/authRepository.js
-import Place from "../models/placesSchema.js";
+import Place from "../models/placesSchema.mjs";
 
 // postId로 위치 찾기
 export async function findByPostId(postId) {

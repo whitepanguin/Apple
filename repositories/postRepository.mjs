@@ -1,4 +1,4 @@
-import post from "../models/postSchema.js";
+import post from "../models/postSchema.mjs";
 
 //전체 글 불러오기
 export async function getAll() {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 상세</title>
+    <link rel="stylesheet" href="./css/product.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="product-detail">
+        <img id="productImage" src="" alt="상품 이미지" />
+        <h1 id="productTitle"></h1>
+        <p id="productPrice"></p>
+        <p id="productLocation"></p>
+        <p id="productDescription"></p>
+      </div>
+    </div>
+
+    <script>
+      const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+      if (product) {
+        document.getElementById("productImage").src = product.imageUrl;
+        document.getElementById("productTitle").textContent = product.title;
+        document.getElementById("productPrice").textContent = product.price;
+        document.getElementById("productLocation").textContent =
+          product.location;
+        document.getElementById("productDescription").textContent =
+          "이 상품은 정말 좋은 상품입니다. 구매를 서두르세요!"; // 가짜 설명
+      } else {
+        document.querySelector(".product-detail").innerHTML =
+          "<p>상품 정보를 찾을 수 없습니다.</p>";
+      }
+    </script>
+  </body>
+</html>

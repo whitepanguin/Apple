@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const placesSchema = new Schema(
   {
-    nickName: { type: String }, //닉네임
+    userid: { type: String }, //닉네임
     postId: { type: Number }, //글id
     Latitude: { type: Number }, //위도
     Longitude: { type: Number }, //경도
