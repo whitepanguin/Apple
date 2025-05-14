@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* 헤더 밑 메인으로 페이지 요소 감싸기 (통일) */
+.main {
+  margin: 15rem;
+  /* border: 1px solid black; */
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#into {
+  margin-bottom: 10px;
+}
+
+#section__box {
+  display: flex;
+  gap: 3rem;
+  /* padding: 0 80px; */
+}
+#section__chat {
+  flex: 4;
+}
+
+#section__sidebar {
+  /* width: 250px; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  &hr {
+    color: white;
+  }
+}
+
+.sidebar {
+  font-weight: bold;
+}
+
+#section__box {
+  /* flex: 4; */
+  display: flex;
+  flex-direction: row;
+}
+
+#chat__box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  /* border: 1px solid black; */
+}
+
+.chat__item {
+  width: 240px;
+  height: 340px;
+  border: solid 1px gray;
+  border-radius: 20px;
+  padding: auto;
+  padding-top: 10px;
+}
+
+.chat__item__img {
+  width: 231.5px;
+  height: 231.5px;
+  border-radius: 6px;
+}
+
+.chat__info {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  gap: 50px;
+  padding: 5px 10px;
+}
+.chat__item__title {
+  font-size: 18px;
+}
+
+.chat__item__price {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1155px) {
+  #section__box {
+    flex-direction: column;
+  }
+  #section__chat {
+    flex: 1;
+  }
+
+  #section__sidebar {
+    /* width: 250px; */
+    flex: 1;
+  }
+}
