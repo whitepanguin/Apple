@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  fs.readFile(__dirname + "/index.html", (err, data) => {
+  fs.readFile(__dirname + "/public/main.html", (err, data) => {
     if (err) {
       res.status(500);
       return res.send("파일 읽기 오류");
