@@ -9,6 +9,7 @@ import placeRouter from "./router/place.mjs";
 import { config } from "./config.mjs";
 import connect from "./connect/connect.mjs";
 import mannerRouter from "./router/manner.mjs";
+import realRouter from "./router/realestate.mjs";
 
 connect();
 
@@ -34,6 +35,7 @@ app.use("/posts", postsRouter);
 app.use("/auth", authRouter);
 app.use("/place", placeRouter);
 app.use("/api", mannerRouter);
+app.use("/real", realRouter);
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행
