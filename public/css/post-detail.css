@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 4rem 0;
-  /* margin: 4rem 15rem; */
+  margin: 4rem 15rem;
 }
 
 .layout__box {
