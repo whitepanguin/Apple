@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+}
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+.item__box {
+    padding: 25px;
+    margin-top: 0;
+    position: relative;
+    display: flex;
+    height: 300px;
+    width: 460px;
+    flex-direction: column;
+    gap: 13px;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+}
+
+.item__box__first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 410px;
+    height: auto;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+}
+.item__box__third {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 410px;
+}
+
+input {
+    height: 60px;
+    width:100%;
+    padding: 10px;
+    border: 1px solid #C6C6C6;
+}
+
+.checkbox__wrapper{
+    display: flex;
+}
+.checkbox__width {
+    width: 1rem;
+}
+input[type=checkbox] {
+    height: 20px;
+}
+input::placeholder {
+    color: #929294;
+    font-size: 15px;
+}
+
+#email {
+    border: 1px solid #C6C6C6;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+#password {
+    border: 1px solid #C6C6C6;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+
+/* 기존 체크박스 숨기기 */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* 체크박스 커스터마이징 영역 */
+.checkbox__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* 체크 안 된 상태 이미지 */
+.custom-checkbox {
+  width: 24px;
+  height: 24px;
+  background-image: url("../img/unchecked.png"); /* 미선택 이미지 경로 */
+  background-size: cover;
+  background-position: center;
+}
+
+/* 체크된 상태 이미지 변경 */
+input[type="checkbox"]:checked + .custom-checkbox {
+  background-image: url("../img/checked.png"); /* 선택된 이미지 경로 */
+}
+
+span {
+    color: #FF6600
+}
+
+button#login {
+    width: 410px;
+    height: 50px;
+    background-color: #A5ADB8;
+    border-radius: 6px;
+    border: 0;
+    transition: background-color 0.3s ease ;
+}
+button#login:hover {
+    background-color: #FF6600;
+    cursor: pointer;
+}

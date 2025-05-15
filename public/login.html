@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script defer src="./js/header.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <main class="main">
+        <form action="/auth/signup" method="post" onsubmit="return sendit(event)">
+            <div class="item__box">
+
+                <div class="item__box__first">
+                    <input type="email" maxlength="100" name="email" id="email" placeholder="이메일                                                             @naver.com">
+
+                    <input type="password" maxlength="20" name="password" id="password" placeholder="비밀번호">
+                </div>
+
+                <div class="item__box__third">
+                    <label class="checkbox__wrapper" for="checkbox">
+                        <input class="checkbox__width" type="checkbox" name="checkbox" id="checkbox">
+                        <span class="custom-checkbox"></span>
+                        <p style="color: #929294; font-size: 15px; font-weight: bold;">로그인 유지</p>
+                    </label>
+                </div>
+
+                <button id="login"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">로그인</span></button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
