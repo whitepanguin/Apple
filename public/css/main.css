@@ -1,47 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --color-background: var(--color-dark);
-  --color-text: var(--color-lighgray);
-  --color-text-accent: var(--color-white);
-  --color-box: var(--color-gray);
-  --color-carat: var(--color-orange);
-  --color-carat-hover: var(--color-lightOrange);
-
-  --color-dark: #121212;
-  --color-lighgray: #c2c3c7;
-  --color-white: #f3f4f5;
-  --color-gray: #3f4145;
-  --color-orange: #f2701f;
-  --color-lightOrange: #d6814c;
-}
-
 body {
-  background-color: var(--color-background);
   position: relative;
 }
 main {
   padding: 14rem 5rem;
-}
-button {
-  border: 0;
-  cursor: pointer;
-}
-a {
-  text-decoration: none;
-}
-p,
-h1,
-h2,
-ul,
-i,
-a {
-  margin: 0;
-  color: var(--color-text-accent);
 }
 
 /* 태블릿 */
@@ -50,16 +11,4 @@ a {
 
 /* 스마트폰 (최대 768px) */
 @media (max-width: 768px) {
-  .header {
-    padding: 0.6rem 0.3rem;
-  }
-
-  main {
-    padding: 10rem 1rem;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-  }
 }
