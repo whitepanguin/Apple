@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+.item__box {
+    display: flex;
+    height: 700px;
+    width: 500px;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.item__box__first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+    height: auto;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+}
+.item__box__second {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+    height: auto;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+}
+.item__box__third {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+    height: auto;
+    border: 2px solid #C6C6C6;
+    border-radius: 6px;
+}
+
+input {
+    height: 50px;
+    width:100%;
+    padding: 10px;
+    border: 1px solid #C6C6C6;
+}
+
+.checkbox__wrapper{
+    display: flex;
+}
+.checkbox__width {
+    width: 2rem;
+}
+input[type=checkbox] {
+    height: 20px;
+}
+input::placeholder {
+    color: #929294;
+    font-size: 1rem;
+}
+
+#email {
+    border: 1px solid #C6C6C6;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+#password {
+    border: 1px solid #C6C6C6;
+}
+#name {
+    border: 1px solid #C6C6C6;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+#userid {
+    border: 1px solid #C6C6C6;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+#birth {
+    border: 1px solid #C6C6C6;
+}
+#address {
+    border: 1px solid #C6C6C6;
+}
+#phone {
+    border: 1px solid #C6C6C6;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+p {
+    color: #222222;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* 기존 체크박스 숨기기 */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* 체크박스 커스터마이징 영역 */
+.checkbox__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* 체크 안 된 상태 이미지 */
+.custom-checkbox {
+  width: 24px;
+  height: 24px;
+  background-image: url("../images/unchecked.png"); /* 미선택 이미지 경로 */
+  background-size: cover;
+  background-position: center;
+}
+
+/* 체크된 상태 이미지 변경 */
+input[type="checkbox"]:checked + .custom-checkbox {
+  background-image: url("../images/checked.png"); /* 선택된 이미지 경로 */
+}
