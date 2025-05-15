@@ -23,6 +23,11 @@ export async function createUser(req, res, next) {
   }
 }
 
+export async function getmanner(req, res) {
+  const data = await mannerRepository.getAll();
+  res.status(200).json(data);
+}
+
 // 사용자 조회 (아이디 기반 GET 요청)
 export async function getUserById(req, res) {
   try {

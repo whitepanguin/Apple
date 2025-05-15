@@ -1,5 +1,9 @@
 import Manner from "../models/manner.mjs"; // 모델 가져오기
 
+export async function getAll(userid) {
+  return await Manner.find();
+}
+
 // 사용자 생성
 export async function createUser(userData) {
   const newUser = new Manner(userData);

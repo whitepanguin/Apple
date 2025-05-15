@@ -1,14 +1,14 @@
-/* 전체 컨테이너 */
+/* ✅ 전체 컨테이너 (그리드 2열) */
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 두 개씩 배치 */
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   width: 1000px;
   margin: auto;
   padding: 20px;
 }
 
-/* 공통 박스 스타일 */
+/* ✅ 공통 박스 스타일 */
 .all-box {
   background-color: black;
   color: white;
@@ -17,82 +17,127 @@
   text-align: center;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
 
-/* 프로필 & 설정 (전체 너비) */
-.pro-op-box {
-  grid-column: span 2; /* 두 개의 열을 차지 */
-  height: 100px;
-}
-
-/* 가운데 2개씩 배치되는 박스 */
-.align-box {
-  height: 100px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ 아이콘 박스 내부 이미지 */
+.all-box img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+/* ✅ 설정 박스 (하단 전체) */
+.pro-op-box {
+  grid-column: span 2;
+  height: auto;
+  padding: 20px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-/* 이미지 */
-.carrot-logo {
-  width: 30px;
-  height: auto;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-/* 프로필 박스 */
-.profile-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 15px;
+  gap: 10px;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.profile-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.pro-op-box img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
-.profile-info {
-  flex-grow: 1;
-  margin-left: 10px;
-}
-
-.nickname {
-  font-size: 16px;
+.pro-op-box span {
+  font-size: 18px;
   font-weight: bold;
 }
 
+/* ✅ 프로필 + 당근페이 박스 */
+.pay-box {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ▶ 왼쪽: 프로필 정보 */
+.pay-left {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* ✅ 프로필 사진과 텍스트 간의 간격을 넓힘 */
+}
+
+.profile-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* ✅ 동그란 원형 테두리 설정 */
+  object-fit: cover;
+  border: 2px solid #ddd; /* 선택사항: 살짝 테두리 */
+}
+.profile-info-row {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* ✅ 닉네임과 온도 사이 간격 */
+}
+
+.nickname {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
 .temperature {
-  font-size: 14px;
+  font-size: 16px;
   color: blue;
 }
 
-.arrow-icon {
-  width: 30px;
-  height: 30px;
+/* ▶ 오른쪽: 당근페이 정보 + 버튼 (너비 48%) */
+.pay-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 48%;
 }
 
-.pay-box {
-  text-align: center;
-  margin-top: 10px;
+.pay-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .pay-logo {
-  width: 80px;
+  width: 40px;
+  height: auto;
 }
 
+.pay-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* ▶ 버튼 스타일 (너비 48%) */
 .shop-button {
+  display: inline-block;
   background-color: orange;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 5px;
-  border: none;
-  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
 }

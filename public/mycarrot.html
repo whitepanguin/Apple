@@ -5,41 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>나의 당근</title>
     <link rel="stylesheet" href="./css/mycarrot.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <script src="./js/header.js" defer></script>
+    <script src="./js/manner.js"></script>
   </head>
   <body>
-    <header>헤더</header>
+    <div id="header-placeholder"></div>
     <main>
       <div class="container">
-        <div class="profile-box">
-          <img
-            src="./img/profilepic.png"
-            alt="프로필 사진"
-            class="profile-img"
-          />
-          <div class="profile-info">
-            <p class="nickname">닉네임</p>
-            <p class="temperature">38.5°C</p>
-          </div>
-          <img
-            src="./img/rightarrow.png"
-            alt="이동 아이콘"
-            class="arrow-icon"
-          />
-        </div>
+        <!-- 프로필 + 당근페이 통합 박스 -->
         <div class="pay-box">
-          <img src="./img/carrot.png" alt="당근페이 로고" class="pay-logo" />
-          <p>700만명이 믿고 이용하는 당근페이</p>
-          <button class="shop-button">쇼핑하러 가기</button>
+          <!-- 👤 왼쪽: 프로필 정보 -->
+          <div class="pay-left">
+            <img
+              src="./img/profilepic.png"
+              alt="프로필 사진"
+              class="profile-img"
+            />
+            <div class="profile-info-row">
+              <p class="nickname">닉네임</p>
+              <p class="temperature">36.5°C</p>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 당근페이 소개 및 버튼 -->
+          <div class="pay-right">
+            <div class="pay-content">
+              <img
+                src="./img/carrot.png"
+                alt="당근페이 로고"
+                class="pay-logo"
+              />
+              <p class="pay-text">700만명이 믿고 이용하는 당근페이</p>
+            </div>
+            <a href="main.html" class="shop-button">쇼핑하러 가기</a>
+          </div>
         </div>
-        <div class="all-box align-box">나의 활동</div>
-        <div class="all-box align-box">나의 거래</div>
-        <div class="all-box align-box">서비스</div>
-        <div class="all-box align-box">고객 지원</div>
-        <div class="all-box align-box">나의 비즈니스</div>
-        <div class="all-box align-box">당근 소식</div>
-        <div class="all-box pro-op-box">설정</div>
+
+        <!-- 아이콘 박스 영역 -->
+        <div class="all-box align-box">
+          <img src="./img/myactivities.png" alt="나의 활동 아이콘" />
+          <span>나의 활동</span>
+        </div>
+        <div class="all-box align-box">
+          <img src="./img/mydael.png" alt="나의 거래 아이콘" />
+          <span>나의 거래</span>
+        </div>
+        <div class="all-box align-box">
+          <img src="./img/mybusiness.png" alt="나의 비즈니스 아이콘" />
+          <span>나의 비즈니스</span>
+        </div>
+        <div class="all-box align-box">
+          <img src="./img/carrotnews.png" alt="당근 소식 아이콘" />
+          <span>당근 소식</span>
+        </div>
+        <div class="all-box align-box">
+          <img src="./img/service.png" alt="서비스 아이콘" />
+          <span>서비스</span>
+        </div>
+        <div class="all-box align-box">
+          <img src="./img/customersupport.png" alt="고객 지원 아이콘" />
+          <span>고객 지원</span>
+        </div>
+
+        <div class="all-box pro-op-box">
+          <img src="./img/options.png" alt="설정 아이콘" />
+          <span>설정</span>
+        </div>
       </div>
     </main>
-    <footer>푸터 영역</footer>
+    <footer></footer>
   </body>
 </html>
