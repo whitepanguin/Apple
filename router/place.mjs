@@ -5,10 +5,10 @@ import { isAuth } from "../middleware/auth.mjs";
 
 const router = express.Router();
 
-router.get("/", isAuth, placeController.getPlaceByPostId);
+router.get("/", placeController.getPlaceByPostId);
 
 router.post("/", isAuth, placeController.createPlace);
 
-router.get("/:id", isAuth, placeController.getPlaceById);
+router.get("/:id", placeController.getPlaceById);
 
 export default router;

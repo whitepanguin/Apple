@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/", realestateController.getRealByPostId);
 
-router.post("/", realestateController.createReal);
+router.post("/", isAuth, realestateController.createReal);
 
 router.get("/:id", realestateController.getRealById);
 
