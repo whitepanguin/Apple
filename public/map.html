@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kakaomap test</title>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db83966774cc4a534f663c1c368f8e35"
+    ></script>
+  </head>
+  <body>
+    <div id="map" style="width: 500px; height: 400px"></div>
+    <script defer>
+      let nx;
+      let ny;
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(setLocation, showError);
+        } else {
+          alert("이 브라우저에서는 위치 정보를 지원하지 않습니다.");
+        }
+      }
+      function setLocation(position) {
+        const { latitude, longitude } = position.coords;
+        nx = latitude;
+        ny = longitude;
+      }
+      var container = document.getElementById("map");
+      var options = {
+        center: new kakao.maps.LatLng(nx, ny),
+        level: 3,
+      };
+
+      var map = new kakao.maps.Map(container, options);
+
+      window.onload = function () {
+        getLocation();
+      };
+    </script>
+  </body>
+</html>

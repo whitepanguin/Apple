@@ -13,7 +13,7 @@ async function createJwtToken(idx) {
 
 // 회원가입 put create
 export async function signup(req, res, next) {
-  const { email, password, name, nickName, birthDate, address, profile } =
+  const { email, password, name, userid, birthDate, address, profile } =
     req.body;
 
   const found = await authRepository.findByUserid(email);
@@ -29,7 +29,7 @@ export async function signup(req, res, next) {
     email,
     password: hashed,
     name,
-    nickName,
+    userid,
     birthDate,
     address,
     profile,
