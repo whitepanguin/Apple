@@ -1,0 +1,258 @@
+@font-face {
+  font-family: "KOTRAHOPE";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #ffffff;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  /* gap: 1.5rem; */
+  /* padding: 0 1rem; */
+  /* border: 1px solid black; */
+}
+.main__container {
+  max-width: 80rem;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+}
+.property-list--box {
+  display: none;
+}
+
+.property-list-btn {
+  /* display: none; */
+  /* top: 90px;
+  left: 20px; */
+  width: 100%;
+  z-index: 999;
+  color: #999;
+}
+.section__down {
+  display: flex;
+}
+
+.sidebar {
+  flex: 1;
+  width: 280px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  gap: 5px;
+}
+
+#pyeongValue {
+  margin-left: 10px;
+  font-weight: bold;
+  color: rgb(10, 10, 10);
+}
+
+#applyBtn {
+  background-color: white;
+  color: #999;
+  border: #ffffff;
+  text-decoration: underline;
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+#applyBtn:hover {
+  background-color: #f8f8f8;
+}
+
+#applyBtn:active {
+  background-color: #f0f0f0;
+}
+
+.filter-group select,
+.filter-group input[type="checkbox"] {
+  margin-bottom: 0.5rem;
+}
+
+.property-list {
+  width: 100%;
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  /* border: 1px solid black; */
+}
+.property-list__box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* border: 2px solid yellow; */
+  gap: 0.5rem;
+}
+
+.property {
+  width: 23%;
+  height: auto;
+}
+.img--box {
+  width: 100%;
+  height: 210px;
+}
+
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.1);
+}
+
+.property img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.info {
+  flex: 1;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.info p {
+  margin: 0.25rem 0;
+  color: #555;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .property-list--box {
+    display: block;
+    justify-content: flex-start;
+    padding-left: 5px;
+    margin-left: 5px;
+  }
+  .property-list-btn {
+    width: 70px;
+    color: #999;
+    border: #ffffff;
+    align-items: start;
+    text-decoration: underline;
+    font-size: 14px;
+
+    border-radius: 9999px;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+  .property-list-icon {
+    width: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .property-list {
+    width: 100%;
+    /* display: grid;
+      grid-template-columns: repeat(1, 3fr); 
+      grid-auto-rows: auto; */
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .property {
+    width: 28%;
+    height: auto;
+    border: 1px solid black;
+    /* width: calc(24% - 0.67rem); */
+    /* display: block; */
+    /* display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+      box-sizing: border-box;
+      flex-direction: column;
+       */
+  }
+}
+
+@media (max-width: 768px) {
+  .property-list {
+    width: 100%;
+    /* display: grid;
+      grid-template-columns: repeat(1, 3fr); 
+      grid-auto-rows: auto; */
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .property {
+    width: 48%;
+    height: auto;
+    border: 1px solid black;
+    /* width: calc(24% - 0.67rem); */
+    /* display: block; */
+    /* display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+      box-sizing: border-box;
+      flex-direction: column;
+       */
+  }
+}

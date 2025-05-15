@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>당근마켓 부동산 - 역삼동</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="main">
+      <div class="main__container">
+        <section class="section__top">
+          <div class="main__title">
+            <div class="main__title__category"><h5>홈 > 부동산</h5></div>
+            <div class="main__title__geoName">
+              <h2>서울특별시 강남구 역삼동 부동산</h2>
+            </div>
+          </div>
+
+          <div class="property-list--box">
+            <button class="property-list-btn" onclick="toggleFilter()">
+              <img
+                class="property-list-icon"
+                src="./img/filter.jpg"
+                alt="필터"
+              />필터
+            </button>
+          </div>
+        </section>
+
+        <section class="section__down">
+          <!-- 필터 사이드바 -->
+          <aside class="sidebar">
+            <div class="filter-group">
+              <p>매물 종류</p>
+              <label
+                ><input type="checkbox" name="room-type" value="원룸" />
+                원룸</label
+              >
+              <label
+                ><input type="checkbox" name="room-type" value="투룸빌라" />
+                투룸빌라</label
+              >
+              <label
+                ><input type="checkbox" name="room-type" value="오피스텔" />
+                오피스텔</label
+              >
+              <label
+                ><input type="checkbox" name="room-type" value="상가" />
+                상가</label
+              >
+            </div>
+
+            <div class="filter-group">
+              <p>거래 유형 / 가격</p>
+              <label
+                ><input type="checkbox" name="deal-type" value="월세" />
+                월세</label
+              >
+              <label
+                ><input type="checkbox" name="deal-type" value="전세" />
+                전세</label
+              >
+              <label
+                ><input type="checkbox" name="deal-type" value="매매" />
+                매매</label
+              >
+              <label
+                ><input type="checkbox" name="deal-type" value="단기" />
+                단기</label
+              >
+            </div>
+
+            <div class="filter-group">
+              <label>
+                <input type="checkbox" id="usePyeong" checked />
+                평수로 보기
+              </label>
+
+              <div>
+                <label for="pyeongRange">전용면적</label>
+                <input
+                  type="range"
+                  id="pyeongRange"
+                  min="5"
+                  max="70"
+                  step="1"
+                  value="20"
+                />
+                <span id="pyeongValue">전체</span>
+              </div>
+
+              <button id="applyBtn" onclick="applyFilter()">적용하기</button>
+            </div>
+
+            <div class="filter-group">
+              <label>층수</label>
+              <label><input type="checkbox" /> 반지하</label>
+              <label><input type="checkbox" /> 1층</label>
+              <label><input type="checkbox" /> 2~5층</label>
+              <label><input type="checkbox" /> 6~9층</label>
+              <label><input type="checkbox" /> 10층 이상</label>
+            </div>
+
+            <div class="filter-group">
+              <label>옵션</label>
+              <label><input type="checkbox" /> 주차가능</label>
+              <label><input type="checkbox" /> 반려동물 가능</label>
+              <label><input type="checkbox" /> 엘리베이터</label>
+              <label><input type="checkbox" /> 대출 가능</label>
+              <label><input type="checkbox" /> 옥탑</label>
+              <label><input type="checkbox" /> 복층</label>
+            </div>
+          </aside>
+
+          <!-- 매물 리스트 -->
+          <div class="property-list">
+            <div class="property-list__box">
+              <div class="property">
+                <div class="img--box">
+                  <img src="./img/1.jpeg" alt="매물 이미지" />
+                </div>
+                <div class="info">
+                  <p>원룸</p>
+                  <h2>월세/ 500만 / 70만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>복층,대출가능,엘리베이터</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/2.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>원룸</p>
+                  <h2>월세 / 170만 / 170만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>대출가능,반려동물가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/3.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>원룸</p>
+                  <h2>전세 / 1억6천</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>반려동물가능, 옥탑</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/4.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>투룸</p>
+                  <h2>월세 / 5000만 / 170만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>엘리베이터,옥탑,주차가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/5.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>투룸</p>
+                  <h2>월세 / 200만 / 200만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>대출가능,엘리베이터</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/6.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>투룸</p>
+                  <h2>전세 / 5억</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>반려동물 가능,복층,대출가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/7.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>오피스텔</p>
+                  <h2>월세 / 1억 / 300만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>복층,대출가능,엘리베이터</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/8.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>오피스텔</p>
+                  <h2>전세 / 2억4천5백만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>반려동물 가능, 대출가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/9.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>아파트</p>
+                  <h2>월세 / 1억 / 1300만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>반려동물 가능,주차가능,대출가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/10.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>아파트</p>
+                  <h2>전세 / 5억</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>반려동물 가능, 주차가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/11.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>아파트</p>
+                  <h2>매매 / 63억</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>주차가능, 옥탑</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/12.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>상가</p>
+                  <h2>월세 / 2억 / 190만</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>주차가능,반려동물 가능</p>
+                </div>
+              </div>
+
+              <div class="property">
+                <img src="./img/13.jpg" alt="매물 이미지" />
+                <div class="info">
+                  <p>상가</p>
+                  <h2>매매 / 130억</h2>
+                  <p>서울 강남구 역삼동</p>
+                  <p>주차가능, 대출가능</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="js/ka.js"></script>
+  </body>
+</html>
