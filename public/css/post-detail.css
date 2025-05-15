@@ -1,0 +1,155 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+  /* margin: 4rem 15rem; */
+}
+
+.layout__box {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 800px;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.post-layout {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.section__left,
+.section__right {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.post-image-section {
+  position: relative;
+  width: 100%;
+}
+
+#post-image {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover; 
+}
+
+#post-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  color: #555;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+/* 판매자 */
+.seller-info {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+#seller-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.8rem;
+}
+
+.seller-text {
+  display: flex;
+  flex-direction: column;
+}
+
+#seller-name {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+#seller-meta {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 0.2rem;
+}
+
+/* 오른쪽 텍스트 영역 */
+.post-info {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+#post-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0 0 1rem 0;
+}
+
+.post-meta .divider {
+  margin: 0 0.4rem;
+}
+
+#post-price {
+  font-size: 1.6rem;
+  color: #ff6f0f;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#post-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  white-space: normal;
+  margin-bottom: 2rem;
+}
+
+.post-chat {
+  margin-top: auto;
+}
+
+.contact-button {
+  width: 100%;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ff6f0f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #e85d00;
+}
+
