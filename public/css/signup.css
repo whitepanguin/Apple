@@ -14,18 +14,15 @@ main {
 }
 
 .item__box {
-    padding: 25px;
     margin-top: 0;
     position: relative;
     display: flex;
-    height: 300px;
-    width: 460px;
+    height: 1000px;
+    width: 500px;
     flex-direction: column;
     gap: 13px;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid #C6C6C6;
-    border-radius: 6px;
 }
 
 .item__box__first {
@@ -33,22 +30,37 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 410px;
+    width:100%;
+    height: auto;
+    border: 1px solid #C6C6C6;
+    border-radius: 6px;
+}
+.item__box__second {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
     height: auto;
     border: 1px solid #C6C6C6;
     border-radius: 6px;
 }
 .item__box__third {
+    margin-top: 90px;
     padding: 10px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    width: 410px;
+    width:100%;
+    height: auto;
+    border: 2px solid #C6C6C6;
+    border-radius: 6px;
+    height: 50px;
 }
 
 input {
-    height: 60px;
+    height: 50px;
     width:100%;
     padding: 10px;
     border: 1px solid #C6C6C6;
@@ -75,10 +87,29 @@ input::placeholder {
 }
 #password {
     border: 1px solid #C6C6C6;
+}
+#name {
+    border: 1px solid #C6C6C6;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
+#userid {
+    border: 1px solid #C6C6C6;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+#birth {
+    border: 1px solid #C6C6C6;
+}
+#address {
+    border: 1px solid #C6C6C6;
+}
+#phone {
+    border: 1px solid #C6C6C6;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 
 /* 기존 체크박스 숨기기 */
 input[type="checkbox"] {
@@ -111,15 +142,19 @@ span {
     color: #FF6600
 }
 
-button#login {
-    width: 410px;
-    height: 50px;
-    background-color: #A5ADB8;
+button#signup {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 460px;
+    height: 52px;
+    background-color: #FF6600;
     border-radius: 6px;
     border: 0;
     transition: background-color 0.3s ease ;
 }
-button#login:hover {
-    background-color: #FF6600;
+button#signup:hover {
+    background-color: #ae4a08;
     cursor: pointer;
 }
