@@ -19,6 +19,7 @@
   --color-gray: #3f4145;
   --color-orange: #f2701f;
   --color-lightOrange: #d6814c;
+  --color-box-hover: #55585d;
 }
 /* 헤더가 고정되어 있어서 맞춘 메인 여백 */
 main {
@@ -38,7 +39,6 @@ ul,
 i,
 a {
   margin: 0;
-  /* color: var(--color-text-accent); */
 }
 
 /* 태블릿 */
@@ -48,16 +48,19 @@ a {
 /* 스마트폰 (최대 768px) */
 @media (max-width: 768px) {
   .header {
-    padding: 0.6rem 0.3rem;
+    padding: 0.5rem 0;
   }
 
   main {
-    padding: 10rem 1rem;
+    padding: 10rem 0rem;
   }
 
   body {
     margin: 0;
     padding: 0;
+  }
+  .header__logo__title {
+    margin-left: 0rem;
   }
 }
 
@@ -88,12 +91,12 @@ a {
 }
 .header__logo__img {
   margin-top: 0.3rem;
-  height: 3rem;
+  height: 2rem;
   width: auto;
 }
 .header__logo__title {
-  margin-left: 3rem;
-  font-size: 1.8rem;
+  margin-left: 2rem;
+  font-size: 1.5rem;
   position: fixed;
 }
 .header__logo__title a {
@@ -130,13 +133,13 @@ a {
   background-color: var(--color-box);
 }
 
-.header__button {
+.header__button-login {
   background-color: var(--color-carat);
   border-radius: 5px;
   height: 2rem;
   width: 5.8rem;
 }
-.header__button:hover {
+.header__button-login:hover {
   background-color: var(--color-carat-hover);
 }
 .header__button__text {
@@ -164,7 +167,7 @@ a {
   }
 }
 .header__button__searchArea:hover {
-  background-color: #55585d;
+  background-color: var(--color-box-hover);
 }
 
 .header__hamburger {
@@ -181,9 +184,13 @@ a {
 .header__x {
   /* display: none; */
   background-color: transparent;
+  color: white;
 }
 #x {
   font-size: 1.9rem;
+}
+#header_i {
+  color: white;
 }
 
 #menu {

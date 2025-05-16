@@ -1,0 +1,132 @@
+.footer {
+  margin-top: 8rem;
+  background-color: #111;
+  color: white;
+  font-size: 0.85rem;
+  padding: 2rem;
+}
+
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.footer__left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer__left__logoAndText {
+  display: flex;
+  text-align: center;
+}
+.footer__text {
+  margin-top: 0.2rem;
+  color: #f2701f;
+}
+
+.footer__logo {
+  width: 2rem;
+  height: auto;
+}
+
+.footer__sns a {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  color: white;
+  transition: color 0.2s ease;
+}
+
+.footer__menus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.footer__menu h4 {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.footer__menu a {
+  display: block;
+  margin-bottom: 0.3rem;
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease;
+}
+
+.footer__menu a:hover,
+.footer__sns a:hover,
+.footer__legal a:hover {
+  color: var(--color-box-hover);
+}
+
+.footer__bottom {
+  border-top: 1px solid #333;
+  padding-top: 1.5rem;
+  font-size: 0.75rem;
+}
+
+.footer__legal {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer__legal a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease;
+}
+
+/* 기본 구조는 이전 답변에서 제공한 코드 사용 */
+
+@media screen and (max-width: 1023px) {
+  .footer__top {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer__menus {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer__menu {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .footer__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__left {
+    align-items: flex-start;
+  }
+
+  .footer__menus {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer__menu {
+    width: 100%;
+  }
+
+  .footer__legal {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

@@ -6,6 +6,10 @@ body {
 main {
   padding: 10rem 5rem;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -24,9 +28,9 @@ main {
   font-weight: bold;
 }
 #main__text__i {
-  font-size: 2rem;
-  padding-top: 0.5rem;
-  margin-right: 0.2rem;
+  font-size: 1.8rem;
+  padding-top: 0.8rem;
+  margin-right: 0.5rem;
 }
 .main__title__text {
   display: flex;
@@ -36,6 +40,7 @@ main {
 #areaName {
   white-space: nowrap;
 }
+
 #stuffName {
   white-space: nowrap;
   margin: 0 0.4rem;
@@ -66,8 +71,8 @@ main {
 .flex--6 {
   flex: 6;
 }
-.display__flex {
-  display: flex;
+.margin__right-1 {
+  margin-right: 1rem;
 }
 .justify-content__center {
   display: flex;
@@ -89,14 +94,14 @@ main {
   background-color: white;
   padding: 5px;
   border-radius: 20px;
-  transition: transform 0.3s ease;
+  transition: background-color 0.3s ease;
   & * {
     font-size: 0.9rem;
     font-weight: bold;
   }
 }
 .search__button__searchArea:hover {
-  background-color: #55585d;
+  background-color: var(--color-box-hover);
 }
 
 /* 검색창 기능 3개 */
@@ -109,14 +114,15 @@ main {
   justify-content: space-between;
   padding: 0.2rem 0;
   width: 100%;
-  border: 1px solid #a2a3a3;
+  border: 1px solid var(--color-box);
   border-radius: 20px;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.4rem;
 }
 .selectCategoryBtn {
-  margin-left: 0.6rem;
-  color: #a2a3a3;
+  margin-left: 1rem;
+  color: white;
+  font-weight: bold;
   background-color: transparent;
 }
 .selectCategoryBtn span {
@@ -135,19 +141,23 @@ main {
   outline: none;
 }
 .pageMoveBtn {
+  margin-right: 0.6rem;
   background-color: white;
-  border-radius: 40rem;
+  border-radius: 50%;
   font-size: 1rem;
   font-weight: bold;
   color: black;
   padding: 0.3rem;
+}
+.pageMoveBtn:hover {
+  background-color: var(--color-text);
 }
 
 /* 인기 검색어 */
 .popularSearch__box {
   display: flex;
   gap: 0.4rem;
-  color: white;
+  color: #d0d0d4;
   width: 100%;
   justify-content: space-between;
   padding-left: 1rem;
@@ -155,7 +165,7 @@ main {
 .popularSearch__title {
   white-space: nowrap;
   font-size: 0.8rem;
-  color: #a2a3a3;
+  color: var(--color-text);
   padding-right: 1rem;
 }
 .popularSearch__list {
@@ -174,7 +184,6 @@ main {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  border: 1px solid white;
   flex-wrap: wrap;
 }
 .menu {
@@ -185,6 +194,10 @@ main {
   background-color: var(--color-box);
   border-radius: 8px;
   text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.menu:hover {
+  background-color: var(--color-box-hover);
 }
 .menu__contents {
   color: white;
@@ -196,30 +209,73 @@ main {
   }
 }
 
+/* 지역 */
+.areas__box {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.region-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem;
+}
+
+.tag {
+  background-color: var(--color-box);
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.tag:hover {
+  background-color: var(--color-box-hover);
+}
+
 /* 태블릿 */
-@media (min-width: 768px) and (max-width: 1025px) {
-  .menu {
-    height: 5rem;
-    width: 5.5rem;
+@media (min-width: 768px) and (max-width: 1200px) {
+  .menues__box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
   }
-  .menu__contents {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 1.3rem;
-    & > h4 {
-      font-size: 0.7rem;
-    }
+  .menu {
+    height: 6rem;
+    min-width: 8rem;
   }
 }
 
 /* 스마트폰 (최대 768px) */
 @media (max-width: 768px) {
+  main {
+    padding: 5rem 1rem;
+  }
   .searchInputAndList {
+    width: 100%;
+  }
+  .section__menu {
     width: 100%;
   }
   .main__text__box {
     margin: 1.5rem;
+  }
+  .menues__box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .menu {
+    height: 6rem;
+    width: 100%;
   }
 }
 
