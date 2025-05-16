@@ -24,27 +24,53 @@
       <div class="wrapper">
         <section class="section__search">
           <div class="main__text__box">
-            <i class="fa fa-map-marker"></i>
-            <h1>
-              <div>역삼역</div>
+            <div class="main__title__text">
+              <i class="fa fa-map-marker" id="main__text__i"></i>
+              <div id="areaName">역삼역</div>
               에서
-              <div>노트북</div>
-              을 찾고 계신가요?
-            </h1>
+            </div>
+            <div class="main__title__text">
+              <div id="stuffName">노트북</div>
+              찾고 계신가요?
+            </div>
           </div>
           <div class="main__search__box">
-            <button class="header__button__searchArea">
-              <i class="fa fa-map-marker"></i>
-              <p>역삼동</p>
-            </button>
-            <div class="searchInputAndList">
-              <div class="search__input__box">
-                <input type="text" />
+            <div class="main__search--container">
+              <div class="main__searchBtn-box">
+                <button class="search__button__searchArea">
+                  <i class="fa fa-map-marker"></i>
+                  <p>역삼동</p>
+                  <i class="fa fa-chevron-down"></i>
+                </button>
               </div>
-              <div class="popularSearch__box">
-                <div class="popularSearch__title">인기 검색어</div>
-                <div class="popularSearch__list">
-                  굿즈 카페 노트북 원룸 현대 중고차 이사짐 알바
+              <!-- 검색창 시작 -->
+
+              <div class="searchInputAndList">
+                <div class="search__input__box">
+                  <div class="flex--3">
+                    <button class="selectCategoryBtn">
+                      <span>중고거래</span><i class="fa fa-chevron-down"></i>
+                    </button>
+                    |
+                  </div>
+                  <div class="flex--6">
+                    <input
+                      class="inputSearch"
+                      type="text"
+                      placeholder="검색어를 입력해주세요"
+                    />
+                  </div>
+                  <div class="flex--1 justify-content__center">
+                    <button class="pageMoveBtn">→</button>
+                  </div>
+                </div>
+
+                <div class="popularSearch__box">
+                  <div class="popularSearch__title">인기 검색어</div>
+                  <div class="popularSearch__list">
+                    <!-- pList: 위에 stuffName과 같음. -->
+                    굿즈 카페 노트북 원룸 현대 중고차 이사짐 알바
+                  </div>
                 </div>
               </div>
             </div>
@@ -52,48 +78,48 @@
         </section>
         <section class="section__menu">
           <div class="menues__box">
-            <a class="menu" href="#"
-              ><div>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-box-open"></i>
                 <h4>중고거래</h4>
-              </div></a
-            >
-            <a class="menu" href="#"
-              ><div>
+              </div>
+            </a>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-briefcase"></i>
                 <h4>알바</h4>
               </div></a
             >
-            <a class="menu" href="./realestate.html"
+            <a class="menu" href="#"
               ><div>
                 <i class="fas fa-building"></i>
                 <h4>부동산</h4>
-              </div></a
-            >
-            <a class="menu" href="#"
-              ><div>
+              </div>
+            </a>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-car"></i>
                 <h4>중고차</h4>
-              </div></a
-            >
-            <a class="menu" href="#"
-              ><div>
+              </div>
+            </a>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-store"></i>
                 <h4>동네업체</h4>
-              </div></a
-            >
-            <a class="menu" href="#"
-              ><div>
+              </div>
+            </a>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-comments"></i>
                 <h4>동네생활</h4>
-              </div></a
-            >
-            <a class="menu" href="#"
-              ><div>
+              </div>
+            </a>
+            <a class="menu" href="#">
+              <div class="menu__contents">
                 <i class="fas fa-users"></i>
                 <h4>모임</h4>
-              </div></a
-            >
+              </div>
+            </a>
           </div>
 
           <div class="areas__box"></div>

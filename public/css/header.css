@@ -160,6 +160,7 @@ a {
   & * {
     font-size: 0.9rem;
     font-weight: bold;
+    color: var(--color-text-accent);
   }
 }
 .header__button__searchArea:hover {
@@ -168,10 +169,11 @@ a {
 
 .header__hamburger {
   background-color: transparent;
-  /* opacity: 0;
-  pointer-events: none; */
   opacity: 1;
   pointer-events: auto;
+  & * {
+    color: var(--color-text-accent);
+  }
 }
 #hamburger {
   font-size: 1.6rem;
