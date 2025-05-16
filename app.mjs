@@ -10,6 +10,7 @@ import { config } from "./config.mjs";
 import connect from "./connect/connect.mjs";
 import mannerRouter from "./router/manner.mjs";
 import realRouter from "./router/realestate.mjs";
+import chatRouter from "./router/chat.mjs";
 
 connect();
 
@@ -36,6 +37,7 @@ app.use("/auth", authRouter);
 app.use("/place", placeRouter);
 app.use("/api", mannerRouter);
 app.use("/real", realRouter);
+app.use("/chat", chatRouter);
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행
