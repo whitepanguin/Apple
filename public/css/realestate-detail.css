@@ -1,27 +1,12 @@
-:root {
-  --color-background: var(--color-dark);
-  --color-text: var(--color-lighgray);
-  --color-text-accent: var(--color-white);
-  --color-box: var(--color-gray);
-  --color-carat: var(--color-orange);
-  --color-carat-hover: var(--color-lightOrange);
-
-  --color-dark: #121212;
-  --color-lighgray: #c2c3c7;
-  --color-white: #f3f4f5;
-  --color-gray: #3f4145;
-  --color-orange: #f2701f;
-  --color-lightOrange: #d6814c;
-}
-
 html,
 body {
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
 
-.main {
+main {
   display: flex;
   justify-content: center;
   padding: 4rem 0;
@@ -55,109 +40,106 @@ body {
   box-sizing: border-box;
 }
 
-.section__right {
-  margin-top: 1.8rem;
+.realestate-detail-list {
+  list-style: none;
+  margin-left: -2.6rem;
+  padding: 1rem 2.6rem;
+  line-height: 2.5;
 }
 
 .post-image-section {
-  /* position: relative;   */
   width: 100%;
 }
 
 #post-image {
   width: 100%;
-  height: 600px;
+  height: auto;
   border-radius: 6px;
-  /* object-fit: cover; 넘치는 부분 자르고 비율 유지 */
+  object-fit: cover;
 }
 
-#post-category {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  color: #555;
-  border-radius: 20px;
-  z-index: 1;
-}
-
-/* 판매자 */
 .seller-info {
   display: flex;
   align-items: center;
   margin-top: 1rem;
+  gap: 0.8rem;
 }
 
 #seller-image {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 0.8rem;
 }
 
 .seller-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+  margin-top: 1rem;
 }
 
 #seller-name {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin: 0;
 }
 
 #seller-meta {
   font-size: 0.85rem;
   color: #777;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
 }
 
-/* 오른쪽 텍스트 영역 */
 .post-info {
   flex: 1;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 #post-title {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
-.post-meta {
+#post-date {
   font-size: 0.9rem;
-  color: #888;
-  margin: 0 0 1rem 0;
-}
-
-.post-meta .divider {
-  margin: 0 0.4rem;
+  color: #999;
 }
 
 #post-price {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  font-weight: bold;
   color: #ff6f0f;
+}
+
+.info-list p {
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+.detail-description-section {
+  margin-top: 2.5rem;
+}
+
+.detail-description-title {
+  font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
-#post-description {
-  font-size: 1rem;
-  line-height: 1.5;
-  white-space: normal;
-  margin-bottom: 2rem;
-}
-
-.post-chat {
-  margin-top: auto;
+.detail-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-line;
 }
 
 .contact-button {
+  margin-top: 1.5rem;
   width: 100%;
   height: 40px;
   font-size: 1rem;
