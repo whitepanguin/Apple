@@ -5,7 +5,7 @@ import { isAuth } from "../middleware/auth.mjs";
 
 const router = express.Router();
 
-router.get("/", realestateController.getRealByPostId);
+router.get("/", realestateController.getAllReals);
 
 router.post("/", isAuth, realestateController.createReal);
 
