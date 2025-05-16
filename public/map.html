@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카카오 지도 클릭 주소 표시 + 추천 기능</title>
+    <style>
+      #map {
+        width: 100%;
+        height: 500px;
+      }
+      #address {
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #customControl {
+        background: white;
+        border: 2px solid #888;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 10px;
+        user-select: none;
+      }
+    </style>
+    <script>
+      let userLat, userLng, map, marker, infowindow, geocoder, clusterer;
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              userLat = position.coords.latitude;
+              userLng = position.coords.longitude;
+              if (window.kakao && kakao.maps) {
+                initializeMap();
+              }
+            },
+            () => {
+              alert("위치 정보를 가져올 수 없습니다.");
+              if (window.kakao && kakao.maps) initializeMap(true);
+            }
+          );
+        } else {
+          alert("브라우저가 위치 정보를 지원하지 않습니다.");
+          if (window.kakao && kakao.maps) initializeMap(true);
+        }
+      }
+
+      function initializeMap(noGeo = false) {
+        const container = document.getElementById("map");
+        const centerLatLng = noGeo
+          ? new kakao.maps.LatLng(37.5665, 126.978)
+          : new kakao.maps.LatLng(userLat, userLng);
+
+        map = new kakao.maps.Map(container, {
+          center: centerLatLng,
+          level: 3,
+        });
+
+        marker = new kakao.maps.Marker({
+          position: centerLatLng,
+          clickable: true,
+        });
+        marker.setMap(map);
+
+        geocoder = new kakao.maps.services.Geocoder();
+        infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+        const addressDiv = document.getElementById("address");
+        addressDiv.textContent = noGeo
+          ? "기본 위치: 서울 시청"
+          : `현재 위치: ${userLat.toFixed(6)}, ${userLng.toFixed(6)}`;
+
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+          const latlng = mouseEvent.latLng;
+          geocoder.coord2Address(
+            latlng.getLng(),
+            latlng.getLat(),
+            function (result, status) {
+              if (status === kakao.maps.services.Status.OK) {
+                const detailAddr = !!result[0].road_address
+                  ? result[0].road_address.address_name
+                  : result[0].address.address_name;
+                const content = `<div style="padding:5px; font-size:13px;">📍 ${detailAddr}</div>`;
+                infowindow.setContent(content);
+                infowindow.setPosition(latlng);
+                infowindow.open(map);
+                addressDiv.textContent = `선택한 주소: ${detailAddr}`;
+                placeClickedMarker(latlng);
+              }
+            }
+          );
+        });
+
+        kakao.maps.event.addListener(marker, "click", () => {
+          infowindow.setContent(
+            `<div style="padding:5px; font-size:13px;">📍 현재 위치</div>`
+          );
+          infowindow.open(map, marker);
+        });
+
+        addZoomControl();
+        addMapTypeControl();
+        addCustomControl();
+
+        initClusterer();
+        addSampleMarkersForClustering();
+      }
+
+      function placeClickedMarker(position) {
+        clickedMarker = new kakao.maps.Marker({
+          position,
+          clickable: true,
+          image: new kakao.maps.MarkerImage(
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+            new kakao.maps.Size(24, 35)
+          ),
+        });
+        clickedMarker.setMap(map);
+      }
+
+      function addZoomControl() {
+        const zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+      }
+
+      function addMapTypeControl() {
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+      }
+
+      function addCustomControl() {
+        const customControl = document.createElement("div");
+        customControl.id = "customControl";
+        customControl.innerText = "내 위치로 이동";
+        customControl.onclick = () => {
+          if (userLat && userLng) {
+            const loc = new kakao.maps.LatLng(userLat, userLng);
+            map.setCenter(loc);
+            marker.setPosition(loc);
+            map.setLevel(3);
+            infowindow.setContent(
+              `<div style="padding:5px; font-size:13px;">📍 현재 위치</div>`
+            );
+            infowindow.open(map, marker);
+            document.getElementById(
+              "address"
+            ).textContent = `현재 위치: ${userLat.toFixed(
+              6
+            )}, ${userLng.toFixed(6)}`;
+          } else {
+            alert("현재 위치 정보를 사용할 수 없습니다.");
+          }
+        };
+        map.controls[kakao.maps.ControlPosition.TOPLEFT].push(customControl);
+      }
+
+      function initClusterer() {
+        clusterer = new kakao.maps.MarkerClusterer({
+          map: map,
+          averageCenter: true,
+          minLevel: 7,
+          styles: [
+            {
+              width: "53px",
+              height: "52px",
+              background: "rgba(251, 160, 38, 0.9)",
+              borderRadius: "27px",
+              color: "white",
+              textAlign: "center",
+              fontWeight: "bold",
+              lineHeight: "52px",
+              fontSize: "15px",
+            },
+          ],
+        });
+      }
+
+      function addSampleMarkersForClustering() {
+        const positions = [
+          { lat: 37.5665, lng: 126.978 },
+          { lat: 37.5651, lng: 126.98955 },
+          { lat: 37.57, lng: 126.9769 },
+          { lat: 37.5636, lng: 126.982 },
+          { lat: 37.564, lng: 126.975 },
+          { lat: 37.561, lng: 126.982 },
+          { lat: 37.567, lng: 126.98 },
+          { lat: 37.565, lng: 126.977 },
+          { lat: 37.564, lng: 126.979 },
+        ];
+        const markers = positions.map(
+          (pos) =>
+            new kakao.maps.Marker({
+              position: new kakao.maps.LatLng(pos.lat, pos.lng),
+            })
+        );
+        clusterer.clear();
+        clusterer.addMarkers(markers);
+      }
+
+      let clickedMarker = null;
+
+      function kakaoMapLoaded() {
+        getLocation();
+      }
+
+      function loadKakaoSdk() {
+        const script = document.createElement("script");
+        script.src =
+          "https://dapi.kakao.com/v2/maps/sdk.js?appkey=db83966774cc4a534f663c1c368f8e35&autoload=false&libraries=services";
+        script.onload = () => {
+          kakao.maps.load(kakaoMapLoaded);
+        };
+        document.head.appendChild(script);
+      }
+
+      window.onload = loadKakaoSdk;
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="address"></div>
+  </body>
+</html>

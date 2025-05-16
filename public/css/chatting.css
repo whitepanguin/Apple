@@ -193,6 +193,18 @@ a {
   height: 25px;
 }
 
+#emojiBox {
+  display: none;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  position: absolute;
+  background: white;
+}
+#emojiBox span {
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
 @media screen and (max-width: 1155px) {
   #section__box {
     flex-direction: column;
