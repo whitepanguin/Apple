@@ -167,7 +167,6 @@ main {
 
 /* 2번째 섹션 */
 .section__menu {
-  border: 1px solid lightcoral;
   width: 80%;
 }
 .menues__box {
@@ -202,6 +201,15 @@ main {
   .menu {
     height: 5rem;
     width: 5.5rem;
+  }
+  .menu__contents {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    & > h4 {
+      font-size: 0.7rem;
+    }
   }
 }
 
