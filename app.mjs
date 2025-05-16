@@ -2,7 +2,6 @@ import express from "express";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { Server } from "socket.io";
 import postsRouter from "./router/post.mjs";
 import authRouter from "./router/auth.mjs";
 import placeRouter from "./router/place.mjs";
