@@ -9,6 +9,7 @@
     />
     <title>채팅 홈</title>
     <link rel="stylesheet" href="./css/chat.css" />
+    <script defer src="./js/chatting.js"></script>
   </head>
   <link rel="stylesheet" href="./css/chatting.css" />
   <body>
@@ -47,7 +48,7 @@
                 <div id="chat__item__price">100,000,000원</div>
               </div>
             </div>
-            <div id="chatting">
+            <div id="messages">
               <div class="chat_date">2020년 10월 10일</div>
               <div class="chat__oppent">
                 <div class="chat_user">네, 안에 우주씨 들어 있습니다</div>
@@ -81,9 +82,89 @@
                 <img src="./img/send.png" alt="send" class="chat__type__img" />
               </button>
             </div>
+            <div id="emojiBox">
+              <span>😁</span>
+              <span>😂</span>
+              <span>😎</span>
+              <span>😮</span>
+              <span>🤐</span>
+              <span>😤</span>
+              <span>😴</span>
+              <span>😋</span>
+              <span>😐</span>
+              <span>😱</span>
+            </div>
           </div>
         </section>
       </div>
     </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const userid = localStorage.getItem("userid");
+      let currentChannel = localStorage.getItem("channel");
+      if (!userid) {
+        userid = "홍길동";
+      }
+      if (!currentChannel) {
+        alert("채널 정보가 없습니다.");
+        location.href = "chat.html";
+      }
+
+      const messages = document.getElementById("messages");
+      const messageInput = document.getElementById("message");
+
+      const toInput = userid;
+      const emojiBtn = document.getElementById("emoji");
+      const emojiBox = document.getElementById("emojiBox");
+
+      document.getElementById("send").onclick = sendMessage;
+      function sendMessage() {
+        // console.log("message send");
+        const text = messageInput.value.trim();
+        const to = toInput.value.trim();
+        // console.log(text);
+        // console.log(to);
+        if (text) {
+          socket.emit("chat", { text, to: to || null });
+          messageInput.value = "";
+        }
+      }
+      messageInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
+
+      emojiBtn.onclick = () => {
+        emojiBox.style.display =
+          emojiBox.style.display === "block" ? "none" : "block";
+        emojiBox.style.top = emojiBtn.offsetTop - 50 + "px";
+        emojiBox.style.left = emojiBtn.offsetLeft + 0 + "px";
+      };
+
+      emojiBox.querySelectorAll("span").forEach((span) => {
+        span.onclick = () => {
+          messageInput.value += span.textContent;
+          emojiBox.style.display = "none";
+        };
+      });
+
+      // emit 이벤트를 내가 만들어서 발생시키는 함수다
+      socket.emit("join", { userid, channel: currentChannel });
+
+      socket.on("message", ({ user, text }) => {
+        console.log("user: ", user, "text: ", text);
+        const div = document.createElement("div");
+        div.textContent = `[${user}] ${text}`;
+        if (user === "system") div.className = "system-msg";
+        messages.appendChild(div);
+      });
+
+      socket.on("whisper", ({ user, text }) => {
+        const div = document.createElement("div");
+        div.textContent = `[${user}] ${text}`;
+        div.style.color = "white";
+        messages.appendChild(div);
+      });
+    </script>
   </body>
 </html>
