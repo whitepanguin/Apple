@@ -1,5 +1,5 @@
 async function loadData() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
   try {
     const response = await fetch("/api/", {
       method: "GET",
@@ -8,11 +8,12 @@ async function loadData() {
         Authorization: `Bearer ${token}`,
       },
     });
+
     const data = await response.json();
     if (response.ok) {
       console.log(data);
     } else {
-      alert(data.message || "데이터 불러옴 실패");
+      alert(data.message || "데이터를 불러오는 데 실패했습니다.");
     }
   } catch (error) {
     console.error("에러 발생:", error);
@@ -20,6 +21,31 @@ async function loadData() {
   }
 }
 
+// 페이지 로드 시 데이터 불러오기
 window.onload = function () {
   loadData();
 };
+
+// 로그인 페이지 이동
+const loginButton = document.getElementById("login-button");
+if (loginButton) {
+  loginButton.addEventListener("click", () => {
+    window.location.href = "/login.html";
+  });
+}
+
+// 정보수정 페이지로 이동 (로그인 여부 체크 추가)
+const retouchButton = document.querySelector(".retouch");
+if (retouchButton) {
+  retouchButton.addEventListener("click", () => {
+    const token = localStorage.getItem("token"); // 저장된 로그인 토큰 확인
+    if (token) {
+      // 로그인 상태라면 user.html로 이동
+      window.location.href = "/user.html";
+    } else {
+      // 로그인되지 않았다면 login.html로 이동
+      alert("로그인이 필요합니다!");
+      window.location.href = "/login.html";
+    }
+  });
+}
