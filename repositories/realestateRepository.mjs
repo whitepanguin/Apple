@@ -13,7 +13,11 @@ export async function createRealestate(Data) {
 }
 
 // id(idx)로 사용자 조회
-export async function findrealestateid(id) {
+// export async function findrealestateid(id) {
+//   return Realestate.findById(id);
+// }
+
+export async function findById(id) {
   return Realestate.findById(id);
 }
 

@@ -10,7 +10,7 @@ main {
   display: flex;
   justify-content: center;
   padding: 4rem 0;
-  margin: 4rem 15rem;
+  /* margin: 4rem 15rem; */
 }
 
 .layout__box {
@@ -151,6 +151,25 @@ main {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
+.realestate-summary p,
+.realestate-conditions p {
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.realestate-summary {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.realestate-conditions {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
 
 .contact-button:hover {
   background-color: #e85d00;

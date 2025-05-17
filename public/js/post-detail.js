@@ -57,7 +57,12 @@ if (!postId) {
       document.getElementById(
         "post-price"
       ).textContent = `${post.price.toLocaleString()}원`;
-      document.getElementById("post-description").textContent = post.text;
+      // innerHTML은 HTML 코드로 해석해서 그 안에 넣어주는 역할
+      document.getElementById("post-description").innerHTML = post.text.replace(
+        /\n/g,
+        "<br>"
+      );
+
       document.getElementById("seller-name").textContent = post.userid;
       document.getElementById("breadcrumb-category").textContent =
         post.category;
@@ -77,5 +82,6 @@ if (!postId) {
     })
     .catch((err) => {
       console.error("❌ 게시글 불러오기 실패:", err);
+      alert("해당 게시글을 찾을 수 없습니다.");
     });
 }
