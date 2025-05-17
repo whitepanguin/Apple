@@ -120,16 +120,6 @@ a {
   font-size: 1.6rem;
   color: white;
 }
-.header__button__search--size {
-  pointer-events: auto;
-  height: 2rem;
-  width: 2rem;
-  transition: all 0.3s ease;
-  & * {
-    font-size: 1.6rem;
-    transition: all 0.3s ease;
-  }
-}
 
 .header__button__search:hover {
   background-color: var(--color-box);
@@ -194,6 +184,11 @@ a {
 #header_i {
   color: white;
 }
+.header__button__search i,
+.header__icon {
+  color: white;
+  font-size: 1.6rem;
+}
 
 #menu {
   position: fixed;
@@ -233,7 +228,7 @@ a {
   left: 0;
   width: 100%;
   background-color: var(--color-background);
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-box);
   z-index: 999;
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -344,14 +339,4 @@ a {
 
 .header__searchInputAndList.hidden {
   display: none;
-}
-
-@media (max-width: 991px) {
-  .header__right--pc {
-    display: none;
-  }
-  .header__right--tablet {
-    display: block;
-    position: relative;
-  }
 }
