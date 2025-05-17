@@ -88,6 +88,9 @@ input::placeholder {
 #password {
     border: 1px solid #C6C6C6;
 }
+#password__re {
+    border: 1px solid #C6C6C6;
+}
 #name {
     border: 1px solid #C6C6C6;
     border-bottom-left-radius: 6px;
@@ -100,9 +103,6 @@ input::placeholder {
     border-top-right-radius: 6px;
 }
 #birth {
-    border: 1px solid #C6C6C6;
-}
-#address {
     border: 1px solid #C6C6C6;
 }
 #phone {
@@ -140,6 +140,15 @@ input[type="checkbox"]:checked + .custom-checkbox {
 
 span {
     color: #FF6600
+}
+input:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="datetime"]:focus {
+  outline: none;
+  border: 2px solid #FF6600 !important;
 }
 
 button#signup {

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/signup.css">
     <script defer src="./js/header.js"></script>
+    <script src="./js/signup.js"></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -19,14 +20,15 @@
 
                     <input type="password" maxlength="20" name="password" id="password" placeholder="비밀번호">
 
+                    <input type="password" maxlength="20" name="password__re" id="password__re" placeholder="비밀번호 확인">
+
                     <input type="text" maxlength="20" name="name" id="name" placeholder="이름">
                 </div>
 
                 <div class="item__box__second">
                     <input type="text" maxlength="20" name="userid" id="userid" placeholder="별명">
                     <input type="datetime" name="birth" id="birth" placeholder="생년월일 8자리">
-                    <input type="text" maxlength="20" name="address" id="address" placeholder="주소">
-                    <input type="number" maxlength="20" name="phone" id="phone" placeholder="휴대전화번호">
+                    <input type="number" maxlength="20" name="hp" id="hp" placeholder="휴대전화번호">
                 </div>
 
                 <div class="item__box__third">
@@ -37,7 +39,7 @@
                     </label>
                 </div>
 
-                <button id="signup"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원가입</span></button>
+                <button id="signup" type="submit"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원가입</span></button>
             </div>
         </form>
     </main>

@@ -12,6 +12,12 @@ main {
     justify-content: center;
     margin-top: 90px;
 }
+input:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border: 2px solid #FF6600 !important;
+}
 
 .item__box {
     padding: 25px;
