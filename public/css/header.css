@@ -108,15 +108,17 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  pointer-events: auto;
   background-color: transparent;
-  height: 0.001px;
-  width: 0.001px;
   border-radius: 5px;
-  pointer-events: none;
-  position: relative;
-  & * {
-    font-size: 0.001px;
-  }
+  transition: background-color 0.3s;
+}
+
+.header__button__search i {
+  font-size: 1.6rem;
+  color: white;
 }
 .header__button__search--size {
   pointer-events: auto;
@@ -291,8 +293,8 @@ a {
 /* 카테고리 클릭시 나옴 */
 .categoryMenu {
   position: absolute;
-  top: calc(100% - 1.4rem);
-  left: 0.1rem;
+  top: calc(100% - 2.4rem);
+  left: 1.8rem;
   background: var(--color-box);
   border: 1px solid var(--color-line);
   padding: 10px;
@@ -301,12 +303,14 @@ a {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 6px;
 }
 .categoryMenu.hidden {
   display: none;
 }
 .categoryMenu a {
+  font-size: 0.9rem;
   text-decoration: none;
   color: white;
   padding: 6px 12px;
