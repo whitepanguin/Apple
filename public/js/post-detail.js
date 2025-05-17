@@ -1,36 +1,10 @@
-/*
-// 1. 상세 글 하나 불러오기
-// ✅ 1. URL에서 게시글 ID 추출
-const urlParams = new URLSearchParams(window.location.search);
-const postId = urlParams.get("id");
-
-if (!postId) {
-  console.error("게시글 ID가 없습니다.");
-} else {
-  // ✅ 2. 해당 ID로 게시글 하나 불러오기
-  fetch(`/posts/${postId}`)
-    .then((res) => res.json())
-    .then((post) => {
-      // HTML 텍스트 가져오기
-      const descriptionText =
-        document.getElementById("post-description").textContent;
-
-      //  post 객체에 넣기
-      post.text = descriptionText;
-      console.log("메인에 보여줄 글:", post);
-    })
-
-    .catch((err) => {
-      console.error("게시글 불러오기 실패:", err);
-    });
-}
-    */
-
 // post-detail.js
 
 // 1. URL에서 게시글 ID 추출
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
+
+// 시간 차이 출력 함수
 function timeAgo(date) {
   const now = new Date();
   const diff = Math.floor((now - new Date(date)) / 1000);
@@ -50,35 +24,47 @@ if (!postId) {
       return res.json();
     })
     .then((post) => {
-      //  받아온 데이터를 HTML에 반영
+      // ✅ 게시글 정보 화면에 출력
       document.getElementById("post-image").src = post.img;
       document.getElementById("post-title").textContent = post.tittle;
       document.getElementById("post-category-text").textContent = post.category;
       document.getElementById(
         "post-price"
       ).textContent = `${post.price.toLocaleString()}원`;
-      // innerHTML은 HTML 코드로 해석해서 그 안에 넣어주는 역할
+
       document.getElementById("post-description").innerHTML = post.text.replace(
         /\n/g,
         "<br>"
       );
 
-      document.getElementById("seller-name").textContent = post.userid;
-      document.getElementById("breadcrumb-category").textContent =
-        post.category;
       document.getElementById("breadcrumb-title").textContent = post.tittle;
+
       const createdAt = new Date(post.createdAt);
-      document.getElementById("post-time").textContent =
-        createdAt.toLocaleString();
       document.getElementById("post-time").textContent = timeAgo(
         post.createdAt
       );
 
-      // seller-meta는  일단 고정 텍스트
-      document.getElementById("seller-meta").textContent =
-        "서울 마포구 · 매너온도 36.5°";
+      // ✅ 작성자(user) 정보 요청
+      fetch(`/api/${post.userid}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("판매자 정보 없음");
+          return res.json();
+        })
+        .then((user) => {
+          document.getElementById("seller-name").textContent = user.userid;
+          document.getElementById("seller-meta").textContent = `${
+            user.address
+          } · 매너온도 ${user.temp.toFixed(1)}°`;
+          document.getElementById("seller-image").src =
+            user.profilepic || "img/profile.png";
+        })
+        .catch((err) => {
+          console.error("❌ 판매자 정보 불러오기 실패:", err);
+          document.getElementById("seller-meta").textContent =
+            "주소 정보 없음 · 매너온도 N/A";
+        });
 
-      console.log("✅ 화면에 반영된 post:", post);
+      console.log("✅ 게시글 데이터:", post);
     })
     .catch((err) => {
       console.error("❌ 게시글 불러오기 실패:", err);

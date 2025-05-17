@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("서버 응답 오류");
 
     const data = await response.json();
+    console.log("✅ realestate 데이터:", data); // 🔍 이거 찍히는지 봐봐
     renderRealestateDetail(data);
   } catch (error) {
     console.error("매물 정보 불러오기 실패:", error);
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function renderRealestateDetail(data) {
   // 기본 정보
+
   document.getElementById("breadcrumb-title").textContent = data.apartment;
   document.getElementById("post-image").src = "img/4.jpg"; // 서버 이미지 연동 시 수정
   document.getElementById("seller-name").textContent = "일산짱"; // 추후 사용자 연결
@@ -70,4 +72,39 @@ function renderRealestateDetail(data) {
   } else {
     detailSection.textContent = "-";
   }
+  // ✅ 작성자 정보 불러오기
+  if (data.userid) {
+    fetch(`/api/${data.userid}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("판매자 정보 없음");
+        return res.json();
+      })
+      .then((user) => {
+        document.getElementById("seller-name").textContent = user.userid;
+        document.getElementById("seller-meta").textContent = `${
+          user.address
+        } · 매너온도 ${user.temp.toFixed(1)}°`;
+        document.getElementById("seller-image").src =
+          user.profilepic || "img/profile.png";
+      })
+      .catch((err) => {
+        console.error("❌ 판매자 정보 불러오기 실패:", err);
+        document.getElementById("seller-meta").textContent =
+          "주소 정보 없음 · 매너온도 N/A";
+      });
+  }
+  // ✅ userid기준으로 place 데이터 불러오기
+  fetch("/place")
+    .then((res) => res.json())
+    .then((places) => {
+      console.log("✅ 전체 place:", places);
+      console.log("🔍 매물의 userid:", data.userid);
+
+      const matchedPlace = places.find((p) => p.userid === data.userid);
+      if (matchedPlace) {
+        console.log("✅ 해당 사용자 위치:", matchedPlace);
+      } else {
+        console.warn("⚠️ 해당 사용자 위치 정보 없음");
+      }
+    });
 }

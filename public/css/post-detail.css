@@ -21,6 +21,7 @@ body {
   box-sizing: border-box;
 }
 
+
 .main {
   display: flex;
   justify-content: center;
