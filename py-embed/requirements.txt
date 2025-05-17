@@ -3,6 +3,3 @@ uvicorn==0.29.0
 sentence-transformers==2.6.1
 torch>=1.13.0
 transformers>=4.25.0
-
-
-# 설치 할 때 pip install -r requirements.txt
