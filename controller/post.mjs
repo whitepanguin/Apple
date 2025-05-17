@@ -21,14 +21,6 @@ export async function getPostId(req, res, next) {
 }
 
 // 포스트 생성하는 함수
-
-// export async function createPost(req, res, next) {
-//   const { text } = req.body;
-//   console.log("req.useridx: ", req.useridx);
-//   const posts = await postRepository.create(text, req.useridx);
-//   res.status(201).json(posts);
-// }
-
 export async function createPost(req, res, next) {
   const { text, tittle, img, category, price } = req.body;
   const post = await postRepository.createPost({
@@ -41,19 +33,6 @@ export async function createPost(req, res, next) {
   });
   res.status(201).json(post);
 }
-
-// 포스트 수정하는 함수
-// export async function updatePost(req, res, next) {
-//   const id = req.params.id;
-//   const text = req.body.text;
-//   const post = await postRepository.update(id, text);
-//   if (post) {
-//     res.status(201).json(post);
-//   } else {
-//     res.status(404).json({ message: `${id}의 포스트가 없습니다.` });
-//   }
-//   next();
-// }
 
 // 포스트 수정 (Mongo DB)
 // export async function updatePost(req, res, next) {
