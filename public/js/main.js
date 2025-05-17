@@ -9,6 +9,7 @@ fetch("header.html")
     }
 
     attachRegionClickHandlers(); // ← 클릭 이벤트 바인딩
+    attachCategoryMenuToggle(); // 메뉴 클릭 기능
   });
 
 // 2. 지역 버튼 클릭 처리
@@ -42,4 +43,25 @@ function updateRegionText(regionName) {
   }
 
   document.title = `${regionName} - 지역 선택됨`;
+}
+
+// 카테고리 메뉴 열기/닫기 핸들러
+function attachCategoryMenuToggle() {
+  const categoryBtn = document.querySelector(".selectCategoryBtn");
+  const categoryMenu = document.getElementById("categoryMenu");
+
+  if (!categoryBtn || !categoryMenu) {
+    console.warn("카테고리 버튼 또는 메뉴 요소가 없습니다.");
+    return;
+  }
+
+  categoryBtn.addEventListener("click", () => {
+    categoryMenu.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
+      categoryMenu.classList.add("hidden");
+    }
+  });
 }

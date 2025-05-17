@@ -225,6 +225,123 @@ a {
   display: none;
 }
 
+.header__searchInputAndList {
+  position: fixed; /* 변경 */
+  top: 4.2rem; /* header 높이에 맞춰 조정 */
+  left: 0;
+  width: 100%;
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-line);
+  z-index: 999;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+/* 검색창 */
+.searchInputAndList {
+  width: 34rem;
+  position: relative;
+}
+.search__input__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  width: 100%;
+  border: 1px solid var(--color-box);
+  border-radius: 20px;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+.selectCategoryBtn {
+  margin-left: 1rem;
+  color: white;
+  font-weight: bold;
+  background-color: transparent;
+
+  position: relative;
+  z-index: 1;
+}
+.selectCategoryBtn span {
+  margin-right: 0.3rem;
+}
+.inputSearch {
+  width: 100%;
+}
+.inputSearch {
+  height: 2rem;
+  border: none;
+  background-color: var(--color-background);
+  color: white;
+}
+.inputSearch:focus {
+  outline: none;
+}
+.pageMoveBtn {
+  margin-right: 0.6rem;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  padding: 0.3rem;
+}
+.pageMoveBtn:hover {
+  background-color: var(--color-text);
+}
+/* 카테고리 클릭시 나옴 */
+.categoryMenu {
+  position: absolute;
+  top: calc(100% - 1.4rem);
+  left: 0.1rem;
+  background: var(--color-box);
+  border: 1px solid var(--color-line);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.categoryMenu.hidden {
+  display: none;
+}
+.categoryMenu a {
+  text-decoration: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.categoryMenu a:hover {
+  background-color: var(--color-box-hover, #f0f0f0);
+}
+
+/* 인기 검색어 */
+.popularSearch__box {
+  display: flex;
+  gap: 0.4rem;
+  color: #d0d0d4;
+  width: 100%;
+  justify-content: space-between;
+  padding-left: 1rem;
+}
+.popularSearch__title {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  padding-right: 1rem;
+}
+.popularSearch__list {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.header__searchInputAndList.hidden {
+  display: none;
+}
+
 @media (max-width: 991px) {
   .header__right--pc {
     display: none;
