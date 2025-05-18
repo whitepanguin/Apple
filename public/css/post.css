@@ -1,0 +1,137 @@
+@font-face {
+  font-family: "KOTRAHOPE";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'sans-serif';
+  background: #ffffff;
+}
+
+.main {
+  width: 100%;
+  background-color: #fff;
+}
+
+.main__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section__top .main__title {
+  margin-bottom: 1rem;
+}
+
+.section__down {
+  display: flex;
+  gap: 2rem;
+}
+
+/* 사이드바 */
+.sidebar {
+  flex: 1;
+  width: 260px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  gap: 5px;
+}
+
+.property-list {
+  flex: 4;
+  width: 100%;
+}
+
+.property-list__box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.property {
+  width: calc(25% - 0.75rem); /* 4개씩 정렬 */
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.img--box {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.property img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 6px;
+}
+
+.property img:hover {
+  transform: scale(1.05);
+}
+
+.info h2 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1rem;
+}
+
+.info p {
+  margin: 0.25rem 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .property {
+    width: calc(33.33% - 0.67rem); /* 3개 정렬 */
+  }
+}
+
+@media (max-width: 768px) {
+  .property {
+    width: calc(50% - 0.5rem); /* 2개 정렬 */
+  }
+
+  .main__container {
+    padding: 1rem;
+  }
+}
