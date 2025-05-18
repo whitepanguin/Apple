@@ -13,7 +13,7 @@ async function createJwtToken(idx) {
 
 // 회원가입 put create
 export async function signup(req, res, next) {
-  const { email, password, name, userid, birthDate, address, profile } =
+  const { email, password, name, userid, birthDate, address, profile, hp } =
     req.body;
 
   const found = await authRepository.findByUserid(email);
@@ -33,6 +33,7 @@ export async function signup(req, res, next) {
     birthDate,
     address,
     profile,
+    hp,
   });
 
   const token = await createJwtToken(user._id);
@@ -50,7 +51,7 @@ export async function login(req, res, next) {
   }
 
   const isValidPassword = await bcrypt.compare(password, user.password);
-  
+
   if (!isValidPassword) {
     return res
       .status(401)
@@ -71,11 +72,26 @@ export async function verify(req, res, next) {
 }
 
 export async function me(req, res, next) {
-  const user = await authRepository.findByid(req.id);
-  if (!user) {
-    return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+  try {
+    const userId = req.useridx || req.userid || req.id; // 미들웨어에서 세팅된 값 중 우선순위로 사용
+    if (!userId) {
+      return res.status(401).json({ message: "인증 정보가 없습니다." });
+    }
+
+    const user = await authRepository.findByid(userId);
+    if (!user) {
+      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+
+    res.status(200).json({
+      email: user.email,
+      userid: user.userid,
+      // token: req.token, // 일반적으로 토큰은 재발급이 필요할 때만 보내요
+    });
+  } catch (error) {
+    console.error("[ERROR] authController.me:", error);
+    res.status(500).json({ message: "서버 오류", error: error.message });
   }
-  res.status(200).json({ token: req.token, email: user.email });
 }
 
 export async function updateUser(req, res) {

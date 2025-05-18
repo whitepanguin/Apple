@@ -36,8 +36,9 @@ router.post("/login", validateLogin, authController.login);
 
 // 로그인 유지
 
-
 // 회원정보 수정
 router.patch("/update", isAuth, authController.updateUser);
+
+router.get("/me", isAuth, authController.me);
 
 export default router;

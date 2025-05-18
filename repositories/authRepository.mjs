@@ -16,3 +16,8 @@ export async function createUser(userData) {
 export async function findByid(id) {
   return User.findById(id);
 }
+
+// userid로 사용자 정보 수정
+export async function updateUser(userid, updateData) {
+  return User.findOneAndUpdate({ userid }, updateData, { new: true });
+}

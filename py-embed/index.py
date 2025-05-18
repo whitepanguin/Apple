@@ -1,74 +1,82 @@
 import os
-from dotenv import load_dotenv
+import uuid
 import requests
 import pymongo
-
+from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-from elasticsearch import Elasticsearch
+# from elasticsearch import Elasticsearch  # ❌ Elasticsearch 주석 처리
+from sentence_transformers import SentenceTransformer
 
+# 1. 환경 변수 로드
 load_dotenv()
 
-# MongoDB 연결
-mongo = pymongo.MongoClient(os.getenv("MONGODB"))
-db = mongo[os.getenv("MONGODB")]
+# 2. MongoDB 연결
+mongo = pymongo.MongoClient(os.getenv("MONGO_URL"))
+db = mongo[os.getenv("MONGO_DB")]
 posts = db[os.getenv("MONGO_COLLECTION")]
 
-# Qdrant 연결
+# 3. Qdrant 연결
 qdrant = QdrantClient(
     url=os.getenv("QDRANT_URL"),
     api_key=os.getenv("QDRANT_API_KEY")
 )
 
-# Elasticsearch 연결
-es = Elasticsearch(
-    os.getenv("ES_URL"),
-    basic_auth=(os.getenv("ES_USERNAME"), os.getenv("ES_PASSWORD"))
-)
+# 4. Elasticsearch 연결 제거
+# es = Elasticsearch(
+#     os.getenv("ES_URL"),
+#     basic_auth=(os.getenv("ES_USERNAME"), os.getenv("ES_PASSWORD"))
+# )
 
+# 5. 모델 로딩 (768차원 임베딩)
+bi_encoder = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+
+# 6. 설정
 COLLECTION = "apple_collection"
-INDEX = "apple_index"
+# INDEX = "apple_index"  # ❌ ES용 상수 제거
 
+# 7. 인덱싱 시작
 for post in posts.find():
-    if post.get("vectorId") and post.get("elasticId"):
-        print(f"✅ 이미 인덱싱됨: {post['_id']}")
+    # 중복 인덱싱 방지 (필요시 주석 해제)
+    # if post.get("vectorId"):
+    #     print(f"✅ 이미 인덱싱됨: {post['_id']}")
+    #     continue
+
+    # 텍스트 임베딩
+    try:
+        vector = bi_encoder.encode(post["text"]).tolist()
+    except Exception as e:
+        print("❌ 임베딩 실패:", e)
         continue
 
-    res = requests.post(os.getenv("EMBEDDING_API_URL"), json={"text": post["text"]})
-    if res.status_code != 200:
-        print("❌ 임베딩 실패:", res.text)
-        continue
+    # vectorId 가져오기 또는 새로 생성
+    vector_id = post.get("vectorId")
+    if not vector_id:
+        vector_id = str(uuid.uuid4())
+        posts.update_one({"_id": post["_id"]}, {"$set": {"vectorId": vector_id}})
 
-    vector = res.json()["vector"]
-    vector_id = str(post["_id"])  # 중복 방지용 고정 ID
+    # 저장할 Qdrant payload
+    payload = {
+        "tittle": post.get("tittle", ""),
+        "text": post.get("text", ""),
+        "category": post.get("category", ""),
+        "price": post.get("price", 0),
+        "userid": post.get("userid", ""),
+        "img": post.get("img", ""),
+        "createdAt": post.get("createdAt", ""),
+        "updatedAt": post.get("updatedAt", "")
+    }
 
-    qdrant.upsert(COLLECTION, points=[
-        {
-            "id": vector_id,
-            "vector": vector,
-            "payload": {
-                "tittle": post["tittle"],
-                "text": post["text"],
-                "category": post["category"],
-                "price": post["price"],
-                "userid": post["userid"]
+    # Qdrant 업서트
+    try:
+        qdrant.upsert(collection_name=COLLECTION, points=[
+            {
+                "id": vector_id,
+                "vector": vector,
+                "payload": payload
             }
-        }
-    ])
+        ])
+    except Exception as e:
+        print("❌ Qdrant 업서트 실패:", e)
+        continue
 
-    es.index(index=INDEX, id=vector_id, document={
-        "tittle": post["tittle"],
-        "text": post["text"],
-        "category": post["category"],
-        "price": post["price"],
-        "userid": post["userid"]
-    })
-
-    posts.update_one(
-        {"_id": post["_id"]},
-        {"$set": {
-            "vectorId": vector_id,
-            "elasticId": vector_id
-        }}
-    )
-
-    print(f"✅ 인덱싱 완료: {post['_id']}")
+    print(f"✅ Qdrant 인덱싱 완료: {post['_id']} → {vector_id}")

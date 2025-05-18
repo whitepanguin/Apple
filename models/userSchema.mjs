@@ -10,6 +10,7 @@ const userSchema = new Schema(
     birthDate: { type: Number }, //생일
     address: { type: String }, //주소
     profile: { type: String, default: "" }, //프로필
+    hp: { type: String }, // 핸드폰 번호 추가
     provider: { type: String },
     createdAt: { type: String, default: getCurrentTime },
     updatedAt: { type: String, default: getCurrentTime },
