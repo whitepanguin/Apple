@@ -9,8 +9,6 @@ router = APIRouter()
 # 모델 로딩
 # bi_encoder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2") # 벡터 384
 bi_encoder = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
-
-print("벡터 길이:", len(bi_encoder.encode("테스트")))
 cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 qdrant = QdrantClient(QDRANT_URL, api_key=QDRANT_API_KEY)

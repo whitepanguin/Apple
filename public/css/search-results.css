@@ -1,0 +1,88 @@
+.results-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.search-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.search-card:hover {
+  transform: scale(1.03);
+}
+.search-card__img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.search-card__info {
+  padding: 12px;
+}
+.search-card__info h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+.search-card__info p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.skeleton {
+  animation: pulse 1.6s ease-in-out infinite;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+/* 전체 카드 영역 */
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+/* 이미지 위치와 비슷한 영역 */
+.skeleton-image {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+}
+/* 텍스트 영역 */
+.skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 4px;
+}
+.skeleton-title {
+  width: 100%;
+  height: 18px;
+}
+.skeleton-price {
+  width: 100%;
+  height: 16px;
+}
+.skeleton-category {
+  width: 100%;
+  height: 14px;
+}

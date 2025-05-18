@@ -18,21 +18,15 @@ fetch("../header.html")
         alert("검색어를 입력해주세요.");
         return;
       }
-
-      try {
-        const res = await fetch(
-          `http://localhost:8000/search?q=${encodeURIComponent(query)}`
-        );
-        const data = await res.json();
-
-        console.log("🔍 검색 결과:", data.results);
-
-        // 여기에 검색 결과 렌더링 함수 추가
-        // 기존의 전체 데이터 인덱싱 후 렌더링 예정
-      } catch (err) {
-        console.error("검색 요청 실패:", err);
-        alert("검색 중 오류가 발생했습니다.");
-      }
+      window.location.href = `/search-results.html?q=${encodeURIComponent(
+        query
+      )}`;
+    }
+    if (searchBtn && searchInput) {
+      searchBtn.addEventListener("click", handleSearch);
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSearch();
+      });
     }
 
     // ✅ 검색 버튼 클릭 시 검색창 토글
@@ -65,12 +59,6 @@ fetch("../header.html")
       lastScrollY = currentScrollY;
     });
 
-    if (searchBtn && searchInput) {
-      searchBtn.addEventListener("click", handleSearch);
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") handleSearch();
-      });
-    }
     attachCategoryMenuToggle();
   })
   .catch((err) => console.log("헤더 로딩 실패", err));

@@ -21,15 +21,25 @@ FastAPI로 작성되어 있으며, Node.js 백엔드에서 이 검색 서버에 
 ```bash
 apple/
 ├── py-embed/
-│   ├── embed_server.py   # FastAPI 서버
-│   ├── init_store.py     # [⚠️1회] 저장소 생성
-│   ├── index.py          # [⚠️1회] MongoDB 전체 데이터 인덱싱
-│   ├── config.py         # dotenv 불러오기
-│   ├── requirements.txt  # Python 의존성 목록
-│   └── venv/             # Python 가상환경 (Git 포함X)
+│   ├── app.py                  # FastAPI 앱 실행 진입점
+│   ├── embed_server.py         # /embed API 라우터
+│   ├── search_router.py        # /search API 라우터
+│   ├── index.py                # ⚠️ Mongo → Qdrant/ES 인덱싱 스크립트
+│   ├── init_store.py           # ⚠️ Qdrant/ES 컬렉션 생성용 스크립트
+│   ├── config.py               # 환경 변수 읽기 및 공통 상수
+│   ├── requirements.txt        # Python 의존성 목록
+│   └── venv/                   # Python 가상환경 (로컬 전용, .gitignore 대상)
 │
 ├── route/
-│   ├── routes/index.js   # 단일 포스트 인덱싱 API
+│   ├── routes/index.js         # 단일 포스트 인덱싱 API
+│   └── ...
+│
+├── public/
+│   ├── js/
+│   │   ├── header.js           # 헤더 로딩 및 이벤트
+│   │   ├── search-results.js   # 검색 결과 렌더링
+│   │   ├── ...
+│   ├── search-results.html # 검색 결과 페이지
 │   └── ...
 
 ```
@@ -40,7 +50,7 @@ apple/
 
 ## DB 소개
 
-해당 db의 개념과 사용 기능 소개, 사용 방법과 단계를 안내.
+db의 사용 방법과 단계를 안내.
 
 ### Elasticsearch
 
@@ -52,15 +62,19 @@ apple/
 
 2. 실행 방법 (로컬)
 
-- 컴퓨터에서 설치한 경로로 접근
-  - elasticsearch -> bin
-  - cmd에서 해당 경로로 이동 `cd .../bin`
-  - 서버 실행 `elasticsearch.bat`
-    - 첫 실행 시 비밀번호를 알려줌. 복사
-    - 아이디는 elasticsearch
-  - 브라우저 `http://localhost:9200` 들어가서 아이디와 복사한 비밀번호 입력
+   - 컴퓨터에서 설치한 경로로 접근
+     - elasticsearch -> bin
+     - cmd에서 해당 경로로 이동 `cd .../bin`
+   - 서버 실행 `elasticsearch.bat`
+     - 첫 실행 시 비밀번호를 알려줌. 복사
+     - 아이디는 elasticsearch
+   - `http://localhost:9200`에서 실행확인 가능
+     - 들어가서 아이디와 복사한 비밀번호 입력
 
 ### Qdrant
+
+- Qdrant 공식 페이지에서 계정 생성하여 키와 url 받기
+- 서버
 
 ---
 
@@ -75,15 +89,15 @@ apple/
 3. 가상환경 실행 `.\venv\Scripts\activate`
    - `(venv)` 앞에 떠 있으면 실행 상태
    - 비활성화 : `deactivate`
-4. 파이썬 없으면 설치
-5. 필요한 패키지 한번에 설치 `pip install -r requirements.txt`
+4. 필요한 패키지 설치
+   - ⚠️ 가상환경 실행하고 설치 `(venv)` 떠 있는 상태
+   - 필요한 패키지 한번에 설치 `pip install -r requirements.txt`
 
 ### 2. 실행
 
-1. 서버 활성화 `cd py-embed` 이동 후
+1. 엘라스틱서치 로컬 서버 작동 (위와 동일)
+2. `cd py-embed` 이동
+3. 가상환경 활성화 `.\venv\Scripts\activate`
+4. 서버 실행 `uvicorn embed_server:app`
 
 ---
-
-## 상세 기능
-
-1. \embed_server.js :
