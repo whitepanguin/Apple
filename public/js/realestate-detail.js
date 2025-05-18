@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("서버 응답 오류");
 
     const data = await response.json();
-    console.log("✅ realestate 데이터:", data); // 🔍 이거 찍히는지 봐봐
+    console.log("✅ realestate 데이터:", data);
     renderRealestateDetail(data);
   } catch (error) {
     console.error("매물 정보 불러오기 실패:", error);
@@ -21,20 +21,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 function renderRealestateDetail(data) {
-  // 기본 정보
-
+  // 기본 정보 출력
   document.getElementById("breadcrumb-title").textContent = data.apartment;
-  document.getElementById("post-image").src = "img/4.jpg"; // 서버 이미지 연동 시 수정
-  document.getElementById("seller-name").textContent = "일산짱"; // 추후 사용자 연결
-  document.getElementById("seller-meta").textContent = "서초4동";
-
+  document.getElementById("post-image").src = data.img || "img/4.jpg";
   document.getElementById("realestate-type").textContent = data.apartment;
   document.getElementById("realestate-createdAt").textContent =
     data.sale_date || "-";
   document.getElementById("realestate-status").textContent =
     data.sales_status || "-";
-
-  // 요약 정보
   document.getElementById("realestate-supply").textContent =
     data.supply_area || "-";
   document.getElementById("realestate-extend").textContent =
@@ -49,13 +43,12 @@ function renderRealestateDetail(data) {
   document.getElementById("realestate-dealing").textContent = data.price || "-";
   document.getElementById("realestate-price").textContent = data.sale || "-";
 
-  // 조건 (대출/반려동물/주차/엘리베이터)
+  // 조건 출력
   const conditionList = [];
   if (data.condition?.loan_available) conditionList.push("대출 가능");
   if (data.condition?.pet_allowed) conditionList.push("반려동물 가능");
   if (data.condition?.parking) conditionList.push("주차 가능");
   if (data.condition?.elevator) conditionList.push("엘리베이터 있음");
-
   document.getElementById("realestate-condition").textContent =
     conditionList.length > 0 ? conditionList.join(", ") : "-";
 
@@ -70,9 +63,10 @@ function renderRealestateDetail(data) {
       .map((line) => `${line}<br>`)
       .join("");
   } else {
-    detailSection.textContent = "-";
+    detailSection.innerHTML = data.text?.replace(/\n/g, "<br>") || "-";
   }
-  // ✅ 작성자 정보 불러오기
+
+  // 판매자 정보
   if (data.userid) {
     fetch(`/api/${data.userid}`)
       .then((res) => {
@@ -93,7 +87,8 @@ function renderRealestateDetail(data) {
           "주소 정보 없음 · 매너온도 N/A";
       });
   }
-  // ✅ userid기준으로 place 데이터 불러오기
+
+  // 위치 정보 로드
   fetch("/place")
     .then((res) => res.json())
     .then((places) => {
@@ -103,8 +98,36 @@ function renderRealestateDetail(data) {
       const matchedPlace = places.find((p) => p.userid === data.userid);
       if (matchedPlace) {
         console.log("✅ 해당 사용자 위치:", matchedPlace);
+
+        // 지도가 정상 로드되었을 때만 실행
+        if (window.kakao && window.kakao.maps && kakao.maps.load) {
+          kakao.maps.load(() => {
+            const mapContainer = document.getElementById("map");
+            const mapOption = {
+              center: new kakao.maps.LatLng(
+                matchedPlace.Latitude,
+                matchedPlace.Longitude
+              ),
+              level: 3,
+            };
+
+            const map = new kakao.maps.Map(mapContainer, mapOption);
+            const marker = new kakao.maps.Marker({
+              position: new kakao.maps.LatLng(
+                matchedPlace.Latitude,
+                matchedPlace.Longitude
+              ),
+            });
+            marker.setMap(map);
+          });
+        } else {
+          console.error("❌ kakao.maps가 로드되지 않았습니다.");
+        }
       } else {
         console.warn("⚠️ 해당 사용자 위치 정보 없음");
       }
+    })
+    .catch((err) => {
+      console.error("❌ 위치 정보 불러오기 실패:", err);
     });
 }
