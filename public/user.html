@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/user.css">
     <script defer src="./js/header.js"></script>
+    <script src="./js/user.js"></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
     <main class="main">
-        <form action="/auth/user" method="post" onsubmit="return sendit(event)">
+        <form action="/auth/user" method="post" onsubmit="return updateUser(event)">
             <div class="item__box">
                 <div class="item__box__first">
                     <div class="profile">
@@ -27,10 +28,10 @@
                 </div>
 
                 <div class="item__box__third">
-                    <input type="number" maxlength="20" name="phone" id="phone" placeholder="휴대전화번호 변경">
+                    <input type="number" maxlength="20" name="hp" id="hp" placeholder="휴대전화번호 변경">
                 </div>
 
-                <button id="user"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원정보 수정</span></button>
+                <button id="user" type="submit"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원정보 수정</span></button>
             </div>
         </form>
     </main>

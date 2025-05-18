@@ -77,3 +77,21 @@ export async function me(req, res, next) {
   }
   res.status(200).json({ token: req.token, email: user.email });
 }
+
+export async function updateUser(req, res) {
+  const { password, hp } = req.body;
+  const userid = req.userid; // 미들웨어에서 디코딩된 JWT
+
+  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+
+  try {
+    await authRepository.updateUser(userid, {
+      password: hashed,
+      hp: hp,
+    });
+
+    res.status(200).json({ message: "회원정보 수정 완료" });
+  } catch (err) {
+    res.status(500).json({ message: "수정 실패", error: err.message });
+  }
+}
