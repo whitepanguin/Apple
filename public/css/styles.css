@@ -15,6 +15,7 @@ html {
   padding: 0;
   font-family: sans-serif;
   background: #ffffff;
+
 }
 
 .main {
@@ -103,6 +104,8 @@ label {
   margin-bottom: 0.5rem;
 }
 
+
+
 .property-list {
   width: 100%;
   flex: 4;
@@ -165,16 +168,48 @@ img:hover {
 }
 
 @media (max-width: 1024px) {
-  .sidebar {
+
+    .sidebar {
     display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 1000;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
   }
 
+  .sidebar.show {
+    display: block;
+  }
+
+  .close-sidebar-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  body.sidebar-open {
+    overflow: hidden; /* 스크롤 막기 */
+  }
+}
+  
   .property-list--box {
     display: block;
     justify-content: flex-start;
     padding-left: 5px;
     margin-left: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   .property-list-btn {
     width: 70px;
@@ -191,7 +226,7 @@ img:hover {
   .property-list-icon {
     width: 14px;
   }
-}
+
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .property-list {
@@ -224,7 +259,20 @@ img:hover {
       flex-direction: column;
        */
   }
+  
+
+  #applyBtnMobile {
+    width: 90%;
+    padding: 12px;
+    background-color: #f68000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+  }
 }
+
+
 
 @media (max-width: 768px) {
   .property-list {
