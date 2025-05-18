@@ -3,3 +3,6 @@ uvicorn==0.29.0
 sentence-transformers==2.6.1
 torch>=1.13.0
 transformers>=4.25.0
+elasticsearch==8.13.0
+qdrant-client==1.8.1
+python-dotenv==1.0.1
