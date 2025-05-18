@@ -102,17 +102,28 @@ export async function Chat(req, res) {
 export async function updateChat(req, res) {
   const { chatLogId, chatId } = req.params;
   const { chat: newChatContent } = req.body;
+
   try {
-    const updated = await chatRepository.updateChatMessage(
-      chatLogId,
-      chatId,
-      newChatContent
-    );
-    if (!updated)
+    const chatLog = await chatRepository.getChatById(chatLogId);
+    if (!chatLog) {
+      return res.status(404).json({ message: "채팅 로그를 찾을 수 없습니다." });
+    }
+
+    const chatMsg = chatLog.text.find((msg) => msg._id.toString() === chatId);
+    if (!chatMsg) {
       return res
         .status(404)
         .json({ message: "채팅 메시지를 찾을 수 없습니다." });
-    res.status(200).json(updated);
+    }
+
+    chatMsg.chat = newChatContent;
+    chatMsg.edited = true;
+    await chatLog.save();
+
+    res.status(200).json({
+      chat: chatMsg.chat,
+      edited: chatMsg.edited,
+    });
   } catch (err) {
     res.status(500).json({ message: "채팅 수정 실패", error: err.message });
   }

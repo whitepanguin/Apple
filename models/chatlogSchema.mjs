@@ -11,6 +11,7 @@ const chatlogSchema = new Schema(
         userid: { type: String },
         chat: { type: String },
         createdAt: { type: String, default: getCurrentTime },
+        edited: { type: Boolean, default: false },
       },
       { _id: true },
     ],
