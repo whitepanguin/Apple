@@ -21,6 +21,14 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;         /* 부모 요소의 글자색 상속 */
+  text-decoration: none;  /* 밑줄 제거 */
+}
+
+a:visited {
+  color: inherit;         /* 방문해도 색 안 바뀜 */
+}
 
 .main {
   display: flex;
@@ -174,3 +182,4 @@ body {
 .contact-button:hover {
   background-color: #e85d00;
 }
+

@@ -70,4 +70,15 @@ if (!postId) {
       console.error("❌ 게시글 불러오기 실패:", err);
       alert("해당 게시글을 찾을 수 없습니다.");
     });
+
+  // post-detail.js 또는 <script> 내부
+
+  if (postId) {
+    fetch(`/posts/${postId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // 화면에 게시글 정보 채우기
+      })
+      .catch((err) => console.error("게시글 로딩 실패", err));
+  }
 }

@@ -13,6 +13,15 @@ main {
   /* margin: 4rem 15rem; */
 }
 
+a {
+  color: inherit;         /* 부모 요소의 글자색 상속 */
+  text-decoration: none;  /* 밑줄 제거 */
+}
+
+a:visited {
+  color: inherit;         /* 방문해도 색 안 바뀜 */
+}
+
 .layout__box {
   width: 100%;
   max-width: 1200px;
