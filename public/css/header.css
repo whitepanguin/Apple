@@ -348,3 +348,9 @@ a {
   color: #f0f0f0;
   margin-left: 10px;
 }
+
+.welcome-message {
+  font-weight: bold;
+  color: #f0f0f0; /* 하얀색 계열 */
+  margin-left: 10px;
+}

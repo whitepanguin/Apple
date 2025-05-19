@@ -54,3 +54,35 @@ fetch("../header.html")
     });
   })
   .catch((err) => console.log("헤더 로딩 실패", err));
+
+  // ✅ 사용자 로그인 상태 확인
+fetch("/auth/me", {
+  headers: {
+    Authorization: `Bearer ${
+      localStorage.getItem("token") || sessionStorage.getItem("token")
+    }`,
+  },
+})
+  .then((res) => (res.ok ? res.json() : Promise.reject()))
+  .then((data) => {
+    if (data.userid || data.email) {
+      // 로그인 상태
+      if (loginBtn) loginBtn.style.display = "none";
+      if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+      // ✅ 환영 메시지 표시
+      const welcomeEl = document.getElementById("welcome-message");
+      if (welcomeEl && data.userid) {
+        welcomeEl.textContent = `${data.userid}님 어서오세요!`;
+        welcomeEl.style.display = "inline-block"; // 표시
+      }
+    }
+  })
+  .catch(() => {
+    // 로그인 안 된 상태
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+
+    const welcomeEl = document.getElementById("welcome-message");
+    if (welcomeEl) welcomeEl.style.display = "none";
+  });

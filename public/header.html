@@ -14,6 +14,9 @@
         <i id="header_i" class="fa fa-search" aria-hidden="true"></i>
       </button>
 
+      <!-- 로그인/로그아웃 버튼 근처에 환영 메시지 영역 추가 -->
+      <span id="welcome-message" class="welcome-message" style="display: none;"></span>
+
       <button class="header__button-login" id="loginBtn" onclick="location.href='login.html'">
         <span class="header__button__text">로그인</span>
       </button>
@@ -23,8 +26,7 @@
               id="logoutBtn"
               type="submit"
               style="display: none;"
-            >
-              로그아웃
+            ><span class="header__button__text">로그아웃</span>
             </button>
           </form>
 
