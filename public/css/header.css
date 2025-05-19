@@ -126,7 +126,6 @@ a {
 }
 
 .header__button-login {
-  
   background-color: var(--color-carat);
   border-radius: 5px;
   height: 2rem;
@@ -347,4 +346,12 @@ a {
   font-weight: bold;
   color: #f0f0f0;
   margin-left: 10px;
+}
+.hidden {
+  display: none;
+}
+
+#logoutBtn {
+  color: white;
+  font-weight: bold;
 }
