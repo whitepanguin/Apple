@@ -167,42 +167,42 @@ function applyFilter() {
       document.body.classList.remove("sidebar-open");
     }
   }
+}
 
-  function insertImg(items) {
-    const container = document.querySelector(".property-list__box");
-    container.innerHTML = "";
+function insertImg(items) {
+  const container = document.querySelector(".property-list__box");
+  container.innerHTML = "";
 
-    items.forEach((item) => {
-      const conditionText = [];
-      if (item.condition.loan_available) conditionText.push("대출가능");
-      if (item.condition.parking) conditionText.push("주차가능");
-      if (item.condition.pet_allowed) conditionText.push("반려동물");
-      if (item.condition.elevator) conditionText.push("엘리베이터");
+  items.forEach((item) => {
+    const conditionText = [];
+    if (item.condition.loan_available) conditionText.push("대출가능");
+    if (item.condition.parking) conditionText.push("주차가능");
+    if (item.condition.pet_allowed) conditionText.push("반려동물");
+    if (item.condition.elevator) conditionText.push("엘리베이터");
 
-      const conditionResult = conditionText.join(", ");
-      const detailList = item.details
-        .map((detail) => `<div>${detail}</div>`)
-        .join("");
+    const conditionResult = conditionText.join(", ");
+    const detailList = item.details
+      .map((detail) => `<div>${detail}</div>`)
+      .join("");
 
-      const priceText =
-        item.price === "월세"
-          ? `${item.deposit || 0} / ${item.monthly_rent || 0}`
-          : item.price === "전세"
-          ? `${item.deposit || 0}`
-          : `${item.sale}`; // 매매일 경우 그냥 sale 표시
+    const priceText =
+      item.price === "월세"
+        ? `${item.deposit || 0} / ${item.monthly_rent || 0}`
+        : item.price === "전세"
+        ? `${item.deposit || 0}`
+        : `${item.sale}`; // 매매일 경우 그냥 sale 표시
 
-      const div = document.createElement("div");
-      div.className = "property";
-      div.innerHTML = `
-      <img src="./uploads/${item.img}" alt="매물 이미지" />
-      <div class="info">
-        <p>${item.building_usage}</p>
-        <h2>${item.price} / ${priceText}</h2>
-        <p>${item.floor} / ${item.supply_area}</p>
-        <p>${conditionResult}</p>
-      </div>
-    `;
-      container.appendChild(div);
-    });
-  }
+    const div = document.createElement("div");
+    div.className = "property";
+    div.innerHTML = `
+    <img src="./uploads/${item.img}" alt="매물 이미지" />
+    <div class="info">
+      <p>${item.building_usage}</p>
+      <h2>${item.price} / ${priceText}</h2>
+      <p>${item.floor} / ${item.supply_area}</p>
+      <p>${conditionResult}</p>
+    </div>
+  `;
+    container.appendChild(div);
+  });
 }
