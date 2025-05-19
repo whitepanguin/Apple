@@ -19,7 +19,7 @@
           <section class="section__left">
             <nav class="breadcrumb">
               <a href="./main.html" id="breadcrumb-home">홈</a>&gt;
-              <a href="#" id="breadcrumb-category">중고거래</a>&gt;
+              <a href="./post.html" id="breadcrumb-category">중고거래</a>&gt;
 
               <span id="breadcrumb-title">TUMI 가방</span>
             </nav>
@@ -66,12 +66,27 @@
                 품질 상태 최상급입니다. 비즈니스 용도로 아주 좋습니다. 가격은
                 세정이고 다른 조건도 봐요.
               </p>
-              <a href="./chatting.html">
+              
               <div class="post-chat">
                 <button class="contact-button">채팅하기</button>
-                </a>
+                
               </div>
+              <div class="post-actions">
+                <a href="#" id="edit-post" class="action-link">수정하기</a>
+              </div>
+              <div id="edit-modal" class="modal hidden">
+                <div class="modal-content">
+                  <h3>게시글 수정</h3>
+                  <label>제목 <input type="text" id="edit-tittle" /></label>
+                  <label>카테고리 <input type="text" id="edit-category" /></label>
+                  <label>가격 <input type="number" id="edit-price" /></label>
+                  <label>내용 <textarea id="edit-text" rows="5"></textarea></label>
+                  <div class="modal-actions">
+                    <button id="submit-edit">수정</button>
+                    <button id="cancel-edit">취소</button>
+                  </div>
             </div>
+            
           </section>
         </div>
       </div>

@@ -38,6 +38,9 @@ router.post("/", validatePost, isAuth, postController.createPost);
 // json 형태로 입력 후 저장
 router.put("/:id", validatePost, isAuth, postController.updatePost);
 
+// 포스트 수정 PATCH 방식 추가
+router.patch("/:id", isAuth, postController.updatePost);
+
 // 포스트 삭제
 // DELETE
 // http://127.0.0.1:8080/posts/:id

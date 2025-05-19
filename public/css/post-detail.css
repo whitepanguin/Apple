@@ -22,12 +22,12 @@ body {
 }
 
 a {
-  color: inherit;         /* 부모 요소의 글자색 상속 */
-  text-decoration: none;  /* 밑줄 제거 */
+  color: inherit; /* 부모 요소의 글자색 상속 */
+  text-decoration: none; /* 밑줄 제거 */
 }
 
 a:visited {
-  color: inherit;         /* 방문해도 색 안 바뀜 */
+  color: inherit; /* 방문해도 색 안 바뀜 */
 }
 
 .main {
@@ -179,7 +179,48 @@ a:visited {
   transition: background-color 0.2s ease;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 400px;
+}
+
 .contact-button:hover {
   background-color: #e85d00;
 }
 
+#edit-text {
+  width: 100%; /* 폭: 부모 기준으로 꽉 채우기 */
+  height: 150px; /* 높이: 원하는 만큼 */
+  font-size: 16px; /* 글자 크기 */
+  padding: 10px;
+  box-sizing: border-box;
+  resize: vertical; /* 사용자가 세로 방향으로만 크기 조절 가능 */
+}
+
+#edit-tittle {
+  width: 100%;
+  height: 25px;
+  box-sizing: border-box;
+}

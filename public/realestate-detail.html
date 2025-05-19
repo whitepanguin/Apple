@@ -7,10 +7,9 @@
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db83966774cc4a534f663c1c368f8e35&autoload=false&libraries=services"></script>
     <link rel="stylesheet" href="css/realestate-detail.css" />
     <link rel="stylesheet" href="./css/header.css" />
-    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/footer.css" />
     <script defer src="./js/header.js"></script>
     <script defer src="./js/footer.js"></script>
-
   </head>
   <body>
     <div id="header-placeholder"></div>
@@ -21,7 +20,8 @@
           <!-- 왼쪽 영역 -->
           <section class="section__left">
             <nav class="breadcrumb">
-              <a href="#">홈</a> &gt; <a href="./realestate.html">부동산</a> &gt;
+              <a href="./main.html">홈</a> &gt;
+              <a href="./realestate.html">부동산</a> &gt;
               <span id="breadcrumb-title">서초오피스텔</span>
             </nav>
 
@@ -45,58 +45,85 @@
 
           <!-- 오른쪽 영역 -->
           <section class="section__right">
-  <div class="realestate-info">
-    <h1 id="realestate-type">광교 호반베르디움 트라엘</h1>
-    <div class="realestate-meta">
-      <span id="realestate-createdAt">10일 전</span>
-      <span id="realestate-status">판매중</span>
-    </div>
+            <div class="realestate-info">
+              <h1 id="realestate-type">광교 호반베르디움 트라엘</h1>
+              <div class="realestate-meta">
+                <span id="realestate-createdAt">10일 전</span>
+                <span id="realestate-status">판매중</span>
+              </div>
 
-    <div class="realestate-summary">
-      <p><strong>판매방식:</strong> <span id="realestate-dealing">매매</span></p>
-      <p><strong>가격:</strong> <span id="realestate-price"></span></p>
-      <p><strong>공급면적:</strong> <span id="realestate-supply">129㎡ · 39.09평</span></p>
-      <p><strong>전용면적:</strong> <span id="realestate-extend">100.51㎡ · 30.46평</span></p>
-      <p><strong>방/욕실:</strong> <span id="realestate-roomcount">방 4개 / 욕실 2개</span></p>
-      <p><strong>층수:</strong> <span id="realestate-floor">4층 / 15층</span></p>
-      <p><strong>관리비:</strong> <span id="realestate-maintenance">35만원</span></p>
-      <p><strong>연식:</strong> <span id="realestate-approved">2017년 04월 28일 (9년차)</span></p>
-    </div>
+              <div class="realestate-summary">
+                <p>
+                  <strong>판매방식:</strong>
+                  <span id="realestate-dealing">매매</span>
+                </p>
+                <p>
+                  <strong>가격:</strong> <span id="realestate-price"></span>
+                </p>
+                <p>
+                  <strong>공급면적:</strong>
+                  <span id="realestate-supply">129㎡ · 39.09평</span>
+                </p>
+                <p>
+                  <strong>전용면적:</strong>
+                  <span id="realestate-extend">100.51㎡ · 30.46평</span>
+                </p>
+                <p>
+                  <strong>방/욕실:</strong>
+                  <span id="realestate-roomcount">방 4개 / 욕실 2개</span>
+                </p>
+                <p>
+                  <strong>층수:</strong>
+                  <span id="realestate-floor">4층 / 15층</span>
+                </p>
+                <p>
+                  <strong>관리비:</strong>
+                  <span id="realestate-maintenance">35만원</span>
+                </p>
+                <p>
+                  <strong>연식:</strong>
+                  <span id="realestate-approved">2017년 04월 28일 (9년차)</span>
+                </p>
+              </div>
 
-    <div class="realestate-conditions">
-      <p><strong>조건:</strong>
-        <span id="realestate-condition">
-          대출 가능, 반려동물 가능, 주차 가능, 엘리베이터 있음
-        </span>
-      </p>
-      <p><strong>내부시설:</strong>
-        <span id="realestate-facilities">에어컨, 전자렌지, 가스렌지</span>
-      </p>
-    </div>
+              <div class="realestate-conditions">
+                <p>
+                  <strong>조건:</strong>
+                  <span id="realestate-condition">
+                    대출 가능, 반려동물 가능, 주차 가능, 엘리베이터 있음
+                  </span>
+                </p>
+                <p>
+                  <strong>내부시설:</strong>
+                  <span id="realestate-facilities"
+                    >에어컨, 전자렌지, 가스렌지</span
+                  >
+                </p>
+              </div>
 
-    <section class="detail-description-section">
-      <h2 class="detail-description-title">상세 설명</h2>
-      <p class="detail-description" id="realestate-description">
-        최고조망권 (11층 막힘없는 정남향 파노라마 거실뷰)<br />
-        2억 들인 호텔급 전체 리모델링 (23년)<br />
-        세대 수 적어 조용한 환경<br />
-        주변 인프라 풍부<br />
-        주변 시세보다 저렴 가성비 매물
-      </p>
-    </section>
+              <section class="detail-description-section">
+                <h2 class="detail-description-title">상세 설명</h2>
+                <p class="detail-description" id="realestate-description">
+                  최고조망권 (11층 막힘없는 정남향 파노라마 거실뷰)<br />
+                  2억 들인 호텔급 전체 리모델링 (23년)<br />
+                  세대 수 적어 조용한 환경<br />
+                  주변 인프라 풍부<br />
+                  주변 시세보다 저렴 가성비 매물
+                </p>
+              </section>
 
-    <button class="contact-button">채팅하기</button>
-  </div>
+              <!-- <button class="contact-button">채팅하기</button> -->
+            </div>
 
-  <section class="map-section">
-  <div id="map" class="map-box"></div>
-</section>
-</section>
+            <section class="map-section">
+              <div id="map" class="map-box"></div>
+            </section>
+          </section>
         </div>
       </div>
     </main>
     <footer>
-    <div id="footer-placeholder"></div>
+      <div id="footer-placeholder"></div>
     </footer>
     <script src="./js/realestate-detail.js"></script>
   </body>
