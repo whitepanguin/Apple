@@ -1,4 +1,6 @@
 import express from "express";
+import multer from "multer";
+import sharp from "sharp";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -28,6 +30,37 @@ app.get("/", (req, res) => {
     }
     res.status(200).set({ "Content-Type": "text/html" });
     res.send(data);
+  });
+});
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = `${__dirname}/public/uploads/`;
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+app.post("/upload", upload.single("file"), (req, res) => {
+  console.log(req.file);
+  res.json({
+    message: "단일파일 업로드 성공",
+    file: req.file,
+  });
+});
+
+app.post("/upload-multiple", upload.array("files", 30), (req, res) => {
+  console.log(req.files);
+  res.json({
+    message: "다중 파일 업로드 성공",
+    files: req.files,
   });
 });
 

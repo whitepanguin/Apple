@@ -3,6 +3,8 @@ import { getCurrentTime } from "../utils/utils.mjs";
 
 const realestateSchema = new Schema(
   {
+    userid: { type: String },
+    img: { type: String },
     sale_date: { type: String, required: true }, // 예: "10일 전"
     sales_status: { type: String, required: true }, // 예: "판매중"
     apartment: { type: String, required: true }, // 예: "강남파라곤아파트"
