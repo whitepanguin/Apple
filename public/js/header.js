@@ -64,7 +64,6 @@ fetch("../header.html")
       window.location.href = "/main.html";
     });
   })
-<<<<<<< HEAD
   .catch((err) => console.log("헤더 로딩 실패", err));
 
   // ✅ 사용자 로그인 상태 확인
@@ -97,8 +96,4 @@ fetch("/auth/me", {
 
     const welcomeEl = document.getElementById("welcome-message");
     if (welcomeEl) welcomeEl.style.display = "none";
-=======
-  .catch((err) => {
-    console.error("❌ 헤더 로딩 실패:", err);
->>>>>>> cd1817434fb79b136bc2506688742c5e054c62a6
   });

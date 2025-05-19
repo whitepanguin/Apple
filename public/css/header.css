@@ -347,13 +347,13 @@ a {
   color: #f0f0f0;
   margin-left: 10px;
 }
-<<<<<<< HEAD
 
 .welcome-message {
   font-weight: bold;
   color: #f0f0f0; /* 하얀색 계열 */
   margin-left: 10px;
-=======
+}
+
 .hidden {
   display: none;
 }
@@ -361,5 +361,4 @@ a {
 #logoutBtn {
   color: white;
   font-weight: bold;
->>>>>>> cd1817434fb79b136bc2506688742c5e054c62a6
 }
