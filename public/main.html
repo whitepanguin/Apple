@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="shortcut icon" href="./img/logo2.ico" type="image/x-icon" />
 
-    <script defer src="./js/main.js"></script>
+    <script defer type="module" src="./js/main.js"></script>
     <script defer src="./js/header.js"></script>
     <script defer src="./js/footer.js"></script>
+    <script defer type="module" src="./js/region.js"></script>
+    <script defer type="module" src="./js/userlocation.js"></script>
     <script
       src="https://kit.fontawesome.com/133260cff9.js"
       crossorigin="anonymous"
@@ -28,6 +30,29 @@
           <div class="main__text__box">
             <div class="main__title__text">
               <i class="fa fa-map-marker" id="main__text__i"></i>
+              <div id="region-box" class="region-box" style="display: none">
+                <div class="region-box-content">
+                  <h4 id="loc-choose-btn">지역 선택</h4>
+
+                  <input
+                    type="text"
+                    id="region-search"
+                    placeholder="지역을 검색하세요..."
+                  />
+
+                  <button id="get-location-btn">현재 내 위치 사용하기</button>
+
+                  <div class="region-suggestions">
+                    <button class="tag">송도동</button>
+                    <button class="tag">역삼동</button>
+                    <button class="tag">서초동</button>
+                    <button class="tag">신림동</button>
+                    <button class="tag">청담동</button>
+                  </div>
+
+                  <button id="close-region-box">닫기</button>
+                </div>
+              </div>
               <div id="areaName">역삼역</div>
               에서
             </div>
@@ -45,8 +70,8 @@
                   <i class="fa fa-chevron-down"></i>
                 </button>
               </div>
-              <!-- 검색창 시작 -->
 
+              <!-- 검색창 -->
               <div class="searchInputAndList">
                 <div class="search__input__box">
                   <div class="margin__right-1">
@@ -75,20 +100,19 @@
 
                 <div class="categoryMenu hidden" id="categoryMenu">
                   <nav>
-                    <a href="./post.html">중고거래</a>
+                    <a href="">중고거래</a>
                     <a href="">알바</a>
                     <a href="./realestate.html">부동산</a>
-                    <a href="">중고차</a>
-                    <a href="">동네업체</a>
-                    <a href="">동네생활</a>
-                    <a href="">모임</a>
+                    <a href="#">중고차</a>
+                    <a href="#">동네업체</a>
+                    <a href="#">동네생활</a>
+                    <a href="#">모임</a>
                   </nav>
                 </div>
 
                 <div class="popularSearch__box">
                   <div class="popularSearch__title">인기 검색어</div>
                   <div class="popularSearch__list">
-                    <!-- pList: 위에 stuffName과 같음. -->
                     굿즈 카페 노트북 원룸 현대 중고차 이사짐 알바 근처맛집
                     동네친구 배드민턴 모임 자전거
                   </div>
@@ -97,16 +121,17 @@
             </div>
           </div>
         </section>
+
         <section class="section__menu">
           <div class="menues__box">
-            <a class="menu" href="./post.html">
+            <a class="menu" href="#">
               <div class="menu__contents">
                 <i class="fas fa-box-open"></i>
                 <h4>중고거래</h4>
-              </div>
-            </a>
-            <a class="menu" href="#">
-              <div class="menu__contents">
+              </div></a
+            >
+            <a class="menu" href="#"
+              ><div class="menu__contents">
                 <i class="fas fa-briefcase"></i>
                 <h4>알바</h4>
               </div></a
@@ -115,32 +140,32 @@
               ><div class="menu__contents">
                 <i class="fas fa-building"></i>
                 <h4>부동산</h4>
-              </div>
-            </a>
-            <a class="menu" href="#">
-              <div class="menu__contents">
+              </div></a
+            >
+            <a class="menu" href="#"
+              ><div class="menu__contents">
                 <i class="fas fa-car"></i>
                 <h4>중고차</h4>
-              </div>
-            </a>
-            <a class="menu" href="#">
-              <div class="menu__contents">
+              </div></a
+            >
+            <a class="menu" href="#"
+              ><div class="menu__contents">
                 <i class="fas fa-store"></i>
                 <h4>동네업체</h4>
-              </div>
-            </a>
-            <a class="menu" href="#">
-              <div class="menu__contents">
+              </div></a
+            >
+            <a class="menu" href="#"
+              ><div class="menu__contents">
                 <i class="fas fa-comments"></i>
                 <h4>동네생활</h4>
-              </div>
-            </a>
-            <a class="menu" href="#">
-              <div class="menu__contents">
+              </div></a
+            >
+            <a class="menu" href="#"
+              ><div class="menu__contents">
                 <i class="fas fa-users"></i>
                 <h4>모임</h4>
-              </div>
-            </a>
+              </div></a
+            >
           </div>
 
           <div class="areas__box">
@@ -170,6 +195,7 @@
         </section>
       </div>
     </main>
+
     <footer>
       <div id="footer-placeholder"></div>
     </footer>
