@@ -15,9 +15,10 @@ html {
   padding: 0;
   font-family: sans-serif;
   background: #ffffff;
-
 }
-
+.close-sidebar-btn {
+  display: none;
+}
 .main {
   display: flex;
   justify-content: center;
@@ -35,8 +36,12 @@ html {
   display: none;
 }
 
+.main__title__geoName {
+  padding-bottom: 20px;
+}
+
 .property-list-btn {
-  /* display: none; */
+  display: none;
   /* top: 90px;
   left: 20px; */
   width: 100%;
@@ -104,8 +109,6 @@ label {
   margin-bottom: 0.5rem;
 }
 
-
-
 .property-list {
   width: 100%;
   flex: 4;
@@ -168,8 +171,7 @@ img:hover {
 }
 
 @media (max-width: 1024px) {
-
-    .sidebar {
+  .sidebar {
     display: none;
     position: fixed;
     top: 50%;
@@ -190,6 +192,7 @@ img:hover {
   }
 
   .close-sidebar-btn {
+    display: block;
     position: absolute;
     top: 10px;
     right: 15px;
@@ -203,30 +206,29 @@ img:hover {
     overflow: hidden; /* 스크롤 막기 */
   }
 }
-  
-  .property-list--box {
-    display: block;
-    justify-content: flex-start;
-    padding-left: 5px;
-    margin-left: 15px;
-    margin-bottom: 5px;
-  }
-  .property-list-btn {
-    width: 70px;
-    color: #999;
-    border: #ffffff;
-    align-items: start;
-    text-decoration: underline;
-    font-size: 14px;
 
-    border-radius: 9999px;
-    padding: 5px 12px;
-    cursor: pointer;
-  }
-  .property-list-icon {
-    width: 14px;
-  }
+.property-list--box {
+  display: block;
+  justify-content: flex-start;
+  padding-left: 5px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+.property-list-btn {
+  width: 70px;
+  color: #999;
+  border: #ffffff;
+  align-items: start;
+  text-decoration: underline;
+  font-size: 14px;
 
+  border-radius: 9999px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.property-list-icon {
+  width: 14px;
+}
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .property-list {
@@ -245,6 +247,10 @@ img:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
   }
 
+  .property-list-btn {
+    display: block;
+  }
+
   .property {
     width: 28%;
     height: auto;
@@ -259,7 +265,6 @@ img:hover {
       flex-direction: column;
        */
   }
-  
 
   #applyBtnMobile {
     width: 90%;
@@ -271,8 +276,6 @@ img:hover {
     font-size: 16px;
   }
 }
-
-
 
 @media (max-width: 768px) {
   .property-list {
@@ -290,7 +293,9 @@ img:hover {
 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
   }
-
+  .property-list-btn {
+    display: block;
+  }
   .property {
     width: 48%;
     height: auto;
