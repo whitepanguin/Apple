@@ -42,7 +42,11 @@ export async function getChatByPostid(req, res) {
       const owner = post.userid; // 글 작성자의 userid
 
       // 채팅방 생성
-      chat = await chatRepository.createChatRoomByPostId(postid, owner);
+      const newChat = await chatRepository.createChatRoomByPostId(
+        postid,
+        owner
+      );
+      chat = [newChat];
     }
 
     res.status(200).json(chat);

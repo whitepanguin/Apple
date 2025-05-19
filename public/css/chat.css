@@ -5,7 +5,7 @@
 }
 /* 헤더 밑 메인으로 페이지 요소 감싸기 (통일) */
 .main {
-  margin: 15rem;
+  margin: 30px 5%;
   /* border: 1px solid black; */
 }
 
