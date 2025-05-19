@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 function renderRealestateDetail(data) {
   // 기본 정보 출력
   document.getElementById("breadcrumb-title").textContent = data.apartment;
-  document.getElementById("post-image").src = data.img || "img/4.jpg";
+  document.getElementById("post-image").src = data.img
+    ? `/uploads/${data.img}`
+    : "/img/2.jpg";
   document.getElementById("realestate-type").textContent = data.apartment;
   document.getElementById("realestate-createdAt").textContent =
     data.sale_date || "-";
