@@ -44,6 +44,8 @@ async function updateUser(event) {
   };
 
   try {
+    console.log("보낼 데이터:", updateData);
+
     const response = await fetch("/auth/update", {
       method: "PATCH",
       headers: {

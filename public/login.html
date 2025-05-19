@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="./css/login.css">
     <script defer src="./js/header.js"></script>
     <script src="./js/login.js"></script>
+    <style>
+        /* CSS (login.css 등 내부 또는 head에 style로 작성) */
+        .signup-link:link {
+        color: black;
+        font-style: italic;
+        font-weight: normal;
+        text-decoration: none;
+        }
+
+        .signup-link:visited {
+        color: black; /* 방문 후에도 원래대로 복귀 */
+        font-style: italic;
+        font-weight: normal;
+        text-decoration: none;
+        }
+
+        .signup-link:hover {
+        text-decoration: underline;
+        font-weight: bold;
+        }
+
+        .signup-link:active {
+        color: #FF6600; /* 클릭 순간 */
+        }
+    </style>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -30,6 +55,8 @@
                 </div>
 
                 <button id="login" type="submit"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">로그인</span></button>
+                <a class="signup-link" href="./signup.html">당근이 처음이신가요? 회원가입</a>
+
             </div>
         </form>
     </main>
