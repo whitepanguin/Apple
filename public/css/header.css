@@ -126,6 +126,7 @@ a {
 }
 
 .header__button-login {
+  
   background-color: var(--color-carat);
   border-radius: 5px;
   height: 2rem;
@@ -339,4 +340,11 @@ a {
 
 .header__searchInputAndList.hidden {
   display: none;
+}
+
+/* header.css 또는 login.css 등에 */
+.welcome-message {
+  font-weight: bold;
+  color: #f0f0f0;
+  margin-left: 10px;
 }

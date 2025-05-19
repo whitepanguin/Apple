@@ -3,84 +3,54 @@ fetch("../header.html")
   .then((html) => {
     document.getElementById("header-placeholder").innerHTML = html;
 
-    const header = document.querySelector(".header");
-    const searchIconBtn = document.querySelector(".header__button__search");
-    const searchInputArea = document.getElementById("searchInputArea");
-    const headerHeight = header.offsetHeight;
+    // ✅ 이제 DOM이 삽입된 이후이므로 다시 요소를 찾음
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-    // ✅ 검색 엔진
-    const searchInput = document.getElementById("searchInput");
-    const searchBtn = document.getElementById("searchBtn");
+    // ✅ 사용자 로그인 상태 확인
+    fetch("/auth/me", {
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem("token") || sessionStorage.getItem("token")
+        }`,
+      },
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        if (data.userid || data.email) {
+          // ✅ 로그인 상태
+          if (loginBtn) loginBtn.style.display = "none";
+          if (logoutBtn) logoutBtn.style.display = "inline-block";
 
-    async function handleSearch() {
-      const query = searchInput.value.trim();
-      if (!query) {
-        alert("검색어를 입력해주세요.");
-        return;
-      }
-      window.location.href = `/search-results.html?q=${encodeURIComponent(
-        query
-      )}`;
-    }
-    if (searchBtn && searchInput) {
-      searchBtn.addEventListener("click", handleSearch);
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") handleSearch();
-      });
-    }
-
-    // ✅ 검색 버튼 클릭 시 검색창 토글
-    if (searchIconBtn && searchInputArea) {
-      searchIconBtn.addEventListener("click", () => {
-        searchInputArea.classList.toggle("hidden");
-      });
-    }
-
-    // ✅ 스크롤 이벤트 처리
-    let lastScrollY = window.scrollY;
-
-    document.addEventListener("scroll", () => {
-      const currentScrollY = window.scrollY;
-
-      // 헤더 줄 생기기
-      if (currentScrollY > headerHeight) {
-        header.classList.add("header--line");
-      } else {
-        header.classList.remove("header--line");
-      }
-
-      // 스크롤 ↑ 방향일 때 검색창 닫기
-      if (currentScrollY < lastScrollY) {
-        if (searchInputArea && !searchInputArea.classList.contains("hidden")) {
-          searchInputArea.classList.add("hidden");
+          // ✅ 환영 메시지 표시
+          const welcomeEl = document.getElementById("welcome-message");
+          if (welcomeEl && data.userid) {
+            welcomeEl.textContent = `${data.userid}님 안녕하세요!`;
+          }
         }
+      })
+      .catch(() => {
+        // ✅ 로그인 안 된 상태
+        if (loginBtn) loginBtn.style.display = "inline-block";
+        if (logoutBtn) logoutBtn.style.display = "none";
+      });
+
+    // ✅ 로그아웃 로직
+    logoutBtn?.addEventListener("click", async (e) => {
+      e.preventDefault(); // form의 기본 제출 막기
+      try {
+        await fetch("/auth/logout", { method: "POST" });
+      } catch (e) {
+        console.error("서버 로그아웃 실패", e);
       }
 
-      lastScrollY = currentScrollY;
-    });
+      localStorage.removeItem("token");
+      localStorage.removeItem("userid");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("userid");
 
-    attachCategoryMenuToggle();
+      alert("로그아웃 되었습니다.");
+      window.location.href = "/main.html";
+    });
   })
   .catch((err) => console.log("헤더 로딩 실패", err));
-
-// ✅ 카테고리 메뉴 열기/닫기 핸들러
-function attachCategoryMenuToggle() {
-  const categoryBtn = document.querySelector(".selectCategoryBtn");
-  const categoryMenu = document.getElementById("categoryMenu");
-
-  if (!categoryBtn || !categoryMenu) {
-    console.warn("카테고리 버튼 또는 메뉴 요소가 없습니다.");
-    return;
-  }
-
-  categoryBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    categoryMenu.classList.toggle("hidden");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
-      categoryMenu.classList.add("hidden");
-    }
-  });
-}

@@ -14,9 +14,20 @@
         <i id="header_i" class="fa fa-search" aria-hidden="true"></i>
       </button>
 
-      <button class="header__button-login" onclick="location.href='login.html'">
+      <button class="header__button-login" id="loginBtn" onclick="location.href='login.html'">
         <span class="header__button__text">로그인</span>
       </button>
+      <form action="/auth/logout" method="POST" style="display: inline">
+            <button
+              class="header__button-login"
+              id="logoutBtn"
+              type="submit"
+              style="display: none;"
+            >
+              로그아웃
+            </button>
+          </form>
+
     </div>
   </div>
 
