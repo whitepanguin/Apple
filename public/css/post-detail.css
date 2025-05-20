@@ -211,9 +211,9 @@ a:visited {
 }
 
 #edit-text {
-  width: 100%; /* 폭: 부모 기준으로 꽉 채우기 */
-  height: 150px; /* 높이: 원하는 만큼 */
-  font-size: 16px; /* 글자 크기 */
+  width: 100%;
+  height: 150px;
+  font-size: 16px;
   padding: 10px;
   box-sizing: border-box;
   resize: vertical; /* 사용자가 세로 방향으로만 크기 조절 가능 */
@@ -223,4 +223,17 @@ a:visited {
   width: 100%;
   height: 25px;
   box-sizing: border-box;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-link {
+  color: #bd2514;
+  margin-left: 10px;
+  font-weight: bold;
+
+  cursor: pointer;
 }

@@ -55,8 +55,8 @@ function renderPostList(posts) {
   listContainer.innerHTML = ""; // 기존 내용 비우기
 
   posts.forEach((post) => {
-    const card = document.createElement("div");
-    card.className = "property";
+    const card = document.createElement("div"); //div 태그 생성
+    card.className = "property"; // 클래스명 지정
 
     // ✅ 클릭 시 상세페이지로 이동
     card.addEventListener("click", () => {
