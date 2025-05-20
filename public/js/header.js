@@ -86,6 +86,7 @@ fetch("../header.html")
           // ✅ 로그인 상태일 경우
           loginBtn?.classList.add("hidden");
           logoutBtn?.classList.remove("hidden");
+          logoutBtn.style.display = "inline-block";
           // ✅ 마이페이지 버튼 표시
           if (mypageBtn) {
             mypageBtn.style.display = "inline-block";
