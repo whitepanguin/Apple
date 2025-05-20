@@ -1,8 +1,8 @@
-// ✅ 1. URL에서 게시글 ID 추출
+//  1. URL에서 게시글 ID 추출
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 
-// ✅ 2. 시간 계산 함수
+// 2. 시간 계산 함수
 function timeAgo(date) {
   const now = new Date();
   const diff = Math.floor((now - new Date(date)) / 1000);
@@ -13,18 +13,18 @@ function timeAgo(date) {
   return `${Math.floor(diff / 86400)}일 전`;
 }
 
-// ✅ 3. 게시글 ID 없을 경우 예외 처리
+//  3. 게시글 ID 없을 경우 예외 처리
 if (!postId) {
   console.error("❌ 게시글 ID가 없습니다.");
 } else {
-  // ✅ 4. 게시글 데이터 불러오기
+  //  4. 게시글 데이터 불러오기
   fetch(`/posts/${postId}`)
     .then((res) => {
       if (!res.ok) throw new Error("서버 오류");
       return res.json();
     })
     .then((post) => {
-      // ✅ 5. 게시글 화면에 출력
+      // 5. 게시글 화면에 출력
       document.getElementById("post-image").src = post.img;
       document.getElementById("post-title").textContent = post.tittle;
       document.getElementById("post-category-text").textContent = post.category;
@@ -40,7 +40,7 @@ if (!postId) {
         post.createdAt
       );
 
-      // ✅ 6. 판매자 정보 요청 및 출력
+      // 6. 판매자 정보 요청 및 출력
       fetch(`/api/${post.userid}`)
         .then((res) => {
           if (!res.ok) throw new Error("판매자 정보 없음");
@@ -62,13 +62,13 @@ if (!postId) {
 
       console.log("✅ 게시글 데이터:", post);
 
-      // ✅ 7. 수정 모달 요소 및 이벤트 연결
+      // 7. 수정 모달 요소 및 이벤트 연결
       const editBtn = document.getElementById("edit-post");
       const modal = document.getElementById("edit-modal");
       const cancelBtn = document.getElementById("cancel-edit");
       const submitBtn = document.getElementById("submit-edit");
 
-      // 수정 버튼 → 모달 열기 + 값 채우기
+      // 수정 버튼 ->모달 열기 + 값 채우기
       editBtn?.addEventListener("click", () => {
         document.getElementById("edit-tittle").value = post.tittle;
         document.getElementById("edit-category").value = post.category;
@@ -77,12 +77,12 @@ if (!postId) {
         modal.classList.remove("hidden");
       });
 
-      // 취소 버튼 → 모달 닫기
+      // 취소 버튼 -> 모달 닫기
       cancelBtn?.addEventListener("click", () => {
         modal.classList.add("hidden");
       });
 
-      // 수정 완료 → PATCH 요청
+      // 수정 완료 -> PATCH 요청
       submitBtn?.addEventListener("click", async () => {
         const updateData = {
           tittle: document.getElementById("edit-tittle").value,
@@ -111,7 +111,7 @@ if (!postId) {
         }
       });
 
-      // ✅ 8. 삭제 버튼 이벤트 연결
+      // 8. 삭제 버튼 이벤트 연결
       const deleteBtn = document.getElementById("delete-post");
 
       deleteBtn?.addEventListener("click", async (e) => {

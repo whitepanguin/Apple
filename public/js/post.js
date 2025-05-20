@@ -1,3 +1,4 @@
+// 페이지가 로딩되면 게시글 불러오고 화면에 출력
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch("/posts");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderCategoryFilter(posts);
     renderPostList(posts);
 
-    // ✅ 필터 클릭 이벤트
+    // 라디오 버튼 클릭 시 필터링된 게시글 보여주기
     document
       .getElementById("category-filter")
       .addEventListener("change", (e) => {
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const filtered =
             selected === "전체"
               ? posts
-              : posts.filter((post) => normalize(post.category) === selected);
+              : posts.filter((post) => post.category === selected);
           renderPostList(filtered);
         }
       });
@@ -27,17 +28,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// ✅ 중복 제거된 카테고리 렌더링
+// 중복 제거된 카테고리 렌더링
 function renderCategoryFilter(posts) {
   const box = document.getElementById("category-filter");
   box.innerHTML = "";
 
-  const categories = Array.from(
-    new Set(posts.map((p) => normalize(p.category)))
-  );
+  // Set은 값의 집합이며 중복을 허용하지 않음
+  const categories = Array.from(new Set(posts.map((p) => p.category.trim())));
 
   categories.sort();
-  categories.unshift("전체");
+  categories.unshift("전체"); // 배열 맨 앞에 값 추가 ("전체")
 
   categories.forEach((cat) => {
     const label = document.createElement("label");
@@ -49,7 +49,7 @@ function renderCategoryFilter(posts) {
   });
 }
 
-// ✅ 게시글 목록 렌더링 (최종 1개만 유지)
+//  게시글 목록 렌더링 (최종 1개만 유지)
 function renderPostList(posts) {
   const listContainer = document.querySelector(".property-list__box");
   listContainer.innerHTML = ""; // 기존 내용 비우기
@@ -58,7 +58,7 @@ function renderPostList(posts) {
     const card = document.createElement("div"); //div 태그 생성
     card.className = "property"; // 클래스명 지정
 
-    // ✅ 클릭 시 상세페이지로 이동
+    //  클릭 시 상세페이지로 이동
     card.addEventListener("click", () => {
       window.location.href = `post-detail.html?id=${post._id}`;
     });
@@ -79,7 +79,7 @@ function renderPostList(posts) {
   });
 }
 
-// ✅ 시간 계산
+//  시간 계산
 function timeAgo(date) {
   const now = new Date();
   const past = new Date(date);
@@ -89,9 +89,4 @@ function timeAgo(date) {
   if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;
   if (diff < 86400) return `${Math.floor(diff / 3600)}시간 전`;
   return `${Math.floor(diff / 86400)}일 전`;
-}
-
-// ✅ 문자열 정리 (중복 제거용)
-function normalize(str) {
-  return (str || "기타").trim();
 }
