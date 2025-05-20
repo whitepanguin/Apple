@@ -4,7 +4,7 @@ import requests
 import pymongo
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-# from elasticsearch import Elasticsearch  # ❌ Elasticsearch 주석 처리
+from elasticsearch import Elasticsearch 
 from sentence_transformers import SentenceTransformer
 
 # 1. 환경 변수 로드
@@ -20,26 +20,36 @@ qdrant = QdrantClient(
     url=os.getenv("QDRANT_URL"),
     api_key=os.getenv("QDRANT_API_KEY")
 )
+# 차원 변경
+qdrant.recreate_collection(
+    collection_name="apple_collection",
+    vectors_config={"size": 384, "distance": "Cosine"}
+)
 
-# 4. Elasticsearch 연결 제거
-# es = Elasticsearch(
-#     os.getenv("ES_URL"),
-#     basic_auth=(os.getenv("ES_USERNAME"), os.getenv("ES_PASSWORD"))
-# )
+
+es = Elasticsearch(
+    os.getenv("ES_URL"),
+    basic_auth=(os.getenv("ES_USERNAME"), os.getenv("ES_PASSWORD"))
+)
 
 # 5. 모델 로딩 (768차원 임베딩)
-bi_encoder = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+# bi_encoder = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+
+# 5. 모델 로딩 (384차원 모델 사용)
+bi_encoder = SentenceTransformer("sentence-transformers/all-MiniLM-L12-v2")
+
+
 
 # 6. 설정
-COLLECTION = "apple_collection"
-# INDEX = "apple_index"  # ❌ ES용 상수 제거
+COLLECTION = "vector_collection"
+INDEX = "apple_index"  # ❌ ES용 상수 제거
 
 # 7. 인덱싱 시작
 for post in posts.find():
     # 중복 인덱싱 방지 (필요시 주석 해제)
-    # if post.get("vectorId"):
-    #     print(f"✅ 이미 인덱싱됨: {post['_id']}")
-    #     continue
+    if post.get("vectorId"):
+        print(f"✅ 이미 인덱싱됨: {post['_id']}")
+        continue
 
     # 텍스트 임베딩
     try:

@@ -64,9 +64,9 @@
           <div class="main__search__box">
             <div class="main__search--container">
               <div class="main__searchBtn-box">
-                <button class="search__button__searchArea">
+                <button class="search__button__searchArea" data-type="text">
                   <i class="fa fa-map-marker"></i>
-                  <p>역삼동</p>
+                  <p>역삼역</p>
                   <i class="fa fa-chevron-down"></i>
                 </button>
               </div>
@@ -78,6 +78,7 @@
                     <button class="selectCategoryBtn">
                       <span>중고거래</span><i class="fa fa-chevron-down"></i>
                     </button>
+
                     |
                   </div>
                   <div class="flex--6">
@@ -93,12 +94,29 @@
                       class="pageMoveBtn pageMoveBtn--main"
                       id="mainSearchBtn"
                     >
-                      <i class="fas fa-arrow-right"></i>
+                      <i class="fa-solid fa-image"></i>
                     </button>
                   </div>
                 </div>
 
-                <div class="categoryMenu hidden" id="categoryMenu">
+                <div id="imageSearchPanel" class="image-search-panel hidden">
+                  <div class="image-search__box">
+                    <p>
+                      여기로 이미지를 드래그하거나<br /><a href="#"
+                        >파일을 업로드하세요</a
+                      >
+                    </p>
+                    <input
+                      type="file"
+                      id="imageUploadInput"
+                      accept="image/*"
+                      hidden
+                    />
+                    <button class="upload-btn">파일 선택</button>
+                  </div>
+                </div>
+
+                <!-- <div class="categoryMenu hidden" id="categoryMenu">
                   <nav>
                     <a href="./post.html">중고거래</a>
                     <a href="">알바</a>
@@ -108,13 +126,15 @@
                     <a href="#">동네생활</a>
                     <a href="#">모임</a>
                   </nav>
-                </div>
+                </div> -->
 
                 <div class="popularSearch__box">
-                  <div class="popularSearch__title">인기 검색어</div>
+                  <div class="popularSearch__title">
+                    이미지 검색을 이용해보세요!
+                  </div>
                   <div class="popularSearch__list">
-                    굿즈 카페 노트북 원룸 현대 중고차 이사짐 알바 근처맛집
-                    동네친구 배드민턴 모임 자전거
+                    원하는 물건의 사진이 있다면, 이미지 검색을 통해 찾을 수
+                    있어요.
                   </div>
                 </div>
               </div>

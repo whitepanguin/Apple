@@ -98,6 +98,6 @@ db의 사용 방법과 단계를 안내.
 1. 엘라스틱서치 로컬 서버 작동 (위와 동일)
 2. `cd py-embed` 이동
 3. 가상환경 활성화 `.\venv\Scripts\activate`
-4. 서버 실행 `uvicorn embed_server:app`
+4. 서버 실행 `uvicorn app:app`
 
 ---

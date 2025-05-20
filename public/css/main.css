@@ -191,6 +191,32 @@ a {
   opacity: 1 !important;
 }
 
+/* 이미지 검색창: 클릭시 나옴 */
+.image-search-panel {
+  position: fixed;
+  top: 32%;
+  left: 54%;
+  transform: translateX(-50%);
+  background: #1f1f1f;
+  padding: 8rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+  z-index: 1000;
+}
+.hidden {
+  display: none;
+}
+.upload-btn {
+  margin-top: 1rem;
+  background: #2d2d2d;
+  border: 1px solid #444;
+  padding: 0.5rem 1rem;
+  color: white;
+  cursor: pointer;
+}
+
 /* 태블릿 */
 @media (min-width: 768px) and (max-width: 1200px) {
   .menues__box {

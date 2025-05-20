@@ -16,6 +16,7 @@ app.add_middleware(
 app.include_router(embed_router)
 app.include_router(search_router)
 
+
 @app.get("/")
 def root():
     return {"message": "서버 정상 작동 중 ✅"}
