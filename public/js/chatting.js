@@ -322,3 +322,10 @@ window.onload = function () {
   loadData();
   initChat();
 };
+
+// ✅ 엔터키 입력 시 실행
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleSearch();
+  }
+});
