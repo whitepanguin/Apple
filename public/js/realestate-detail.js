@@ -42,8 +42,21 @@ function renderRealestateDetail(data) {
     data.maintenance_fee || "-";
   document.getElementById("realestate-approved").textContent =
     data.approved_date || "-";
-  document.getElementById("realestate-dealing").textContent = data.price || "-";
-  document.getElementById("realestate-price").textContent = data.sale || "-";
+  // document.getElementById("realestate-dealing").textContent = data.price || "";
+  // document.getElementById("realestate-price").textContent = data.sale || "";
+
+  const pricetag = document.getElementsByClassName("price2")[0];
+
+  const priceText =
+    data.price === "월세"
+      ? `${data.deposit || 0} / ${data.monthly_rent || 0}`
+      : data.price === "전세"
+      ? `${data.deposit || 0}`
+      : `${data.sale}`;
+
+  const div = document.createElement("div");
+  div.innerHTML = `<strong>가격:</strong> <span id="realestate-price">${priceText}</span>`;
+  pricetag.appendChild(div);
 
   // 조건 출력
   const conditionList = [];
