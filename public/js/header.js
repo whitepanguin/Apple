@@ -65,6 +65,7 @@ fetch("../header.html")
     const loginBtn = document.getElementById("loginBtn");
     const logoutBtn = document.getElementById("logoutBtn");
     const welcomeEl = document.getElementById("welcome-message");
+    const mypageBtn = document.getElementById("mypageBtn"); // ✅ 추가
 
     // ✅ 저장된 토큰 확인
     const token =
@@ -85,6 +86,10 @@ fetch("../header.html")
           // ✅ 로그인 상태일 경우
           loginBtn?.classList.add("hidden");
           logoutBtn?.classList.remove("hidden");
+          // ✅ 마이페이지 버튼 표시
+          if (mypageBtn) {
+            mypageBtn.style.display = "inline-block";
+          }
 
           if (welcomeEl && data.userid) {
             welcomeEl.textContent = `${data.userid}님 안녕하세요!`;
