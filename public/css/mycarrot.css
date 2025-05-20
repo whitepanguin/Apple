@@ -27,16 +27,10 @@ main {
   text-align: center;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  transition: transform 0.2s;
-}
-.all-box:hover {
-  transform: translateY(-2px);
 }
 
 .all-box img {
@@ -152,7 +146,7 @@ main {
 }
 
 .shop-button {
-  background-color: orange;
+  background-color: var(--color-carat-hover);
   color: white;
   padding: 10px 16px;
   font-size: 15px;
@@ -167,41 +161,40 @@ main {
   background-color: darkorange;
 }
 
-/* 컨텐트 박스 */
 .section-box {
   background-color: #333;
   border-radius: 12px;
+  width: 485px;
   padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: center; /* 제목만 중앙 정렬 */
-  width: 485px;
-}
-
-/* 제목 */
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
-/* 리스트 */
+/* 제목  */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* 섹션박스 */
 .section-list {
   list-style: none;
   padding: 0;
-  margin: 0 auto;
-  text-align: left;
+  margin: auto 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.section-list li {
-  width: 100%;
-}
 
-/* 항목 */
+/* 섹션항목 */
 .section-list li a {
   width: 100%;
   display: flex;
@@ -213,7 +206,17 @@ main {
   font-size: 15px;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid white;
+
+  /*  테두리 제거 */
+  border: none;
+
+  /*  흔들림 방지 + 깔끔한 렌더링 */
+  font-weight: 400;
+  line-height: 1.4;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   transition: background-color 0.2s, color 0.2s;
 }
 
@@ -222,15 +225,19 @@ main {
   color: white;
 }
 
-/* 왼쪽 아이콘 */
 .section-list li i {
   width: 20px;
   text-align: center;
   font-size: 16px;
+
+  /* 아이콘은 텍스트 왼쪽 정렬 유지 */
+  flex-shrink: 0;
 }
 
-/* 오른쪽 꺾쇠 */
 .section-list .arrow {
   color: #aaa;
   font-size: 14px;
+
+  /* 오른쪽 끝 정렬 보장 */
+  margin-left: auto;
 }
