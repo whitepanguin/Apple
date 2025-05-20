@@ -22,9 +22,6 @@ fetch("header.html")
         if (e.key === "Enter") handleSearch(headerSearchInput);
       });
     }
-
-    attachCategoryMenuToggle();
-    attachRegionClickHandlers();
   })
   .catch((err) => console.error("헤더 로딩 실패", err));
 
