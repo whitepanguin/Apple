@@ -1,6 +1,5 @@
 # py-embed - 검색엔진 서비스
 
-이 디렉토리는 Qdrant와 Elasticsearch 기반의 **문장 임베딩 검색엔진 API 서버**입니다.  
 FastAPI로 작성되어 있으며, Node.js 백엔드에서 이 검색 서버에 HTTP 요청을 보내어 검색 기능을 활용합니다.
 
 ---
@@ -24,8 +23,8 @@ apple/
 │   ├── app.py                  # FastAPI 앱 실행 진입점
 │   ├── embed_server.py         # /embed API 라우터
 │   ├── search_router.py        # /search API 라우터
-│   ├── index.py                # ⚠️ Mongo → Qdrant/ES 인덱싱 스크립트
-│   ├── init_store.py           # ⚠️ Qdrant/ES 컬렉션 생성용 스크립트
+│   ├──
+│   ├──
 │   ├── config.py               # 환경 변수 읽기 및 공통 상수
 │   ├── requirements.txt        # Python 의존성 목록
 │   └── venv/                   # Python 가상환경 (로컬 전용, .gitignore 대상)
@@ -70,11 +69,6 @@ db의 사용 방법과 단계를 안내.
      - 아이디는 elasticsearch
    - `http://localhost:9200`에서 실행확인 가능
      - 들어가서 아이디와 복사한 비밀번호 입력
-
-### Qdrant
-
-- Qdrant 공식 페이지에서 계정 생성하여 키와 url 받기
-- 서버
 
 ---
 

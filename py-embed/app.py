@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from embed_server import router as embed_router
-from search_router import router as search_router
+# from embed_server import router as embed_router
+from filtering_strategy import router as search_router
 
 app = FastAPI()
 
@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(embed_router)
+# app.include_router(embed_router)
 app.include_router(search_router)
 
 

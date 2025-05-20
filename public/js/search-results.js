@@ -76,7 +76,8 @@ function renderResults(results) {
       </div>`;
 
     card.addEventListener("click", () => {
-      window.location.href = `post-detail.html?id=${item.id}`;
+      const mongoId = item.mongoId; // fallback
+      window.location.href = `post-detail.html?id=${mongoId}`;
     });
 
     resultsContainer.appendChild(card);

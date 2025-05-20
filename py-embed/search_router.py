@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, HTTPException
-from sentence_transformers import SentenceTransformer, CrossEncoder
+from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from elasticsearch import Elasticsearch
 from config import *
@@ -7,14 +7,14 @@ import time
 
 router = APIRouter()
 
-bi_encoder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")  # 384차원
-cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+# 벡터 인코더 (이미지/텍스트 벡터화용)
+bi_encoder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 # 클라이언트 연결
 qdrant = QdrantClient(QDRANT_URL, api_key=QDRANT_API_KEY)
 es = Elasticsearch(ES_URL, basic_auth=(ES_USERNAME, ES_PASSWORD))
 
-# 검색 API
+
 @router.get("/search")
 def search(q: str = Query(..., description="검색어"), type: str = Query("text", description="검색 타입: text 또는 image")):
     start = time.time()
@@ -39,29 +39,29 @@ def search_by_image(q: str, start: float):
         print("❌ Qdrant 검색 실패:", e)
         raise HTTPException(status_code=500, detail=str(e))
 
-    candidates = []
-    for hit in hits:
-        payload = hit.payload or {}
-        candidates.append({
+    results = [
+        {
             "id": hit.id,
-            "title": payload.get("tittle", ""),
-            "text": payload.get("text", ""),
-            "img": payload.get("img", ""),
-            "price": payload.get("price", 0),
-            "category": payload.get("category", ""),
-            "userid": payload.get("userid", ""),
-            "createdAt": payload.get("createdAt", ""),
-            "updatedAt": payload.get("updatedAt", ""),
+            "title": hit.payload.get("tittle", ""),
+            "text": hit.payload.get("text", ""),
+            "img": hit.payload.get("img", ""),
+            "price": hit.payload.get("price", 0),
+            "category": hit.payload.get("category", ""),
+            "userid": hit.payload.get("userid", ""),
+            "createdAt": hit.payload.get("createdAt", ""),
+            "updatedAt": hit.payload.get("updatedAt", ""),
             "score": hit.score
-        })
+        }
+        for hit in hits
+    ]
 
     return {
         "query": q,
-        "results": candidates[:10]
+        "results": results[:10]
     }
 
 
-# 텍스트 검색 (Elasticsearch + CrossEncoder 재정렬)
+# 텍스트 검색 (Elasticsearch only)
 def search_by_text(q: str, start: float):
     try:
         es_query = {
@@ -72,7 +72,7 @@ def search_by_text(q: str, start: float):
                     "fuzziness": "AUTO"
                 }
             },
-            "size": 20
+            "size": 50
         }
 
         response = es.search(index="text_index", body=es_query)
@@ -81,36 +81,25 @@ def search_by_text(q: str, start: float):
         print("❌ Elasticsearch 검색 실패:", e)
         raise HTTPException(status_code=500, detail=str(e))
 
-    candidates = []
-    for hit in hits:
-        source = hit["_source"]
-        candidates.append({
+    results = [
+        {
             "id": hit["_id"],
-            "title": source.get("tittle", ""),
-            "text": source.get("text", ""),
-            "img": source.get("img", ""),
-            "price": source.get("price", 0),
-            "category": source.get("category", ""),
-            "userid": source.get("userid", ""),
-            "createdAt": source.get("createdAt", ""),
-            "updatedAt": source.get("updatedAt", ""),
-            "es_score": hit["_score"]
-        })
+            "title": hit["_source"].get("tittle", ""),
+            "text": hit["_source"].get("text", ""),
+            "img": hit["_source"].get("img", ""),
+            "price": hit["_source"].get("price", 0),
+            "category": hit["_source"].get("category", ""),
+            "userid": hit["_source"].get("userid", ""),
+            "createdAt": hit["_source"].get("createdAt", ""),
+            "updatedAt": hit["_source"].get("updatedAt", ""),
+            "score": hit["_score"]
+        }
+        for hit in hits
+    ]
 
-    # CrossEncoder로 재정렬
-    if not candidates:
-        return {"query": q, "results": [], "message": "No results found in Elasticsearch."}
-
-    pairs = [(q, doc["text"]) for doc in candidates]
-    scores = cross_encoder.predict(pairs)
-
-    for i, doc in enumerate(candidates):
-        doc["ai_score"] = float(scores[i])
-
-    candidates.sort(key=lambda x: x["ai_score"], reverse=True)
-    print("🔹 CrossEncoder 리랭크 포함 총 검색 시간:", time.time() - start)
+    print("🔹 Elasticsearch 검색 시간:", time.time() - start)
 
     return {
         "query": q,
-        "results": candidates[:10]
+        "results": results[:10]
     }
