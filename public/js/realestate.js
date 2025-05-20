@@ -117,9 +117,6 @@ function insertImg(items) {
   container.innerHTML = "";
 
   items.forEach((item) => {
-    container.addEventListener("click", () => {
-      window.location.href = `realestate-detail.html?id=${item._id}`;
-    });
     const conditionText = [];
     if (item.condition.loan_available) conditionText.push("대출가능");
     if (item.condition.parking) conditionText.push("주차가능");
@@ -136,6 +133,10 @@ function insertImg(items) {
 
     const div = document.createElement("div");
     div.className = "property";
+
+    div.addEventListener("click", () => {
+      window.location.href = `realestate-detail.html?id=${item._id}`;
+    });
     div.innerHTML = `
       <img src="./uploads/${item.img}" alt="매물 이미지" />
       <div class="info">
