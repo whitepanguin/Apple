@@ -1,4 +1,55 @@
-// ✅ 평수 슬라이더
+// 서버에서 매물 데이터 불러오기
+async function loadData() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch("/real", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      insertImg(data);
+      console.log(data);
+    } else {
+      alert(data.message || "데이터 불러옴 실패");
+    }
+  } catch (error) {
+    console.error("에러 발생:", error);
+    alert("서버와 통신 중 문제가 발생했습니다.");
+  }
+}
+
+// 기타 장소 정보 불러오기
+async function loadData2() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch("/place", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      alert(data.message || "데이터 불러옴 실패");
+    }
+  } catch (error) {
+    console.error("에러 발생:", error);
+    alert("서버와 통신 중 문제가 발생했습니다.");
+  }
+}
+
+// 페이지 로드시 데이터 불러오기
+window.onload = function () {
+  loadData();
+  loadData2();
+};
+
+// 평수 슬라이더
 const rangeInput = document.getElementById("pyeongRange");
 const valueDisplay = document.getElementById("pyeongValue");
 
@@ -7,7 +58,7 @@ rangeInput.addEventListener("input", () => {
   applyFilter(); // 슬라이더 변경 시 실시간 필터링
 });
 
-// ✅ 필터 적용 버튼 이벤트 등록
+// 필터 적용 버튼 이벤트 등록
 document.addEventListener("DOMContentLoaded", () => {
   const applyBtn = document.getElementById("applyBtn");
   if (applyBtn) {
@@ -15,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ✅ 필터 적용 함수
+// 필터 적용 함수
 function applyFilter() {
   const selectedRoomTypes = getCheckedValues("room-type");
   const selectedDealTypes = getCheckedValues("deal-type");
@@ -88,14 +139,14 @@ function applyFilter() {
   });
 }
 
-// ✅ 체크된 값 가져오기
+// 체크된 값 가져오기
 function getCheckedValues(name) {
   return Array.from(
     document.querySelectorAll(`input[name="${name}"]:checked`)
   ).map((el) => el.value);
 }
 
-// ✅ 체크된 필터 그룹에서 값 가져오기
+// 체크된 필터 그룹에서 값 가져오기
 function getUncheckedNameValues(sectionLabelText) {
   const group = Array.from(document.querySelectorAll(".filter-group")).find(
     (group) => group.innerText.includes(sectionLabelText)
@@ -109,11 +160,14 @@ function getUncheckedNameValues(sectionLabelText) {
   });
 }
 
-// ✅ 사이드바 토글 (모바일 전용)
+// 사이드바 토글 (모바일 전용)
 function toggleFilter() {
   const sidebar = document.querySelector(".sidebar");
   sidebar.classList.toggle("show");
-  document.body.classList.toggle("sidebar-open", sidebar.classList.contains("show"));
+  document.body.classList.toggle(
+    "sidebar-open",
+    sidebar.classList.contains("show")
+  );
 }
 
 function applyMobileFilter() {
@@ -121,7 +175,7 @@ function applyMobileFilter() {
   toggleFilter();
 }
 
-// ✅ 매물 데이터 렌더링
+// 매물 데이터 렌더링
 function insertImg(items) {
   const container = document.querySelector(".property-list__box");
   container.innerHTML = "";
@@ -159,54 +213,3 @@ function insertImg(items) {
     container.appendChild(div);
   });
 }
-
-// ✅ 서버에서 매물 데이터 불러오기
-async function loadData() {
-  const token = localStorage.getItem("token");
-  try {
-    const response = await fetch("/real", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    if (response.ok) {
-      insertImg(data);
-      console.log(data);
-    } else {
-      alert(data.message || "데이터 불러옴 실패");
-    }
-  } catch (error) {
-    console.error("에러 발생:", error);
-    alert("서버와 통신 중 문제가 발생했습니다.");
-  }
-}
-
-// ✅ 기타 장소 정보 불러오기 (선택사항)
-async function loadData2() {
-  const token = localStorage.getItem("token");
-  try {
-    const response = await fetch("/place", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      alert(data.message || "데이터 불러옴 실패");
-    }
-  } catch (error) {
-    console.error("에러 발생:", error);
-    alert("서버와 통신 중 문제가 발생했습니다.");
-  }
-}
-
-// ✅ 페이지 로드시 데이터 불러오기
-window.onload = function () {
-  loadData();
-  loadData2();
-};
