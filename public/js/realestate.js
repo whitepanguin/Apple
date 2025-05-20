@@ -117,6 +117,9 @@ function insertImg(items) {
   container.innerHTML = "";
 
   items.forEach((item) => {
+    container.addEventListener("click", () => {
+      window.location.href = `realestate-detail.html?id=${item._id}`;
+    });
     const conditionText = [];
     if (item.condition.loan_available) conditionText.push("대출가능");
     if (item.condition.parking) conditionText.push("주차가능");

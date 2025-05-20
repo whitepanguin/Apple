@@ -135,6 +135,7 @@ label {
   width: 23%;
   height: auto;
   border-radius: 6px;
+  cursor: pointer;
 }
 .img--box {
   width: 100%;
