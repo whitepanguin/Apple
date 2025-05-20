@@ -1,3 +1,8 @@
+const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+
 fetch("../header.html")
   .then((res) => res.text())
   .then((html) => {
@@ -7,9 +12,6 @@ fetch("../header.html")
     const searchIconBtn = document.querySelector(".header__button__search");
     const searchInputArea = document.getElementById("searchInputArea");
     const headerHeight = header.offsetHeight;
-
-    const searchInput = document.getElementById("searchInput");
-    const searchBtn = document.getElementById("searchBtn");
 
     async function handleSearch() {
       const query = searchInput.value.trim();
@@ -68,8 +70,6 @@ fetch("../header.html")
     const mypageBtn = document.getElementById("mypageBtn"); // ✅ 추가
 
     // ✅ 저장된 토큰 확인
-    const token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
 
     if (token) {
       // ✅ 토큰이 있을 경우 사용자 상태 확인
@@ -187,12 +187,21 @@ async function handleSearch() {
 }
 
 // ✅ 클릭 시 실행
-searchBtn.addEventListener("click", handleSearch);
+document.addEventListener("DOMContentLoaded", () => {
+  const searchBtn = document.getElementById("searchBtn");
+  if (searchBtn) {
+    searchBtn.addEventListener("click", handleSearch);
+  }
+});
 
-// ✅ 엔터키 입력 시 실행
-searchInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    handleSearch();
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleSearch();
+      }
+    });
   }
 });
 

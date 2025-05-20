@@ -8,7 +8,6 @@ fetch("header.html")
     document.getElementById("header-placeholder").innerHTML = html;
 
     const storedRegion = localStorage.getItem("region");
-    if (storedRegion) updateRegionText(storedRegion);
 
     const headerSearchInput = document.querySelector(".inputSearch");
     if (headerSearchInput) {
@@ -62,8 +61,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  attachRegionClickHandlers();
 });
 
 // 3. 검색 처리 함수
