@@ -1,12 +1,13 @@
 import express from "express";
 import * as mannerController from "../controller/manner.mjs";
-import { isAuth } from "../middleware/auth.mjs"; // 인증 미들웨어
+import { isAuth } from "../middleware/auth.mjs";
 
 const router = express.Router();
 
+router.get("/manner/auto/:userid", mannerController.getOrCreateUserById);
 router.get("/", mannerController.getmanner);
-router.post("/", isAuth, mannerController.createUser); // 사용자 생성
-router.get("/:userid", mannerController.getUserById); // 사용자 조회 (아이디 기반)
-router.delete("/:userid", isAuth, mannerController.deleteUser); // 사용자 삭제 (아이디 기반)
+router.post("/", isAuth, mannerController.createUser);
+router.get("/:userid", mannerController.getUserById);
+router.delete("/:userid", isAuth, mannerController.deleteUser);
 
 export default router;

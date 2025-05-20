@@ -42,7 +42,7 @@ function renderRealestateDetail(data) {
     data.maintenance_fee || "-";
   document.getElementById("realestate-approved").textContent =
     data.approved_date || "-";
-  // document.getElementById("realestate-dealing").textContent = data.price || "";
+  document.getElementById("realestate-dealing").textContent = data.price || "";
   // document.getElementById("realestate-price").textContent = data.sale || "";
 
   const pricetag = document.getElementsByClassName("price2")[0];
