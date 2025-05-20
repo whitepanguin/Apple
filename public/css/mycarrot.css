@@ -1,62 +1,73 @@
+:root {
+  --color-background: #f8f8f8;
+  --color-box: #ffffff;
+}
+
 /* 전체 컨테이너 (그리드 2열) */
+main {
+  background-color: var(--color-background);
+  padding-bottom: 50px;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  width: 1000px;
+  max-width: 1000px;
   margin: auto;
   padding: 20px;
 }
 
 /* 공통 박스 스타일 */
 .all-box {
-  background-color: black;
-  color: white;
-  padding: 20px;
-  font-size: 20px;
+  background-color: var(--color-box);
+  color: #333;
+  padding: 30px 10px;
+  font-size: 18px;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  transition: transform 0.2s;
+}
+.all-box:hover {
+  transform: translateY(-2px);
 }
 
-/* 아이콘 박스 내부 이미지 */
 .all-box img {
-  width: 80px;
-  height: auto;
-  margin-bottom: 10px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
   object-fit: contain;
 }
 
-/* 설정 박스 (하단 전체) */
+/* 하단 전체 설정 박스 */
 .pro-op-box {
   grid-column: span 2;
-  height: auto;
-  padding: 20px;
-  background-color: black;
+  padding: 25px 0;
+  background-color: #000;
   color: white;
   font-size: 18px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 10px;
+  gap: 8px;
 }
 
 .pro-op-box img {
   width: 40px;
   height: 40px;
-  object-fit: contain;
 }
 
 .pro-op-box span {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 /* 프로필 + 당근페이 박스 */
@@ -65,30 +76,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px 40px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-box);
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* ▶ 왼쪽: 프로필 정보 */
+/* 왼쪽: 프로필 정보 */
 .pay-left {
   display: flex;
   align-items: center;
-  gap: 25px; /* 프로필 사진과 텍스트 간의 간격을 넓힘 */
+  gap: 20px;
 }
 
 .profile-img {
   width: 70px;
   height: 70px;
-  border-radius: 50%; /* 동그란 원형 테두리 설정 */
+  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ddd; /* 선택사항: 살짝 테두리 */
+  border: 2px solid #ddd;
 }
+
 .profile-info-row {
   display: flex;
   align-items: center;
-  gap: 20px; /* 닉네임과 온도 사이 간격 */
+  gap: 15px;
 }
 
 .nickname {
@@ -99,11 +111,16 @@
 
 .temperature {
   font-size: 16px;
-  color: blue;
+  color: #0077cc;
 }
 
 .retouch {
-  box-sizing: border-box;
+  padding: 6px 14px;
+  font-size: 14px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 /* 오른쪽: 당근페이 정보 + 버튼 */
@@ -118,7 +135,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   width: 100%;
 }
 
@@ -134,14 +151,86 @@
   white-space: nowrap;
 }
 
-/* 버튼 스타일 */
 .shop-button {
-  display: inline-block;
   background-color: orange;
   color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 10px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
   text-decoration: none;
   text-align: center;
   width: 100%;
+  transition: background-color 0.2s;
+}
+.shop-button:hover {
+  background-color: darkorange;
+}
+
+/* 컨텐트 박스 */
+.section-box {
+  background-color: #333;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* 제목만 중앙 정렬 */
+  width: 485px;
+}
+
+/* 제목 */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: white;
+  text-align: center;
+}
+
+/* 리스트 */
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.section-list li {
+  width: 100%;
+}
+
+/* 항목 */
+.section-list li a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid white;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.section-list li a:hover {
+  background-color: #ff8a3d;
+  color: white;
+}
+
+/* 왼쪽 아이콘 */
+.section-list li i {
+  width: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 오른쪽 꺾쇠 */
+.section-list .arrow {
+  color: #aaa;
+  font-size: 14px;
 }
