@@ -11,6 +11,23 @@ fetch("../header.html")
     const searchInput = document.getElementById("searchInput");
     const searchBtn = document.getElementById("searchBtn");
 
+    async function handleSearch() {
+      const query = searchInput.value.trim();
+      if (!query) {
+        alert("검색어를 입력해주세요.");
+        return;
+      }
+      window.location.href = `/search-results.html?q=${encodeURIComponent(
+        query
+      )}`;
+    }
+    if (searchBtn && searchInput) {
+      searchBtn.addEventListener("click", handleSearch);
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSearch();
+      });
+    }
+
     // ✅ 검색 버튼 클릭 시 검색창 토글
     if (searchIconBtn && searchInputArea) {
       searchIconBtn.addEventListener("click", () => {
