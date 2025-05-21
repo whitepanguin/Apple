@@ -25,6 +25,8 @@ async function loadData() {
   }
 }
 
+///post-detail.html?id=682b3b7f69f90202cdfefdca
+
 function renderItems(item) {
   const imgElement = document.querySelector(".chat__item__img img");
   const titleElement = document.getElementById("chat__item__title");
@@ -45,6 +47,24 @@ function renderItems(item) {
   if (priceElement) {
     priceElement.textContent = `${item.price.toLocaleString()}원`;
   }
+  const clickableElements = [
+    imgElement,
+    titleElement,
+    priceElement,
+    chatUserid,
+  ];
+  clickableElements.forEach((el) => {
+    if (el) {
+      el.addEventListener("click", () => {
+        const postId = localStorage.getItem("postId");
+        if (postId) {
+          location.href = `post-detail.html?id=${postId}`;
+        } else {
+          console.warn("postId not found in localStorage.");
+        }
+      });
+    }
+  });
 }
 
 async function initChat() {

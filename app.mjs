@@ -39,7 +39,7 @@ const limiter = rateLimit({
   standardHeaders: true, // 표준 속도 제한 헤더를 응답에 포함하겠다는 뜻
   legacyHeaders: false, // 예전 레거시 방식의 헤더를 사용하지 않겠다
 });
-app.use(limiter);
+// app.use(limiter);
 //----
 // 2.Postman 또는 흔한 봇 필터링
 /*

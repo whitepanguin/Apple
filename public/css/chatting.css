@@ -114,19 +114,23 @@ a {
 
 #chat__item {
   display: flex;
-  margin: 0 10px;
+  margin: 5px 10px;
+  gap: 10px;
 }
 
 #chat__info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 5px;
 }
 #messages {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  height: 100%;
+  padding: 5px 10px;
+  overflow-y: auto;
+  max-height: 400px;
 }
 #chatting {
   display: flex;
@@ -143,7 +147,7 @@ a {
 }
 .chat__me {
   text-align: right;
-  color: var(--color-white);
+  color: black;
 }
 #chat__type {
   display: flex;

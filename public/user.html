@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>user</title>
-  <link rel="stylesheet" href="./css/header.css" />
-  <link rel="stylesheet" href="./css/user.css" />
-  <script defer src="./js/header.js"></script>
-  <script defer src="./js/user.js"></script>
-</head>
-<body>
-  <div id="header-placeholder"></div>
-  <main class="main">
-    <form id="userForm" enctype="multipart/form-data">
-      <div class="item__box">
-        <div class="item__box__first">
-          <div class="profile">
-            <img class="profile" src="./img/나 안갔따.png" alt="profile" id="profilePreview">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user</title>
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/user.css" />
+    <script defer src="./js/header.js"></script>
+    <script defer src="./js/user.js"></script>
+  </head>
+  <body>
+    <!-- 정보 다 입력하는거, 전화번호 옆에 화살표 생기는거 수정 -->
+    <div id="header-placeholder"></div>
+    <main class="main">
+      <form id="userForm" enctype="multipart/form-data">
+        <div class="item__box">
+          <div class="item__box__first">
+            <div class="profile">
+              <img
+                class="profile"
+                src="./img/나 안갔따.png"
+                alt="profile"
+                id="profilePreview"
+              />
+            </div>
+            <input type="file" name="profile" id="profileInput" />
           </div>
-          <input type="file" name="profile" id="profileInput" />
-        </div>
 
-        <div class="item__box__second">
-          <input type="password" maxlength="20" name="password" id="password" placeholder="비밀번호 변경">
-          <input type="password" maxlength="20" name="password__re" id="password__re" placeholder="비밀번호 변경 확인">
-        </div>
+          <div class="item__box__second">
+            <input
+              type="password"
+              maxlength="20"
+              name="password"
+              id="password"
+              placeholder="비밀번호 변경"
+            />
+            <input
+              type="password"
+              maxlength="20"
+              name="password__re"
+              id="password__re"
+              placeholder="비밀번호 변경 확인"
+            />
+          </div>
 
-        <div class="item__box__third">
-          <input type="number" maxlength="20" name="hp" id="hp" placeholder="휴대전화번호 변경">
-        </div>
+          <div class="item__box__third">
+            <input
+              type="number"
+              maxlength="20"
+              name="hp"
+              id="hp"
+              placeholder="휴대전화번호 변경"
+            />
+          </div>
 
-        <button id="user" type="submit"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원정보 수정</span></button>
-      </div>
-    </form>
-  </main>
-</body>
+          <button id="user" type="submit">
+            <span style="font-weight: bold; font-size: 18px; color: #ffffff"
+              >회원정보 수정</span
+            >
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
 </html>

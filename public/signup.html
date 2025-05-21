@@ -1,47 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>signup</title>
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/signup.css" />
     <script defer src="./js/header.js"></script>
     <script src="./js/signup.js"></script>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- 버튼이 너무 아래에 있다, 전화번호 옆에 버튼 수정, -->
     <div id="header-placeholder"></div>
     <main class="main">
-        <form action="/auth/signup" method="post" onsubmit="return sendit(event)">
-            <div class="item__box">
+      <form action="/auth/signup" method="post" onsubmit="return sendit(event)">
+        <div class="item__box">
+          <div class="item__box__first">
+            <input
+              type="email"
+              maxlength="100"
+              name="email"
+              id="email"
+              placeholder="이메일                                                                       @naver.com"
+            />
 
-                <div class="item__box__first">
-                    <input type="email" maxlength="100" name="email" id="email" placeholder="이메일                                                                       @naver.com">
+            <input
+              type="password"
+              maxlength="20"
+              name="password"
+              id="password"
+              placeholder="비밀번호"
+            />
 
-                    <input type="password" maxlength="20" name="password" id="password" placeholder="비밀번호">
+            <input
+              type="password"
+              maxlength="20"
+              name="password__re"
+              id="password__re"
+              placeholder="비밀번호 확인"
+            />
 
-                    <input type="password" maxlength="20" name="password__re" id="password__re" placeholder="비밀번호 확인">
+            <input
+              type="text"
+              maxlength="20"
+              name="name"
+              id="name"
+              placeholder="이름"
+            />
+          </div>
 
-                    <input type="text" maxlength="20" name="name" id="name" placeholder="이름">
-                </div>
+          <div class="item__box__second">
+            <input
+              type="text"
+              maxlength="20"
+              name="userid"
+              id="userid"
+              placeholder="별명"
+            />
+            <input
+              type="datetime"
+              name="birth"
+              id="birth"
+              placeholder="생년월일 8자리"
+            />
+            <input
+              type="number"
+              maxlength="20"
+              name="hp"
+              id="hp"
+              placeholder="휴대전화번호"
+            />
+          </div>
 
-                <div class="item__box__second">
-                    <input type="text" maxlength="20" name="userid" id="userid" placeholder="별명">
-                    <input type="datetime" name="birth" id="birth" placeholder="생년월일 8자리">
-                    <input type="number" maxlength="20" name="hp" id="hp" placeholder="휴대전화번호">
-                </div>
+          <div class="item__box__third">
+            <label class="checkbox__wrapper" for="checkbox">
+              <input
+                class="checkbox__width"
+                type="checkbox"
+                name="checkbox"
+                id="checkbox"
+              />
+              <span class="custom-checkbox"></span>
+              <p style="color: #222222; font-size: 15px; font-weight: bold">
+                <span style="font-size: 13px">[필수]</span> 인증 약관 전체동의
+              </p>
+            </label>
+          </div>
 
-                <div class="item__box__third">
-                    <label class="checkbox__wrapper" for="checkbox">
-                        <input class="checkbox__width" type="checkbox" name="checkbox" id="checkbox">
-                        <span class="custom-checkbox"></span>
-                        <p style="color: #222222; font-size: 15px; font-weight: bold;"><span style="font-size: 13px;">[필수]</span> 인증 약관 전체동의</p>
-                    </label>
-                </div>
-
-                <button id="signup" type="submit"><span style="font-weight: bold; font-size: 18px; color: #FFFFFF;">회원가입</span></button>
-            </div>
-        </form>
+          <button id="signup" type="submit">
+            <span style="font-weight: bold; font-size: 18px; color: #ffffff"
+              >회원가입</span
+            >
+          </button>
+        </div>
+      </form>
     </main>
-</body>
+  </body>
 </html>
