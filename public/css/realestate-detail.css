@@ -189,3 +189,62 @@ a:visited {
   margin-top: 20px;
   border-radius: 8px;
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 800px;
+}
+
+.contact-button:hover {
+  background-color: #e85d00;
+}
+
+#edit-text {
+  width: 100%;
+  height: 150px;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: vertical; /* 사용자가 세로 방향으로만 크기 조절 가능 */
+}
+
+#edit-tittle {
+  width: 100%;
+  height: 25px;
+  box-sizing: border-box;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-link {
+  color: #bd2514;
+  margin-left: 10px;
+  font-weight: bold;
+
+  cursor: pointer;
+}

@@ -101,8 +101,82 @@ function renderRealestateDetail(data) {
         document.getElementById("seller-meta").textContent =
           "주소 정보 없음 · 매너온도 N/A";
       });
+    // 7. 수정/삭제 버튼 제어 및 이벤트 등록
+    const currentUser =
+      localStorage.getItem("userid") || sessionStorage.getItem("userid");
+
+    if (currentUser === data.userid) {
+      document.getElementById("edit-post").style.display = "inline-block";
+      document.getElementById("delete-post").style.display = "inline-block";
+    }
   }
 
+  // 8. 수정 기능: 모달 열기, 기존값 채우기
+  const editBtn = document.getElementById("edit-post");
+  const modal = document.getElementById("edit-modal");
+  const cancelBtn = document.getElementById("cancel-edit");
+  const submitBtn = document.getElementById("submit-edit");
+
+  editBtn?.addEventListener("click", () => {
+    const priceType = data.price;
+
+    document.getElementById("edit-price-type").value = priceType;
+    document.getElementById("edit-sale").value = data.sale || "";
+    document.getElementById("edit-deposit").value = data.deposit || "";
+    document.getElementById("edit-monthly_rent").value =
+      data.monthly_rent || "";
+    document.getElementById("edit-text").value = Array.isArray(data.details)
+      ? data.details.join("\n")
+      : data.text || "";
+
+    modal.classList.remove("hidden");
+  });
+
+  // 모달 닫기
+  cancelBtn?.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+  // 9. 수정 완료 시 PATCH 요청
+  submitBtn?.addEventListener("click", async () => {
+    const priceType = document.getElementById("edit-price-type").value;
+    const sale = document.getElementById("edit-sale").value;
+    const deposit = document.getElementById("edit-deposit").value;
+    const monthly = document.getElementById("edit-monthly_rent").value;
+    const text = document.getElementById("edit-text").value;
+
+    const updateData = {
+      price: priceType,
+      sale: priceType === "매매" ? sale : null,
+      deposit: priceType === "전세" || priceType === "월세" ? deposit : null,
+      monthly_rent: priceType === "월세" ? monthly : null,
+      details: text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line !== ""),
+    };
+
+    try {
+      const token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
+
+      const response = await fetch(`/real/${data._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updateData),
+      });
+
+      if (!response.ok) throw new Error("수정 실패");
+      alert("수정 완료!");
+      location.reload();
+    } catch (err) {
+      console.error("❌ 수정 중 에러:", err);
+      alert("수정 중 오류 발생");
+    }
+  });
   // 위치 정보 로드
   fetch("/place")
     .then((res) => res.json())
@@ -146,3 +220,88 @@ function renderRealestateDetail(data) {
       console.error("❌ 위치 정보 불러오기 실패:", err);
     });
 }
+// 7. 수정/삭제 버튼 제어
+const currentUser =
+  localStorage.getItem("userid") || sessionStorage.getItem("userid");
+
+if (currentUser === data.userid) {
+  document.getElementById("edit-post").style.display = "inline-block";
+  document.getElementById("delete-post").style.display = "inline-block";
+}
+
+// 8. 수정 기능: 모달 열기, 닫기, PATCH 요청
+const editBtn = document.getElementById("edit-post");
+const modal = document.getElementById("edit-modal");
+const cancelBtn = document.getElementById("cancel-edit");
+const submitBtn = document.getElementById("submit-edit");
+
+editBtn?.addEventListener("click", () => {
+  document.getElementById("edit-price").value = data.sale || data.price || "";
+  document.getElementById("edit-text").value = data.text || "";
+  modal.classList.remove("hidden");
+});
+
+cancelBtn?.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+submitBtn?.addEventListener("click", async () => {
+  const updateData = {
+    sale: document.getElementById("edit-price").value,
+    text: document.getElementById("edit-text").value,
+  };
+
+  try {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const response = await fetch(`/real/${data._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    if (!response.ok) throw new Error("수정 실패");
+    alert("수정 완료!");
+    location.reload();
+  } catch (err) {
+    console.error("❌ 수정 중 에러:", err);
+    alert("수정 중 오류 발생");
+  }
+});
+
+// 9. 삭제 기능: 삭제 버튼 클릭 시 삭제 요청
+const deleteBtn = document.getElementById("delete-post");
+
+deleteBtn?.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const confirmed = confirm("정말 삭제하시겠습니까?");
+  if (!confirmed) return;
+
+  try {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const response = await fetch(`/real/${data._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 204) {
+      alert("삭제가 완료되었습니다.");
+      window.location.href = "./realestate.html";
+    } else if (response.status === 403) {
+      alert("본인 매물만 삭제할 수 있습니다.");
+    } else if (response.status === 404) {
+      alert("매물이 존재하지 않습니다.");
+    } else {
+      throw new Error("알 수 없는 오류 발생");
+    }
+  } catch (err) {
+    console.error("❌ 삭제 중 오류:", err);
+    alert("삭제 중 오류가 발생했습니다.");
+  }
+});
