@@ -15,7 +15,7 @@ const validatePost = [
  * @swagger
  * /posts:
  *   get:
- *     summary: 모든 게시글 조회 (쿼리: userid 가능)
+ *     summary: "모든 게시글 조회 (쿼리: userid 가능)"
  *     tags: [Posts]
  *     parameters:
  *       - name: userid

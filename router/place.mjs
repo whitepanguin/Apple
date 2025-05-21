@@ -9,13 +9,13 @@ const router = express.Router();
  * @swagger
  * /place:
  *   get:
- *     summary: 게시글 ID(postId)로 장소 조회
+ *     summary: 게시글 ID로 장소 조회
  *     tags: [Place]
  *     parameters:
  *       - name: postId
  *         in: query
  *         required: true
- *         description: 게시글 ID (예: postId=123)
+ *         description: "게시글 ID 예시 (예: postId=123)"
  *         schema:
  *           type: string
  *     responses:
