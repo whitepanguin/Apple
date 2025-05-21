@@ -8,6 +8,7 @@ fetch("header.html")
     document.getElementById("header-placeholder").innerHTML = html;
 
     const storedRegion = localStorage.getItem("region");
+    if (storedRegion) updateRegionText(storedRegion);
 
     const headerSearchInput = document.querySelector(".inputSearch");
     if (headerSearchInput) {
@@ -61,6 +62,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  attachRegionClickHandlers();
 });
 
 // 3. 검색 처리 함수
@@ -73,3 +75,103 @@ function handleSearch(inputElement) {
 
   window.location.href = `/search-results.html?q=${encodeURIComponent(query)}`;
 }
+
+function attachRegionClickHandlers() {
+  const buttons = document.querySelectorAll(".tag");
+  const regionBox = document.getElementById("region-box");
+  let lastSelectedRegion = localStorage.getItem("region") || "";
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedRegion = button.textContent.trim();
+
+      if (
+        selectedRegion === lastSelectedRegion &&
+        regionBox.classList.contains("show")
+      ) {
+        regionBox.classList.remove("show");
+        return;
+      }
+
+      localStorage.setItem("region", selectedRegion);
+      lastSelectedRegion = selectedRegion;
+
+      updateRegionText(selectedRegion);
+      regionBox.classList.remove("show");
+    });
+  });
+}
+
+function updateRegionText(regionName) {
+  const mainArea = document.getElementById("areaName");
+  if (mainArea) {
+    mainArea.textContent = regionName;
+  }
+
+  const headerP = document.querySelector(".header__button__searchArea p");
+  if (headerP) {
+    headerP.textContent = regionName;
+  }
+
+  const searchP = document.querySelector(".search__button__searchArea p");
+  if (searchP) {
+    searchP.textContent = regionName;
+  }
+
+  document.title = `${regionName} - 지역 선택됨`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const regionBox = document.getElementById("region-box");
+  if (!regionBox) {
+    console.error("❌ region-box 요소를 찾을 수 없음! HTML을 확인하세요.");
+    return;
+  }
+
+  document
+    .querySelector(".search__button__searchArea")
+    .addEventListener("click", () => {
+      const regionBox = document.getElementById("region-box");
+      regionBox.classList.add("show"); // ✅ 여기에 console.log 추가
+      console.log("지역 박스가 표시되었음!");
+    });
+
+  const closeBtn = document.getElementById("close-region-box");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      regionBox.classList.remove("show");
+    });
+  }
+
+  const locationBtn = document.getElementById("get-location-btn");
+  if (locationBtn) {
+    locationBtn.addEventListener("click", () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          document.getElementById(
+            "areaName"
+          ).innerText = `위도: ${latitude}, 경도: ${longitude}`;
+          regionBox.classList.remove("show");
+        });
+      } else {
+        alert("위치 정보를 가져올 수 없습니다.");
+      }
+    });
+  }
+});
+
+window.onload = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log("위치 권한 허용됨!", position.coords);
+      },
+      (error) => {
+        console.warn("위치 권한 거부됨", error);
+        alert("위치 권한을 허용해주세요.");
+      }
+    );
+  }
+};
+document.getElementById("region-box").classList.add("show");
