@@ -91,6 +91,12 @@ main {
   border: 2px solid #ddd;
 }
 
+.profile {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+}
+
 .profile-info-row {
   display: flex;
   align-items: center;

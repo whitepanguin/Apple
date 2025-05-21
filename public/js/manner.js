@@ -1,3 +1,20 @@
+// 초기 프로필 불러오기
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const res = await fetch("/auth/me", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await res.json();
+    if (res.ok && data.profile) {
+      document.getElementById("profilePreview").src = data.profile;
+    }
+  } catch (err) {
+    console.error("프로필 이미지 불러오기 실패:", err);
+  }
+});
+
 async function loadData() {
   const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
   try {
