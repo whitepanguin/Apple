@@ -1,4 +1,4 @@
-// 프로필 미리보기
+// ✅ 프로필 미리보기
 document.getElementById("profileInput").addEventListener("change", (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -10,11 +10,10 @@ document.getElementById("profileInput").addEventListener("change", (event) => {
   }
 });
 
-// 초기 프로필 불러오기
+// ✅ 초기 프로필 불러오기
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-
     const res = await fetch("/auth/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -29,43 +28,22 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// 회원정보 수정
-document.getElementById("userForm").addEventListener("submit", async (event) => {
+// ✅ 프로필 사진 수정 처리
+document.getElementById("profileForm").addEventListener("submit", async (event) => {
   event.preventDefault();
-
-  const password = document.getElementById("password");
-  const password__re = document.getElementById("password__re");
-  const hp = document.getElementById("hp");
   const fileInput = document.getElementById("profileInput");
-
-  const expPwText = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,20}$/;
-
-  if (!password.value || !expPwText.test(password.value)) {
-    alert("비밀번호는 8자 이상, 영문자+숫자+특수문자를 포함해야 합니다.");
-    return;
-  }
-
-  if (password.value !== password__re.value) {
-    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    return;
-  }
-
-  if (!hp.value) {
-    alert("휴대전화번호를 입력해주세요.");
+  if (fileInput.files.length === 0) {
+    alert("프로필 사진을 선택해주세요.");
     return;
   }
 
   const formData = new FormData();
-  formData.append("password", password.value);
-  formData.append("hp", hp.value);
-  if (fileInput.files.length > 0) {
-    formData.append("profile", fileInput.files[0]);
-  }
+  formData.append("profile", fileInput.files[0]);
 
   try {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
 
-    const res = await fetch("/auth/update", {
+    const res = await fetch("/auth/update/profile", {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -75,49 +53,93 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
 
     const data = await res.json();
     if (res.ok) {
+      alert("프로필 변경 완료!");
       if (data.profile) {
         document.getElementById("profilePreview").src = data.profile;
       }
-      alert("회원정보 수정 완료!");
-      location.href = "/";
     } else {
-      alert(data.message || "오류 발생");
+      alert(data.message || "프로필 변경 실패");
     }
   } catch (err) {
     alert("서버 오류: " + err.message);
   }
 });
 
-// 프로필 이미지 단독 변경
-document.getElementById("changeProfileBtn").addEventListener("click", async () => {
-  const fileInput = document.getElementById("profileInput");
-  const file = fileInput.files[0];
+// ✅ 비밀번호 변경 처리
+document.getElementById("pwForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const password = document.getElementById("password").value;
+  const password__re = document.getElementById("password__re").value;
 
-  if (!file) {
-    alert("변경할 프로필 이미지를 선택해주세요.");
+  const expPwText = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,20}$/;
+
+  if (!expPwText.test(password)) {
+    alert("비밀번호는 8자 이상, 영문자+숫자+특수문자를 포함해야 합니다.");
     return;
   }
 
-  const formData = new FormData();
-  formData.append("profile", file);
+  if (password !== password__re) {
+    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    return;
+  }
+
+  const body = JSON.stringify({ password });
 
   try {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
 
-    const res = await fetch("/auth/update", {
+    const res = await fetch("/auth/update/password", {
       method: "PATCH",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
+      body,
     });
 
     const data = await res.json();
     if (res.ok) {
-      document.getElementById("profilePreview").src = data.profile;
-      alert("프로필 이미지가 변경되었습니다!");
+      alert("비밀번호 변경 완료!");
+      location.reload();
     } else {
-      alert(data.message || "프로필 변경에 실패했습니다.");
+      alert(data.message || "비밀번호 변경 실패");
+    }
+  } catch (err) {
+    alert("서버 오류: " + err.message);
+  }
+});
+
+// ✅ 휴대전화번호 변경 처리
+document.getElementById("hpForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const hp = document.getElementById("hp").value.trim();
+  const phoneRegex = /^01[016789][0-9]{7,8}$/;
+
+  if (!phoneRegex.test(hp)) {
+    alert("유효한 휴대전화번호를 입력해주세요. (예: 01012345678)");
+    return;
+  }
+
+  const body = JSON.stringify({ hp });
+
+  try {
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
+    const res = await fetch("/auth/update/phone", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("휴대전화번호 변경 완료!");
+      location.reload();
+    } else {
+      alert(data.message || "변경 실패");
     }
   } catch (err) {
     alert("서버 오류: " + err.message);

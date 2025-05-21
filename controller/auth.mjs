@@ -1,3 +1,4 @@
+// controller/auth.mjs
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../config.mjs";
@@ -68,21 +69,57 @@ export async function me(req, res, next) {
   }
 }
 
-export async function updateUser(req, res) {
-  const { password, hp } = req.body;
+// 🔹 프로필 변경 전용 핸들러
+export async function updateProfile(req, res) {
   const file = req.file;
   const userid = req.userid;
 
-  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
-  const profilePath = file ? `/uploads/${file.filename}` : undefined;
+  if (!file) {
+    return res.status(400).json({ message: "프로필 파일이 없습니다." });
+  }
 
-  const updateData = { password: hashed, hp };
-  if (profilePath) updateData.profile = profilePath;
+  const profilePath = `/uploads/${file.filename}`;
 
   try {
-    await authRepository.updateUser(userid, updateData);
-    res.status(200).json({ message: "회원정보 수정 완료", profile: profilePath });
+    await authRepository.updateUser(userid, { profile: profilePath });
+    res.status(200).json({ message: "프로필 변경 완료", profile: profilePath });
   } catch (err) {
-    res.status(500).json({ message: "수정 실패", error: err.message });
+    res.status(500).json({ message: "프로필 변경 실패", error: err.message });
+  }
+}
+
+// 🔹 비밀번호 변경 전용 핸들러
+export async function updatePassword(req, res) {
+  const { password } = req.body;
+  const userid = req.userid;
+
+  if (!password) {
+    return res.status(400).json({ message: "비밀번호가 제공되지 않았습니다." });
+  }
+
+  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+
+  try {
+    await authRepository.updateUser(userid, { password: hashed });
+    res.status(200).json({ message: "비밀번호 변경 완료" });
+  } catch (err) {
+    res.status(500).json({ message: "비밀번호 변경 실패", error: err.message });
+  }
+}
+
+// 🔹 휴대전화번호 변경 전용 핸들러
+export async function updatePhone(req, res) {
+  const { hp } = req.body;
+  const userid = req.userid;
+
+  if (!hp) {
+    return res.status(400).json({ message: "휴대전화번호가 제공되지 않았습니다." });
+  }
+
+  try {
+    await authRepository.updateUser(userid, { hp });
+    res.status(200).json({ message: "휴대전화번호 변경 완료" });
+  } catch (err) {
+    res.status(500).json({ message: "휴대전화번호 변경 실패", error: err.message });
   }
 }

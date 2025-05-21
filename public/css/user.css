@@ -1,114 +1,91 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 body {
-    display: flex;
-    justify-content: center;
+  background-image: url(../img/bbb.png);    background-repeat: no-repeat;        /* 반복 없이 */
+  background-size: cover;              /* 화면 전체를 채우도록 */
+  background-position: center center;  /* 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background-color: #f8f8f8;
 }
+
 main {
-    display: flex;
-    justify-content: center;
-    margin-top: 90px;
+  margin-top: 90px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.item__box {
-    margin-top: 0;
-    position: relative;
-    display: flex;
-    height: 1000px;
-    width: 500px;
-    flex-direction: column;
-    gap: 13px;
-    justify-content: flex-start;
-    align-items: center;
+.container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.item__box__first {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 30px
+/* 공통 form box */
+.box {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #C6C6C6;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.item__box__second {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width:100%;
-    height: auto;
-    border: 1px solid #C6C6C6;
-    border-radius: 6px;
-}
-.item__box__third {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width:100%;
-    height: auto;
-    border: 1px solid #C6C6C6;
-    border-radius: 6px;
+.box legend {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
+/* 프로필 이미지 */
 .profile {
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  align-self: center;
 }
 
-
+/* 입력 요소 */
 input {
-    height: 50px;
-    width:100%;
-    padding: 10px;
-    border: 1px solid #C6C6C6;
+  height: 50px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #C6C6C6;
+  border-radius: 6px;
 }
 
 input::placeholder {
-    color: #929294;
-    font-size: 15px;
+  color: #929294;
 }
 
-
-#password {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border: 1px solid #C6C6C6;
-}
-#password__re {
-    border: 1px solid #C6C6C6;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-}
-#phone {
-    border: 1px solid #C6C6C6;
-    border-radius: 6px;
+/* 버튼 스타일 */
+.btn {
+  height: 50px;
+  background-color: #FF6600;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-button#user {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 460px;
-    height: 52px;
-    background-color: #FF6600;
-    border-radius: 6px;
-    border: 0;
-    transition: background-color 0.3s ease ;
+.btn:hover {
+  background-color: #ae4a08;
 }
-button#user:hover {
-    background-color: #ae4a08;
-    cursor: pointer;
-}
-input:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+
+/* 포커스 스타일 */
+input:focus {
   outline: none;
-  border: 2px solid #FF6600 !important;
+  border: 2px solid #FF6600;
 }

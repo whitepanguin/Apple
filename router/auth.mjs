@@ -1,3 +1,4 @@
+// router/auth.mjs
 import express from "express";
 import path from "path";
 import multer from "multer";
@@ -5,6 +6,13 @@ import * as authController from "../controller/auth.mjs";
 import { body } from "express-validator";
 import { validate } from "../middleware/validator.mjs";
 import { isAuth } from "../middleware/auth.mjs";
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: 인증 관련 API
+ */
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -36,7 +44,7 @@ const validateSignup = [
  * @swagger
  * /auth/signup:
  *   post:
- *     summary: 사용자 회원가입
+ *     summary: 회원가입
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -44,19 +52,25 @@ const validateSignup = [
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
  *             properties:
- *               email:
- *                 type: string
- *                 example: "apple@example.com"
- *               password:
- *                 type: string
- *                 example: "12345678"
  *               name:
  *                 type: string
- *                 example: "훤님"
+ *                 example: 홍길동
+ *               email:
+ *                 type: string
+ *                 example: test@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
  *     responses:
  *       201:
  *         description: 회원가입 성공
+ *       400:
+ *         description: 유효성 검사 실패
  */
 router.post("/signup", validateSignup, authController.signup);
 
@@ -64,7 +78,7 @@ router.post("/signup", validateSignup, authController.signup);
  * @swagger
  * /auth/login:
  *   post:
- *     summary: 사용자 로그인
+ *     summary: 로그인
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -72,16 +86,21 @@ router.post("/signup", validateSignup, authController.signup);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - email
+ *               - password
  *             properties:
  *               email:
  *                 type: string
- *                 example: "apple@example.com"
+ *                 example: test@example.com
  *               password:
  *                 type: string
- *                 example: "12345678"
+ *                 example: password123
  *     responses:
  *       200:
- *         description: 로그인 성공 (JWT 토큰 반환)
+ *         description: 로그인 성공 (토큰 반환)
+ *       401:
+ *         description: 로그인 실패
  */
 router.post("/login", validateLogin, authController.login);
 
@@ -89,21 +108,23 @@ router.post("/login", validateLogin, authController.login);
  * @swagger
  * /auth/me:
  *   get:
- *     summary: 로그인한 사용자 정보 조회
+ *     summary: 로그인된 사용자 정보 조회
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: 사용자 정보 반환 성공
+ *         description: 사용자 정보 반환
+ *       401:
+ *         description: 인증 실패
  */
 router.get("/me", isAuth, authController.me);
 
 /**
  * @swagger
- * /auth/update:
+ * /auth/update/profile:
  *   patch:
- *     summary: 프로필 이미지 수정
+ *     summary: 프로필 이미지 변경
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []
@@ -119,8 +140,68 @@ router.get("/me", isAuth, authController.me);
  *                 format: binary
  *     responses:
  *       200:
- *         description: 사용자 정보 수정 성공
+ *         description: 프로필 업데이트 성공
+ *       400:
+ *         description: 잘못된 요청
+ *       401:
+ *         description: 인증 실패
  */
-router.patch("/update", isAuth, upload.single("profile"), authController.updateUser);
+router.patch("/update/profile", isAuth, upload.single("profile"), authController.updateProfile);
+
+/**
+ * @swagger
+ * /auth/update/password:
+ *   patch:
+ *     summary: 비밀번호 변경
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 example: newpassword123
+ *     responses:
+ *       200:
+ *         description: 비밀번호 변경 성공
+ *       400:
+ *         description: 잘못된 요청
+ *       401:
+ *         description: 인증 실패
+ */
+router.patch("/update/password", isAuth, authController.updatePassword);
+
+/**
+ * @swagger
+ * /auth/update/phone:
+ *   patch:
+ *     summary: 휴대전화번호 변경
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 example: 010-1234-5678
+ *     responses:
+ *       200:
+ *         description: 휴대전화번호 변경 성공
+ *       400:
+ *         description: 잘못된 요청
+ *       401:
+ *         description: 인증 실패
+ */
+router.patch("/update/phone", isAuth, authController.updatePhone);
 
 export default router;

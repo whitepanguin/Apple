@@ -3,64 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>user</title>
+    <title>User Settings</title>
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/user.css" />
     <script defer src="./js/header.js"></script>
     <script defer src="./js/user.js"></script>
   </head>
   <body>
-    <!-- 정보 다 입력하는거, 전화번호 옆에 화살표 생기는거 수정 -->
     <div id="header-placeholder"></div>
     <main class="main">
-      <form id="userForm" enctype="multipart/form-data">
-        <div class="item__box">
-          <div class="item__box__first">
-            <div class="profile">
-              <img
-                class="profile"
-                src="./img/나 안갔따.png"
-                alt="profile"
-                id="profilePreview"
-              />
-            </div>
-            <input type="file" name="profile" id="profileInput" />
-          </div>
+      <div class="container">
+        
+        <!-- 🔸 프로필 변경 -->
+        <form id="profileForm" method="POST" action="/user/profile" enctype="multipart/form-data">
+          <fieldset class="box box--profile">
+            <legend>프로필 변경</legend>
+            <img class="profile" src="./img/나 안갔따.png" alt="profile" id="profilePreview" />
+            <input type="file" name="profile" id="profileInput" accept="image/*" />
+            <button type="submit" class="btn">프로필 변경</button>
+          </fieldset>
+        </form>
 
-          <div class="item__box__second">
+        <!-- 🔸 비밀번호 변경 -->
+        <form id="pwForm" method="POST" action="/user/password">
+          <fieldset class="box box--password">
+            <legend>비밀번호 변경</legend>
             <input
               type="password"
-              maxlength="20"
               name="password"
               id="password"
-              placeholder="비밀번호 변경"
+              placeholder="새 비밀번호"
+              required
             />
             <input
               type="password"
-              maxlength="20"
               name="password__re"
               id="password__re"
-              placeholder="비밀번호 변경 확인"
+              placeholder="비밀번호 확인"
+              required
             />
-          </div>
+            <button type="submit" class="btn">비밀번호 변경</button>
+          </fieldset>
+        </form>
 
-          <div class="item__box__third">
+        <!-- 🔸 휴대전화번호 변경 -->
+        <form id="hpForm" method="POST" action="/user/phone">
+          <fieldset class="box box--phone">
+            <legend>휴대전화 변경</legend>
             <input
-              type="number"
-              maxlength="20"
+              type="tel"
               name="hp"
               id="hp"
-              placeholder="휴대전화번호 변경"
+              placeholder="예: 01012345678"
+              pattern="^01[016789][0-9]{7,8}$"
+              required
             />
-          </div>
+            <button type="submit" class="btn">휴대전화 변경</button>
+          </fieldset>
+        </form>
 
-          <button id="user" type="submit">
-            <span style="font-weight: bold; font-size: 18px; color: #ffffff"
-              >회원정보 수정</span
-            >
-          </button>
-        </div>
-      </form>
+      </div>
     </main>
   </body>
 </html>
