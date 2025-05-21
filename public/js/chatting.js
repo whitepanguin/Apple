@@ -183,7 +183,7 @@ document.getElementById("send").addEventListener("click", async () => {
   }
 });
 
-document.getElementById("messages").addEventListener("click", async (e) => {
+async function send(e) {
   const target = e.target;
   const token = localStorage.getItem("token");
 
@@ -307,7 +307,11 @@ document.getElementById("messages").addEventListener("click", async (e) => {
         actions.style.display === "none" ? "block" : "none";
     }
   }
-});
+}
+
+document
+  .getElementById("messages")
+  .addEventListener("click", async (e) => send(e));
 
 window.onload = function () {
   const postId = localStorage.getItem("postId");
@@ -321,11 +325,11 @@ window.onload = function () {
 
   loadData();
   initChat();
-};
 
-// ✅ 엔터키 입력 시 실행
-searchInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    handleSearch();
-  }
-});
+  document.getElementById("message").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      document.getElementById("send").click();
+    }
+  });
+};

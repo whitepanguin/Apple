@@ -13,16 +13,20 @@
   --color-text: var(--color-white);
 
   /* colors */
-  --color-white: #fff;
+  /* --color-white: #fff;
   --color-black: black;
   --color-background: #706f6f;
-  --color-gray: gray;
+  --color-gray: gray; */
 
   /* size */
   --size-max-width: 1200px;
 }
+body {
+  padding-top: 80px;
+}
 .main {
   margin: 30px 5%;
+  padding: 0;
   /* border: 1px solid black; */
 }
 
@@ -60,10 +64,11 @@ a {
 }
 
 #chat__room {
-  background-color: var(--color-background);
+  background-color: #e46e25;
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 #chat__header {
@@ -73,6 +78,7 @@ a {
   align-content: center;
   gap: 5px;
   padding: 5px 10px;
+  background-color: #cf631f;
 }
 
 .chat__item__img {
@@ -116,7 +122,12 @@ a {
   flex-direction: column;
   align-items: flex-start;
 }
-
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100%;
+}
 #chatting {
   display: flex;
   flex-direction: column;
@@ -140,6 +151,7 @@ a {
   gap: 5px;
   padding: 5px 10px;
   width: 100%;
+  background-color: #cf631f;
 }
 #chat__type__plus {
   font-size: larger;
@@ -150,7 +162,7 @@ a {
   align-items: center;
   justify-content: center;
   border: none;
-  background-color: var(--color-background);
+  background-color: #cf631f;
 }
 .chat__type__button__emoji {
   width: 50px;
@@ -158,11 +170,11 @@ a {
   align-items: center;
   justify-content: center;
   border: none;
-  background-color: var(--color-gray);
+  background-color: wheat;
 }
 .chat__type__input {
   height: 50px;
-  background-color: var(--color-gray);
+  background-color: wheat;
   border: none;
   width: 100%;
 }
@@ -177,12 +189,12 @@ a {
 .chat__type__smile {
   width: 35px;
   height: 35px;
-  background-color: var(--color-gray);
+  background-color: wheat;
 }
 #chat__type__box {
   display: flex;
-  border: solid 1px var(--color-gray);
-  background-color: var(--color-gray);
+  border: solid 1px wheat;
+  background-color: wheat;
   justify-content: space-between;
   border-radius: 30px;
   padding: 2px 20px;
