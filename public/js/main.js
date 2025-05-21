@@ -62,6 +62,11 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  if (imageSearchPanel) {
+    imageSearchPanel.addEventListener("click", () => {
+      imageSearchPanel.classList.add("hidden");
+    });
+  }
   attachRegionClickHandlers();
 });
 

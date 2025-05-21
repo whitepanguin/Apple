@@ -1,12 +1,12 @@
 const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
-const searchBtn = document.getElementById("searchBtn");
-const searchInput = document.getElementById("searchInput");
-
 fetch("../header.html")
   .then((res) => res.text())
   .then((html) => {
     document.getElementById("header-placeholder").innerHTML = html;
+
+    const searchBtn = document.getElementById("searchBtn");
+    const searchInput = document.getElementById("searchInput");
 
     const header = document.querySelector(".header");
     const searchIconBtn = document.querySelector(".header__button__search");
@@ -163,28 +163,28 @@ if (token) {
     });
 }
 
-async function handleSearch() {
-  const input = searchInput.value.trim();
-  if (!input) {
-    alert("검색어를 입력해주세요.");
-    return;
-  }
-  try {
-    const response = await fetch("http://localhost:8000/embed", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: input }),
-    });
-    const data = await response.json();
-    console.log("🔹 임베딩 결과:", data.vector);
+// async function handleSearch() {
+//   const input = searchInput.value.trim();
+//   if (!input) {
+//     alert("검색어를 입력해주세요.");
+//     return;
+//   }
+//   try {
+//     const response = await fetch("http://localhost:8000/embed", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ text: input }),
+//     });
+//     const data = await response.json();
+//     console.log("🔹 임베딩 결과:", data.vector);
 
-    // Qdrant, Elasticsearch에 전달
-    // fetch("/api/search", { method: "POST", body: JSON.stringify({ vector: data.vector }) })
-  } catch (err) {
-    console.error("임베딩 요청 실패:", err);
-    alert("임베딩에 실패했습니다.");
-  }
-}
+//     // Qdrant, Elasticsearch에 전달
+//     // fetch("/api/search", { method: "POST", body: JSON.stringify({ vector: data.vector }) })
+//   } catch (err) {
+//     console.error("임베딩 요청 실패:", err);
+//     alert("임베딩에 실패했습니다.");
+//   }
+// }
 
 // ✅ 클릭 시 실행
 document.addEventListener("DOMContentLoaded", () => {
