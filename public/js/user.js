@@ -13,9 +13,11 @@ document.getElementById("profileInput").addEventListener("change", (event) => {
 // 초기 프로필 불러오기
 window.addEventListener("DOMContentLoaded", async () => {
   try {
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
     const res = await fetch("/auth/me", {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await res.json();
@@ -61,10 +63,12 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
   }
 
   try {
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
     const res = await fetch("/auth/update", {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });

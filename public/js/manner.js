@@ -1,28 +1,41 @@
+// ✅ 공통 토큰 가져오는 함수
+function getToken() {
+  return sessionStorage.getItem("token") || localStorage.getItem("token");
+}
+
 // 초기 프로필 불러오기
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("/auth/me", {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${getToken()}`, // ✅ 변경됨
       },
     });
+
     const data = await res.json();
     if (res.ok && data.profile) {
       document.getElementById("profilePreview").src = data.profile;
-              // ✅ 환영 메시지 표시
-        const welcomeEl = document.getElementById("nickname");
-        if (welcomeEl && data.userid) {
-          welcomeEl.textContent = `${data.userid}님`;
-          welcomeEl.style.display = "inline-block"; // 표시
-        }
+
+      // ✅ 환영 메시지 표시
+      const welcomeEl = document.getElementById("nickname");
+      if (welcomeEl && data.userid) {
+        welcomeEl.textContent = `${data.userid}님`;
+        welcomeEl.style.display = "inline-block";
+      }
     }
   } catch (err) {
     console.error("프로필 이미지 불러오기 실패:", err);
   }
 });
 
+
+function getToken() {
+  return sessionStorage.getItem("token") || localStorage.getItem("token");
+}
+
 async function loadData() {
-  const token = sessionStorage.getItem("token"); // 사용자 토큰 가져오기
+  const token = getToken(); // ✅ 수정된 토큰 가져오기
+
   try {
     const response = await fetch("/api/", {
       method: "GET",
@@ -44,6 +57,7 @@ async function loadData() {
   }
 }
 
+
 // 페이지 로드 시 데이터 불러오기
 window.onload = function () {
   loadData();
@@ -61,7 +75,7 @@ if (loginButton) {
 const retouchButton = document.querySelector(".retouch");
 if (retouchButton) {
   retouchButton.addEventListener("click", () => {
-    const token = sessionStorage.getItem("token"); // 저장된 로그인 토큰 확인
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token"); // ✅ 둘 다 검사
     if (token) {
       // 로그인 상태라면 user.html로 이동
       window.location.href = "/user.html";
@@ -72,3 +86,4 @@ if (retouchButton) {
     }
   });
 }
+
