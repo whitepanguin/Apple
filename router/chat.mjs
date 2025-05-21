@@ -36,6 +36,43 @@ router.get("/:postid", chatController.getChatByPostid); // postid로 찾기 & �
 
 /**
  * @swagger
+ * /chat/{chatLogId}/read:
+ *   post:
+ *     summary: 채팅 메시지를 읽음으로 표시
+ *     tags: [Chat]
+ *     description: 지정한 채팅 로그 ID(chatLogId)에 대해 현재 사용자의 메시지를 읽음으로 표시합니다.
+ *     parameters:
+ *       - name: chatLogId
+ *         in: path
+ *         required: true
+ *         description: 채팅 로그 ID
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userid:
+ *                 type: string
+ *                 description: 읽음 처리할 사용자 ID
+ *     responses:
+ *       200:
+ *         description: 읽음 처리 완료
+ *       400:
+ *         description: userid가 누락되었거나 잘못된 요청
+ *       404:
+ *         description: 채팅 로그를 찾을 수 없음
+ *       500:
+ *         description: 서버 내부 오류
+ */
+
+router.post("/:chatLogId/read", chatController.markAsRead);
+
+/**
+ * @swagger
  * /chat/{postid}:
  *   post:
  *     summary: 게시글 ID로 채팅룸 생성

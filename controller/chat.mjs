@@ -147,3 +147,35 @@ export async function deleteChat(req, res) {
     res.status(500).json({ message: "채팅 삭제 실패", error: err.message });
   }
 }
+
+export async function markAsRead(req, res) {
+  const { chatLogId } = req.params;
+  const { userid } = req.body;
+
+  if (!userid) {
+    return res.status(400).json({ message: "userid가 필요합니다." });
+  }
+
+  try {
+    const chatLog = await chatRepository.getChatById(chatLogId);
+    if (!chatLog) {
+      return res.status(404).json({ message: "채팅 로그를 찾을 수 없습니다." });
+    }
+
+    let updated = false;
+
+    chatLog.text.forEach((msg) => {
+      if (!msg.seenBy) msg.seenBy = [];
+      if (!msg.seenBy.includes(userid)) {
+        msg.seenBy.push(userid);
+        updated = true;
+      }
+    });
+
+    if (updated) await chatLog.save();
+
+    res.status(200).json({ message: "읽음 처리 완료" });
+  } catch (err) {
+    res.status(500).json({ message: "읽음 처리 실패", error: err.message });
+  }
+}

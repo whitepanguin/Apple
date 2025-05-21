@@ -83,7 +83,18 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024, files: 5 },
-}); //3.파일 크기5MB 파일 5개
+  fileFilter: (req, file, cb) => {
+    const ext = extname(file.originalname).toLowerCase();
+    const allowedExt = [".jpg", ".jpeg", ".png", ".webp"];
+    const allowedMime = ["image/jpeg", "image/png", "image/webp"];
+
+    if (allowedExt.includes(ext) && allowedMime.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("허용되지 않은 파일 형식입니다."), false);
+    }
+  },
+}); //3.파일 크기5MB 파일 5개, 확장자 예외처리 및 파일 확장자 검사사
 app.post("/upload", upload.single("file"), (req, res) => {
   console.log(req.file);
   res.json({
@@ -106,8 +117,6 @@ app.use("/api", mannerRouter);
 app.use("/real", realRouter);
 app.use("/chat", chatRouter);
 app.use("/region", regionRouter);
-app.use(express.static("public"));
-app.use("/uploads", express.static(__dirname + "/public/uploads"));
 
 // ✅ Swagger UI 연결
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger UI
@@ -144,6 +153,16 @@ app.use(express.static("public"));
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행
   res.sendStatus(404);
+});
+
+// 오류 처리리
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ message: "파일 업로드 오류: " + err.message });
+  } else if (err) {
+    return res.status(400).json({ message: err.message });
+  }
+  next();
 });
 
 app.listen(config.host.port, () => {

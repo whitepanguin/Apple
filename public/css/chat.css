@@ -65,23 +65,41 @@ a {
   border-radius: 20px;
   padding: auto;
   padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
 }
-
+.chat__item__img-wrapper {
+  width: 100%;
+  height: 239px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 .chat__item__img {
-  width: 231.5px;
-  height: 231.5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 6px;
 }
-
 .chat__info {
   display: flex;
-  flex-direction: row;
-  align-content: space-between;
-  gap: 50px;
-  padding: 5px 10px;
+  text-align: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.chat__type {
+  margin-left: auto;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
 }
 .chat__item__title {
   font-size: 18px;
+  margin-left: 5px;
 }
 
 .chat__item__price {

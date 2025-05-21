@@ -1,7 +1,7 @@
+const token = sessionStorage.getItem("token");
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get("id");
 async function loadData() {
-  const token = localStorage.getItem("token");
-  const postId = localStorage.getItem("postId");
-
   try {
     const response = await fetch(`/posts/${postId}`, {
       method: "GET",
@@ -56,7 +56,6 @@ function renderItems(item) {
   clickableElements.forEach((el) => {
     if (el) {
       el.addEventListener("click", () => {
-        const postId = localStorage.getItem("postId");
         if (postId) {
           location.href = `post-detail.html?id=${postId}`;
         } else {
@@ -68,9 +67,6 @@ function renderItems(item) {
 }
 
 async function initChat() {
-  const postId = localStorage.getItem("postId");
-  const token = localStorage.getItem("token");
-
   if (!postId || !token) {
     alert("로그인이 필요하거나 postId가 없습니다.");
     location.href = "/chat.html";
@@ -98,6 +94,16 @@ async function initChat() {
 
     const chatData = chatArray[0];
     localStorage.setItem("chatid", chatData._id);
+
+    // ✅ 읽음 처리 요청 추가
+    await fetch(`/chat/${chatData._id}/read`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userid: myId }),
+    });
 
     const messagesContainer = document.getElementById("messages");
     messagesContainer.innerHTML = "";
@@ -164,7 +170,6 @@ function formatDate(dateStr) {
 
 document.getElementById("send").addEventListener("click", async () => {
   const chatid = localStorage.getItem("chatid");
-  const token = localStorage.getItem("token");
   const messageInput = document.getElementById("message");
   const chat = messageInput.value.trim();
 
@@ -205,7 +210,6 @@ document.getElementById("send").addEventListener("click", async () => {
 
 async function send(e) {
   const target = e.target;
-  const token = localStorage.getItem("token");
 
   if (target.classList.contains("edit_btn")) {
     const chatDiv = target.closest(".chat__me");
@@ -334,9 +338,6 @@ document
   .addEventListener("click", async (e) => send(e));
 
 window.onload = function () {
-  const postId = localStorage.getItem("postId");
-  const token = localStorage.getItem("token");
-
   if (!postId || !token) {
     alert("로그인이 필요하거나 postId가 없습니다.");
     location.href = "/chat.html";

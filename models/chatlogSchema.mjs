@@ -12,6 +12,7 @@ const chatlogSchema = new Schema(
         chat: { type: String },
         createdAt: { type: String, default: getCurrentTime },
         edited: { type: Boolean, default: false },
+        seenBy: [{ type: String }],
       },
       { _id: true },
     ],
