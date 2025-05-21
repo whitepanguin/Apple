@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 body {
+    background-image: url(../img/sss.png);
+    background-repeat: no-repeat;        /* 반복 없이 */
+    background-size: cover;              /* 화면 전체를 채우도록 */
+    background-position: center center;  /* 중앙 정렬 */
     display: flex;
     justify-content: center;
 }
@@ -46,6 +50,7 @@ main {
     border-radius: 6px;
 }
 .item__box__third {
+    background-color: white;
     padding: 10px;
     display: flex;
     justify-content: center;

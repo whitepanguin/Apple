@@ -87,3 +87,39 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
     alert("서버 오류: " + err.message);
   }
 });
+
+// 프로필 이미지 단독 변경
+document.getElementById("changeProfileBtn").addEventListener("click", async () => {
+  const fileInput = document.getElementById("profileInput");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("변경할 프로필 이미지를 선택해주세요.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("profile", file);
+
+  try {
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
+    const res = await fetch("/auth/update", {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      document.getElementById("profilePreview").src = data.profile;
+      alert("프로필 이미지가 변경되었습니다!");
+    } else {
+      alert(data.message || "프로필 변경에 실패했습니다.");
+    }
+  } catch (err) {
+    alert("서버 오류: " + err.message);
+  }
+});

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 body {
+    background-image: url(../img/aaa.png);
+    background-repeat: no-repeat;        /* 반복 없이 */
+    background-size: cover;              /* 화면 전체를 채우도록 */
+    background-position: center center;  /* 중앙 정렬 */
     display: flex;
     justify-content: center;
 }
@@ -20,6 +24,7 @@ input[type="password"]:focus {
 }
 
 .item__box {
+        background-color: white;
     padding: 25px;
     margin-top: 0;
     position: relative;
