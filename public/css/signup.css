@@ -46,7 +46,6 @@ main {
     border-radius: 6px;
 }
 .item__box__third {
-    margin-top: 90px;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -145,17 +144,13 @@ input:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus,
-input[type="number"]:focus,
 input[type="datetime"]:focus {
   outline: none;
   border: 2px solid #FF6600 !important;
 }
 
 button#signup {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 50px;
     width: 460px;
     height: 52px;
     background-color: #FF6600;
