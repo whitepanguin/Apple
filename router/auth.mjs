@@ -32,9 +32,95 @@ const validateSignup = [
   validate,
 ];
 
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     summary: 사용자 회원가입
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "apple@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "12345678"
+ *               name:
+ *                 type: string
+ *                 example: "훤님"
+ *     responses:
+ *       201:
+ *         description: 회원가입 성공
+ */
 router.post("/signup", validateSignup, authController.signup);
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: 사용자 로그인
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "apple@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "12345678"
+ *     responses:
+ *       200:
+ *         description: 로그인 성공 (JWT 토큰 반환)
+ */
 router.post("/login", validateLogin, authController.login);
+
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     summary: 로그인한 사용자 정보 조회
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 사용자 정보 반환 성공
+ */
 router.get("/me", isAuth, authController.me);
+
+/**
+ * @swagger
+ * /auth/update:
+ *   patch:
+ *     summary: 프로필 이미지 수정
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profile:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: 사용자 정보 수정 성공
+ */
 router.patch("/update", isAuth, upload.single("profile"), authController.updateUser);
 
 export default router;

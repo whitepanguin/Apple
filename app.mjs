@@ -16,6 +16,7 @@ import regionRouter from "./router/region.mjs"; // regionRouter
 import cors from "cors";
 import "dotenv/config";
 import rateLimit from "express-rate-limit";
+import { swaggerUi, swaggerSpec } from './swagger.js'; // ✅ Swagger import 추가
 
 connect();
 
@@ -106,6 +107,13 @@ app.use("/chat", chatRouter);
 app.use("/region", regionRouter);
 app.use(express.static("public"));
 app.use("/uploads", express.static(__dirname + "/public/uploads"));
+
+// ✅ Swagger UI 연결
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger UI
+app.get("/swagger.json", (req, res) => { // Swagger 명세 JSON 경로
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행
