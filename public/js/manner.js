@@ -9,6 +9,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     const data = await res.json();
     if (res.ok && data.profile) {
       document.getElementById("profilePreview").src = data.profile;
+              // ✅ 환영 메시지 표시
+        const welcomeEl = document.getElementById("nickname");
+        if (welcomeEl && data.userid) {
+          welcomeEl.textContent = `${data.userid}님`;
+          welcomeEl.style.display = "inline-block"; // 표시
+        }
     }
   } catch (err) {
     console.error("프로필 이미지 불러오기 실패:", err);
