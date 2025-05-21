@@ -38,11 +38,19 @@ async function sendit(event) {
         if (response.ok) {
             alert("로그인 성공!");
 
-            // 로그인 유지 여부에 따라 저장소 결정
-            const storage = checkbox.checked ? localStorage : sessionStorage;
+            // ✅ sessionStorage는 항상 저장
+            sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("userid", data.userid);
 
-            storage.setItem("token", data.token);
-            storage.setItem("userid", data.userid);
+            // ✅ 로그인 유지 체크 시 localStorage에도 저장
+            if (checkbox.checked) {
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userid", data.userid);
+            } else {
+                // 혹시 이전에 저장된 localStorage 토큰이 있으면 제거
+                localStorage.removeItem("token");
+                localStorage.removeItem("userid");
+            }
 
             window.location.href = "/";
         } else {

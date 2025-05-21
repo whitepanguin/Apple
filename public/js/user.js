@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("/auth/me", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     const data = await res.json();
@@ -64,7 +64,7 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
     const res = await fetch("/auth/update", {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
       body: formData,
     });

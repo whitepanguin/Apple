@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("/auth/me", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
     const data = await res.json();
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadData() {
-  const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
+  const token = sessionStorage.getItem("token"); // 사용자 토큰 가져오기
   try {
     const response = await fetch("/api/", {
       method: "GET",
@@ -61,7 +61,7 @@ if (loginButton) {
 const retouchButton = document.querySelector(".retouch");
 if (retouchButton) {
   retouchButton.addEventListener("click", () => {
-    const token = localStorage.getItem("token"); // 저장된 로그인 토큰 확인
+    const token = sessionStorage.getItem("token"); // 저장된 로그인 토큰 확인
     if (token) {
       // 로그인 상태라면 user.html로 이동
       window.location.href = "/user.html";
