@@ -53,37 +53,41 @@ function runFilter() {
     }
 
     // 층수 필터
-   if (selectedFloors.length > 0) {
-  const floorMatch = selectedFloors.some((floor) => {
-    if (floor === "1층") {
-      return /(^|[^0-9가-힣])1층([^0-9가-힣]|$)/.test(infoText);
+    if (selectedFloors.length > 0) {
+      const floorMatch = selectedFloors.some((floor) => {
+        if (floor === "1층") {
+          return /(^|[^0-9가-힣])1층([^0-9가-힣]|$)/.test(infoText);
+        }
+        if (floor === "2~5층") {
+          return /(^|[^0-9가-힣])(2층|3층|4층|5층)([^0-9가-힣]|$)/.test(
+            infoText
+          );
+        }
+        if (floor === "6~9층") {
+          return /(^|[^0-9가-힣])(6층|7층|8층|9층)([^0-9가-힣]|$)/.test(
+            infoText
+          );
+        }
+        if (floor === "10층 이상") {
+          return /(^|[^0-9가-힣])(1[0-9]층|[2-9][0-9]층)([^0-9가-힣]|$)/.test(
+            infoText
+          );
+        }
+        return false;
+      });
+      if (!floorMatch) show = false;
     }
-    if (floor === "2~5층") {
-      return /(^|[^0-9가-힣])(2층|3층|4층|5층)([^0-9가-힣]|$)/.test(infoText);
-    }
-    if (floor === "6~9층") {
-      return /(^|[^0-9가-힣])(6층|7층|8층|9층)([^0-9가-힣]|$)/.test(infoText);
-    }
-    if (floor === "10층 이상") {
-      return /(^|[^0-9가-힣])(1[0-9]층|[2-9][0-9]층)([^0-9가-힣]|$)/.test(infoText);
-    }
-    return false;
-  });
-  if (!floorMatch) show = false;
-}
-
-
 
     // 평수 필터
     if (usePyeong) {
-  const match = infoText.match(/(\d+(?:\.\d+)?)\s*평/);
-  const pyeongNum = match ? parseFloat(match[1]) : null;
+      const match = infoText.match(/(\d+(?:\.\d+)?)\s*평/);
+      const pyeongNum = match ? parseFloat(match[1]) : null;
 
-  // 평수 정보가 없거나 기준 미만이면 무조건 숨김
-  if (pyeongNum === null || pyeongNum < selectedPyeong) {
-    show = false;
-  }
-}
+      // 평수 정보가 없거나 기준 미만이면 무조건 숨김
+      if (pyeongNum === null || pyeongNum < selectedPyeong) {
+        show = false;
+      }
+    }
 
     // 옵션 필터
     if (selectedOptions.length > 0) {
@@ -114,6 +118,19 @@ function getUncheckedNameValues(sectionLabelText) {
     const label = input.closest("label");
     return label ? label.innerText.trim() : "";
   });
+}
+
+function toggleFilter() {
+  const sidebar = document.querySelector(".sidebar");
+  const isOpen = sidebar.classList.contains("show");
+
+  if (isOpen) {
+    sidebar.classList.remove("show");
+    document.body.classList.remove("sidebar-open");
+  } else {
+    sidebar.classList.add("show");
+    document.body.classList.add("sidebar-open");
+  }
 }
 
 function insertImg(items) {

@@ -16,15 +16,16 @@ html {
   font-family: sans-serif;
   background: #ffffff;
 }
+h5 {
+  margin: 5px 5px;
+}
+
 .close-sidebar-btn {
   display: none;
 }
 .main {
   display: flex;
   justify-content: center;
-  /* gap: 1.5rem; */
-  /* padding: 0 1rem; */
-  /* border: 1px solid black; */
 }
 .main__container {
   max-width: 80rem;
@@ -107,6 +108,10 @@ label {
 .filter-group select,
 .filter-group input[type="checkbox"] {
   margin-bottom: 0.5rem;
+}
+
+label {
+  cursor: pointer;
 }
 
 .property-list {
@@ -193,14 +198,17 @@ img:hover {
   }
 
   .close-sidebar-btn {
+    width: 300px;
     display: block;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
+    position: relative;
+    bottom: 10px;
+    left: 140px;
+    background: #f68000;
+    border: 2px solid #f68000;
     font-size: 1.2rem;
     cursor: pointer;
+    border-radius: 5px;
+    color: #f0f0f0;
   }
 
   body.sidebar-open {
@@ -267,7 +275,7 @@ img:hover {
        */
   }
 
-  #applyBtnMobile {
+  /* #applyBtnMobile {
     width: 90%;
     padding: 12px;
     background-color: #f68000;
@@ -275,7 +283,7 @@ img:hover {
     border: none;
     border-radius: 8px;
     font-size: 16px;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
