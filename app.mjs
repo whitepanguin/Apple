@@ -15,6 +15,7 @@ import chatRouter from "./router/chat.mjs";
 import regionRouter from "./router/region.mjs"; // regionRouter
 import cors from "cors";
 import "dotenv/config";
+import rateLimit from "express-rate-limit";
 
 connect();
 
@@ -24,7 +25,33 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
+
 app.use(cors());
+
+// 1.ip당 15분에 100번 요청 가능
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15분
+  max: 100, // 최대 요청 수
+  message: {
+    status: 429,
+    message: "요청이 너무 많습니다. 나중에 다시 시도하세요.",
+  },
+  standardHeaders: true, // 표준 속도 제한 헤더를 응답에 포함하겠다는 뜻
+  legacyHeaders: false, // 예전 레거시 방식의 헤더를 사용하지 않겠다
+});
+app.use(limiter);
+//----
+// 2.Postman 또는 흔한 봇 필터링
+/*
+app.use((req, res, next) => {
+  const userAgent = req.headers["user-agent"] || "";
+  if (/postman|curl|axios|bot|python/i.test(userAgent)) {
+    return res.status(403).json({ message: "허용되지 않은 클라이언트입니다." });
+  }
+  next();
+});
+*/
+//---
 
 app.get("/", (req, res) => {
   fs.readFile(__dirname + "/public/main.html", (err, data) => {
@@ -51,7 +78,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024, files: 5 },
+}); //3.파일 크기5MB 파일 5개
 app.post("/upload", upload.single("file"), (req, res) => {
   console.log(req.file);
   res.json({
@@ -59,8 +89,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
     file: req.file,
   });
 });
-
-app.post("/upload-multiple", upload.array("files", 30), (req, res) => {
+app.post("/upload-multiple", upload.array("files", 5), (req, res) => {
   console.log(req.files);
   res.json({
     message: "다중 파일 업로드 성공",
