@@ -106,3 +106,9 @@ button#user:hover {
     background-color: #ae4a08;
     cursor: pointer;
 }
+input:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border: 2px solid #FF6600 !important;
+}
