@@ -11,16 +11,12 @@ async function createJwtToken(idx) {
   return jwt.sign({ idx }, secretKey, { expiresIn: jwtExpiresInDays });
 }
 
-// 회원가입 put create
 export async function signup(req, res, next) {
-  const { email, password, name, userid, birthDate, address, profile, hp } =
-    req.body;
+  const { email, password, name, userid, birthDate, address, profile, hp } = req.body;
 
   const found = await authRepository.findByUserid(email);
   if (found) {
-    return res
-      .status(409)
-      .json({ message: `${email}은(는) 이미 사용 중입니다.` });
+    return res.status(409).json({ message: `${email}은(는) 이미 사용 중입니다.` });
   }
 
   const hashed = await bcrypt.hash(password, bcryptSaltRounds);
@@ -40,73 +36,52 @@ export async function signup(req, res, next) {
   res.status(201).json({ token, email });
 }
 
-// 로그인 post
 export async function login(req, res, next) {
   const { email, password } = req.body;
   const user = await authRepository.findByUserid(email);
   if (!user) {
-    return res
-      .status(404)
-      .json({ message: `${email} 계정을 찾을 수 없습니다.` });
+    return res.status(404).json({ message: `${email} 계정을 찾을 수 없습니다.` });
   }
 
   const isValidPassword = await bcrypt.compare(password, user.password);
-
   if (!isValidPassword) {
-    return res
-      .status(401)
-      .json({ message: "이메일 또는 비밀번호가 잘못되었습니다." });
+    return res.status(401).json({ message: "이메일 또는 비밀번호가 잘못되었습니다." });
   }
 
   const token = await createJwtToken(user._id);
   res.status(200).json({ token, email });
 }
 
-export async function verify(req, res, next) {
-  const id = req.id;
-  if (id) {
-    res.status(200).json(id);
-  } else {
-    res.status(401).json({ message: "사용자 인증 실패" });
-  }
-}
-
 export async function me(req, res, next) {
   try {
-    const userId = req.useridx || req.userid || req.id; // 미들웨어에서 세팅된 값 중 우선순위로 사용
-    if (!userId) {
-      return res.status(401).json({ message: "인증 정보가 없습니다." });
-    }
-
+    const userId = req.useridx || req.userid || req.id;
     const user = await authRepository.findByid(userId);
-    if (!user) {
-      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
-    }
+    if (!user) return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
 
     res.status(200).json({
       email: user.email,
       userid: user.userid,
-      // token: req.token, // 일반적으로 토큰은 재발급이 필요할 때만 보내요
+      profile: user.profile,
     });
   } catch (error) {
-    console.error("[ERROR] authController.me:", error);
     res.status(500).json({ message: "서버 오류", error: error.message });
   }
 }
 
 export async function updateUser(req, res) {
   const { password, hp } = req.body;
-  const userid = req.userid; // 미들웨어에서 디코딩된 JWT
+  const file = req.file;
+  const userid = req.userid;
 
   const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+  const profilePath = file ? `/uploads/${file.filename}` : undefined;
+
+  const updateData = { password: hashed, hp };
+  if (profilePath) updateData.profile = profilePath;
 
   try {
-    await authRepository.updateUser(userid, {
-      password: hashed,
-      hp: hp,
-    });
-
-    res.status(200).json({ message: "회원정보 수정 완료" });
+    await authRepository.updateUser(userid, updateData);
+    res.status(200).json({ message: "회원정보 수정 완료", profile: profilePath });
   } catch (err) {
     res.status(500).json({ message: "수정 실패", error: err.message });
   }

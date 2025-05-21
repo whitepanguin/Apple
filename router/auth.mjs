@@ -1,45 +1,40 @@
-// 사용자 api
 import express from "express";
+import path from "path";
+import multer from "multer";
 import * as authController from "../controller/auth.mjs";
 import { body } from "express-validator";
 import { validate } from "../middleware/validator.mjs";
 import { isAuth } from "../middleware/auth.mjs";
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/uploads");
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || ".jpg";
+    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
+    cb(null, uniqueName);
+  },
+});
+const upload = multer({ storage });
+
 const router = express.Router();
 
-// 서버로 바로 왔을 때 데이터 확인하는 방법
-// isLength 최소가 4자 이상이니? true false , withMessage 앞에 있는 것에 대한 에러 출력,
 const validateLogin = [
-  body("password")
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage("최소 8자 이상 입력"),
+  body("password").trim().isLength({ min: 8 }).withMessage("최소 8자 이상 입력"),
   validate,
 ];
 
 const validateSignup = [
   ...validateLogin,
   body("name").trim().notEmpty().withMessage("name을 입력"),
-  body("email").trim().isEmail().withMessage("이베일 형식 확인"),
+  body("email").trim().isEmail().withMessage("이메일 형식 확인"),
   validate,
 ];
 
-// 회원가입
-// POST
-// http://127.0.0.1:8080/auth/signup
 router.post("/signup", validateSignup, authController.signup);
-
-// 로그인
-// POST
-// http://127.0.0.1:8080/auth/login
 router.post("/login", validateLogin, authController.login);
-
-// 로그인 유지
 router.get("/me", isAuth, authController.me);
-
-// 회원정보 수정
-router.patch("/update", isAuth, authController.updateUser);
-
-
+router.patch("/update", isAuth, upload.single("profile"), authController.updateUser);
 
 export default router;
