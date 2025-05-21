@@ -37,7 +37,6 @@ export async function getOrCreateUserById(req, res) {
         userid,
         address: "주소 미입력",
         profilepic: "",
-        temp: 36.5,
       });
     }
 
