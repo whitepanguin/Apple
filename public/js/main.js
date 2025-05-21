@@ -133,14 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // 지역 선택 버튼 클릭 시 박스 표시
   document
     .querySelector(".search__button__searchArea")
     .addEventListener("click", () => {
-      const regionBox = document.getElementById("region-box");
-      regionBox.classList.add("show"); // ✅ 여기에 console.log 추가
-      console.log("지역 박스가 표시되었음!");
+      regionBox.classList.add("show");
+      console.log("✅ 지역 박스가 표시되었음!");
     });
 
+  // 닫기 버튼 클릭 시 박스 숨기기
   const closeBtn = document.getElementById("close-region-box");
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -148,24 +149,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 현재 내 위치 버튼 클릭 시
   const locationBtn = document.getElementById("get-location-btn");
   if (locationBtn) {
-    locationBtn.addEventListener("click", () => {
+    locationBtn.addEventListener("click", async () => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const { latitude, longitude } = position.coords;
-          document.getElementById(
-            "areaName"
-          ).innerText = `위도: ${latitude}, 경도: ${longitude}`;
-          regionBox.classList.remove("show");
-        });
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            // ✅ 카카오 API 호출로 동 이름 가져오기
+            try {
+              const res = await fetch(
+                `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
+                {
+                  headers: {
+                    Authorization: `KakaoAK 8b360f9642c5df7d25933886c4f9d7b2`, // ✅ KakaoAK 붙이기!
+                  },
+                }
+              );
+
+              const data = await res.json();
+              const region = data.documents?.[0]?.region_2depth_name;
+
+              if (region) {
+                updateRegionText(region);
+                localStorage.setItem("region", region);
+              } else {
+                alert("지역 정보를 가져올 수 없습니다.");
+              }
+
+              regionBox.classList.remove("show");
+            } catch (err) {
+              console.error("카카오 API 오류:", err);
+              alert("위치 정보를 가져오는데 실패했습니다.");
+            }
+          },
+          (error) => {
+            console.warn("위치 권한 거부됨", error);
+            alert("위치 권한을 허용해주세요.");
+          }
+        );
       } else {
-        alert("위치 정보를 가져올 수 없습니다.");
+        alert("이 브라우저에서는 위치 정보를 지원하지 않습니다.");
       }
     });
   }
+
+  // 지역 태그 클릭 바인딩
+  attachRegionClickHandlers();
+  attachCategoryMenuToggle();
 });
 
+// 8. 초기 위치 권한 확인용 로그 (선택적)
 window.onload = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -174,9 +210,7 @@ window.onload = () => {
       },
       (error) => {
         console.warn("위치 권한 거부됨", error);
-        alert("위치 권한을 허용해주세요.");
       }
     );
   }
 };
-document.getElementById("region-box").classList.add("show");

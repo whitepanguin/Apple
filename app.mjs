@@ -13,7 +13,8 @@ import mannerRouter from "./router/manner.mjs";
 import realRouter from "./router/realestate.mjs";
 import chatRouter from "./router/chat.mjs";
 import regionRouter from "./router/region.mjs"; // regionRouter
-// import cors from "cors";
+import cors from "cors";
+import "dotenv/config";
 
 connect();
 
@@ -23,7 +24,7 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 app.get("/", (req, res) => {
   fs.readFile(__dirname + "/public/main.html", (err, data) => {
@@ -74,6 +75,8 @@ app.use("/api", mannerRouter);
 app.use("/real", realRouter);
 app.use("/chat", chatRouter);
 app.use("/region", regionRouter);
+app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/public/uploads"));
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행

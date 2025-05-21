@@ -171,12 +171,13 @@ a {
   background-color: var(--color-box-hover);
 }
 
+/* 지역 변경 박스 */
+
 #region-box {
   display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  /* 고정 위치 설정 */
   position: fixed;
-  top: 50%;
+  top: 100px;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 800px;
@@ -184,11 +185,60 @@ a {
   padding: 20px;
   border-radius: 10px;
   z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 #region-box.show {
-  display: block !important;
-  opacity: 1 !important;
+  display: block;
+}
+
+#region-box .region-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#region-box h4#loc-choose-btn {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+#region-search {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#region-box button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#get-location-btn {
+  background-color: #ff6f0f;
+  color: white;
+}
+
+#get-location-btn:hover {
+  background-color: #e05e00;
+}
+
+#close-region-box {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+#close-region-box:hover {
+  background-color: #e0e0e0;
 }
 
 /* 이미지 검색창: 클릭시 나옴 */

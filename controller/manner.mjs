@@ -39,7 +39,6 @@ export async function getOrCreateUserById(req, res) {
         profilepic: "",
       });
     }
-
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "사용자 조회 또는 생성 오류", error });
