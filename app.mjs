@@ -1,4 +1,5 @@
 import express from "express";
+// import fetch from "node-fetch";
 import multer from "multer";
 import sharp from "sharp";
 import fs from "fs";
@@ -16,7 +17,7 @@ import regionRouter from "./router/region.mjs"; // regionRouter
 import cors from "cors";
 import "dotenv/config";
 import rateLimit from "express-rate-limit";
-import { swaggerUi, swaggerSpec } from './swagger.js'; // ✅ Swagger import 추가
+import { swaggerUi, swaggerSpec } from "./swagger.js"; // ✅ Swagger import 추가
 
 connect();
 
@@ -24,7 +25,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-app.use(express.static("public"));
+
 app.use(express.json());
 
 app.use(cors());
@@ -110,10 +111,35 @@ app.use("/uploads", express.static(__dirname + "/public/uploads"));
 
 // ✅ Swagger UI 연결
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger UI
-app.get("/swagger.json", (req, res) => { // Swagger 명세 JSON 경로
+app.get("/swagger.json", (req, res) => {
+  // Swagger 명세 JSON 경로
   res.setHeader("Content-Type", "application/json");
   res.send(swaggerSpec);
 });
+
+// 카카오
+// server.mjs
+app.get("/api/region", async (req, res) => {
+  const { lat, lon } = req.query;
+
+  try {
+    const kakaoRes = await fetch(
+      `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${lon}&y=${lat}`,
+      {
+        headers: {
+          Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
+        },
+      }
+    );
+    const data = await kakaoRes.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Kakao API error:", error);
+    res.status(500).json({ error: "카카오 API 오류" });
+  }
+});
+
+app.use(express.static("public"));
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행

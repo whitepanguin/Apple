@@ -33,4 +33,7 @@ export const config = {
   mongodb: {
     url: required("MONGODB"),
   },
+  kakao: {
+    restApiKey: required("KAKAO_REST_API_KEY"),
+  },
 };

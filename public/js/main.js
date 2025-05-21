@@ -1,7 +1,3 @@
-import { fetchKakaoLocation } from "./region.js";
-import { getLocation } from "./userlocation.js";
-
-// 1. 헤더 동적 삽입 및 초기화
 fetch("header.html")
   .then((res) => res.text())
   .then((html) => {
@@ -126,6 +122,7 @@ function updateRegionText(regionName) {
   document.title = `${regionName} - 지역 선택됨`;
 }
 
+//카카오 api
 document.addEventListener("DOMContentLoaded", () => {
   const regionBox = document.getElementById("region-box");
   if (!regionBox) {
@@ -151,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 현재 내 위치 버튼 클릭 시
   const locationBtn = document.getElementById("get-location-btn");
+
   if (locationBtn) {
     locationBtn.addEventListener("click", async () => {
       if (navigator.geolocation) {
@@ -158,32 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
           async (position) => {
             const { latitude, longitude } = position.coords;
 
-            // ✅ 카카오 API 호출로 동 이름 가져오기
-            try {
-              const res = await fetch(
-                `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
-                {
-                  headers: {
-                    Authorization: `KakaoAK 8b360f9642c5df7d25933886c4f9d7b2`, // ✅ KakaoAK 붙이기!
-                  },
-                }
-              );
-
-              const data = await res.json();
-              const region = data.documents?.[0]?.region_2depth_name;
-
-              if (region) {
-                updateRegionText(region);
-                localStorage.setItem("region", region);
-              } else {
-                alert("지역 정보를 가져올 수 없습니다.");
-              }
-
-              regionBox.classList.remove("show");
-            } catch (err) {
-              console.error("카카오 API 오류:", err);
-              alert("위치 정보를 가져오는데 실패했습니다.");
+            const regionName = await getRegionNameViaProxy(latitude, longitude);
+            if (regionName && !regionName.includes("오류")) {
+              updateRegionText(regionName);
+              localStorage.setItem("region", regionName);
+            } else {
+              alert("지역 정보를 가져올 수 없습니다.");
             }
+
+            const regionBox = document.getElementById("region-box");
+            if (regionBox) regionBox.classList.remove("show");
           },
           (error) => {
             console.warn("위치 권한 거부됨", error);
