@@ -74,9 +74,6 @@ app.use("/api", mannerRouter);
 app.use("/real", realRouter);
 app.use("/chat", chatRouter);
 app.use("/region", regionRouter);
-app.use(express.static("public"));
-app.use("/uploads", express.static(__dirname + "/public/uploads"));
-
 
 app.use((req, res, next) => {
   // 라우터에 있는 데이터가 안 읽힐 경우 실행
