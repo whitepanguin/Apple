@@ -61,6 +61,15 @@ if (!postId) {
             "주소 정보 없음 · 매너온도 N/A";
         });
 
+      // 작성자만 수정/삭제 버튼 보이게
+      const CurrentUser = localStorage.getItem("user._id");
+      // console.log("로그인한 사람:", currentUser);
+      // console.log("게시글 작성자:", post.userid);
+
+      if (CurrentUser === post.userid) {
+        document.getElementById("edit-post").style.display = "inline-block";
+      }
+
       // 7. 수정 모달 요소 및 이벤트 연결
       const editBtn = document.getElementById("edit-post");
       const modal = document.getElementById("edit-modal");
