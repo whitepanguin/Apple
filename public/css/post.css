@@ -36,6 +36,10 @@ h3 {
   margin: 15px 0;
 }
 
+h5 {
+  font-size: 15px;
+}
+
 .section__top .main__title {
   margin-bottom: 1rem;
 }
@@ -56,6 +60,10 @@ h3 {
   height: fit-content;
 }
 
+h3 {
+  margin-bottom: 15px;
+}
+
 .filter-group {
   margin-bottom: 1.5rem;
   gap: 20px;
@@ -64,8 +72,7 @@ h3 {
 .filter-group label {
   display: block;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  gap: 15px;
+  margin-bottom: 1rem;
 }
 
 label {

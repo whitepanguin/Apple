@@ -39,6 +39,7 @@ if (!postId) {
       document.getElementById("post-time").textContent = timeAgo(
         post.createdAt
       );
+      console.log("✅ 게시글 데이터:", post);
 
       // 6. 판매자 정보 요청 및 출력
       fetch(`/api/${post.userid}`)
@@ -59,8 +60,6 @@ if (!postId) {
           document.getElementById("seller-meta").textContent =
             "주소 정보 없음 · 매너온도 N/A";
         });
-
-      console.log("✅ 게시글 데이터:", post);
 
       // 7. 수정 모달 요소 및 이벤트 연결
       const editBtn = document.getElementById("edit-post");
