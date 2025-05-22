@@ -1,5 +1,6 @@
 // controllers/placeController.js
 import * as realestateRepository from "../repositories/realestateRepository.mjs";
+import Realestate from "../models/realestateSchema.mjs";
 
 // POST /places - 새로운 부동산 매물 등록
 export async function createReal(req, res) {
@@ -55,5 +56,44 @@ export async function getRealByPostId(req, res) {
   } catch (error) {
     console.error("Post ID로 매물 조회 중 오류 발생:", error);
     res.status(500).json({ message: "Post ID로 매물 조회에 실패했습니다." });
+  }
+}
+
+// PATCH 게시글 수정
+export async function updateReal(req, res) {
+  const id = req.params.id;
+  const updateData = req.body;
+
+  const place = await Realestate.findById(id);
+  if (!place)
+    return res.status(404).json({ message: "매물을 찾을 수 없습니다." });
+
+  if (place.userid !== req.userid) {
+    return res.status(403).json({ message: "본인만 수정할 수 있습니다." });
+  }
+
+  await Realestate.findByIdAndUpdate(id, updateData);
+  res.sendStatus(204);
+}
+
+//DELETE 게시글 삭제
+export async function deleteReal(req, res) {
+  const id = req.params.id;
+
+  try {
+    const place = await Realestate.findById(id);
+    if (!place) {
+      return res.status(404).json({ message: "매물을 찾을 수 없습니다." });
+    }
+
+    if (place.userid !== req.userid) {
+      return res.status(403).json({ message: "본인만 삭제할 수 있습니다." });
+    }
+
+    await Realestate.findByIdAndDelete(id);
+    res.sendStatus(204);
+  } catch (error) {
+    console.error("삭제 중 오류 발생:", error);
+    res.status(500).json({ message: "매물 삭제에 실패했습니다." });
   }
 }

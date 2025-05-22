@@ -110,52 +110,73 @@
                 </p>
               </section>
 
-
-              
               <button class="contact-button">채팅하기</button>
             </div>
-            
+
             <section class="map-section">
               <div id="map" class="map-box"></div>
             </section>
             <div class="post-actions">
-             <a href="#" id="edit-post"    class="action-link">수정하기</a>
-             <a href="#" id="delete-post"   class="action-link delete-link">삭제하기</a>
-           </div>
-           <div id="edit-modal" class="modal hidden">
-  <div class="modal-content">
-    <h2>매물 수정</h2>
+              <a
+                href="#"
+                id="edit-post"
+                style="display: none"
+                class="action-link"
+                >수정하기</a
+              >
+              <a
+                href="#"
+                id="delete-post"
+                style="display: none"
+                class="action-link delete-link"
+                >삭제하기</a
+              >
+            </div>
+            <div id="edit-modal" class="modal hidden">
+              <div class="modal-content">
+                <h2>매물 수정</h2>
 
-    <label>거래 유형</label>
-    <select id="edit-price-type">
-      <option value="매매">매매</option>
-      <option value="전세">전세</option>
-      <option value="월세">월세</option>
-    </select>
+                <label>거래 유형</label>
+                <select id="edit-price-type">
+                  <option value="매매">매매</option>
+                  <option value="전세">전세</option>
+                  <option value="월세">월세</option>
+                </select>
 
-    <label>매매가</label>
-    <input type="text" id="edit-sale" placeholder="매매가 (예: 11억)" />
+                <label>매매가</label>
+                <input
+                  type="text"
+                  id="edit-sale"
+                  placeholder="매매가 (예: 11억)"
+                />
 
-    <label>보증금</label>
-    <input type="text" id="edit-deposit" placeholder="보증금 (예: 3000만)" />
+                <label>보증금</label>
+                <input
+                  type="text"
+                  id="edit-deposit"
+                  placeholder="보증금 (예: 3000만)"
+                />
 
-    <label>월세</label>
-    <input type="text" id="edit-monthly_rent" placeholder="월세 (예: 110만)" />
+                <label>월세</label>
+                <input
+                  type="text"
+                  id="edit-monthly_rent"
+                  placeholder="월세 (예: 110만)"
+                />
 
-    <label>상세 설명</label>
-    <textarea
-      id="edit-text"
-      rows="6"
-      placeholder="상세 설명을 줄바꿈으로 입력하세요"
-    ></textarea>
+                <label>상세 설명</label>
+                <textarea
+                  id="edit-text"
+                  rows="6"
+                  placeholder="상세 설명을 줄바꿈으로 입력하세요"
+                ></textarea>
 
-    <div class="modal-actions">
-      <button id="submit-edit">수정 완료</button>
-      <button id="cancel-edit">취소</button>
-    </div>
-  </div>
-</div>
-
+                <div class="modal-actions">
+                  <button id="submit-edit">수정 완료</button>
+                  <button id="cancel-edit">취소</button>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>

@@ -63,13 +63,37 @@ if (!postId) {
         });
 
       // 6. 현재 로그인한 사용자가 작성자일 경우 수정/삭제 버튼 보이게 하기
-      const currentUser =
-        localStorage.getItem("userid") || sessionStorage.getItem("userid");
+      // const currentUser =
+      //   localStorage.getItem("userid") || sessionStorage.getItem("userid");
 
-      if (currentUser === post.userid) {
-        document.getElementById("edit-post").style.display = "inline-block";
-        document.getElementById("delete-post").style.display = "inline-block";
-      }
+      // if (currentUser === post.userid) {
+      //   document.getElementById("edit-post").style.display = "inline-block";
+      //   document.getElementById("delete-post").style.display = "inline-block";
+      // }
+
+      const token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
+
+      fetch("/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("사용자 정보 불러오기 실패");
+          return res.json();
+        })
+        .then((user) => {
+          const currentUser = user.userid;
+          if (currentUser === post.userid) {
+            document.getElementById("edit-post").style.display = "inline-block";
+            document.getElementById("delete-post").style.display =
+              "inline-block";
+          }
+        })
+        .catch((err) => {
+          console.error("작성자 확인 실패:", err);
+        });
 
       // 7. 수정 기능: 모달 열기, 닫기, PATCH 요청
       const editBtn = document.getElementById("edit-post");

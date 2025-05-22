@@ -69,4 +69,10 @@ router.post("/", isAuth, realestateController.createReal);
  */
 router.get("/:id", realestateController.getRealById);
 
+// 수정 라우터
+router.patch("/:id", isAuth, realestateController.updateReal);
+
+// 삭제 라우터
+router.delete("/:id", isAuth, realestateController.deleteReal);
+
 export default router;
