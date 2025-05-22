@@ -41,30 +41,6 @@ a {
   margin: 0;
 }
 
-/* 태블릿 */
-@media (min-width: 768px) and (max-width: 1025px) {
-}
-
-/* 스마트폰 (최대 768px) */
-@media (max-width: 768px) {
-  .header {
-    padding: 0.5rem 0;
-    z-index: 999;
-  }
-
-  main {
-    padding: 10rem 0rem;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  .header__logo__title {
-    margin-left: 0rem;
-  }
-}
-
 /* 헤더에만 적용되는 스타일 */
 .header {
   box-sizing: border-box;
@@ -363,4 +339,85 @@ a {
 #logoutBtn {
   color: white;
   font-weight: bold;
+}
+
+/* 모바일 */
+
+/* 기본값: 모바일 요소 숨김 (웹 포함) */
+.mobile-menu-toggle,
+.mobile-dropdown {
+  display: none;
+}
+
+/* 모바일 대응용 스타일 (웹에 영향 X) */
+@media (max-width: 768px) {
+  .header__right--pc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  #welcome-message {
+    display: block !important;
+    text-align: center;
+    flex: 1;
+    font-size: 1rem;
+    color: white;
+  }
+
+  .header__button__search {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    margin-left: auto;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: white;
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+  }
+
+  #loginBtn,
+  #logoutBtn,
+  #mypageBtn {
+    display: none !important;
+  }
+
+  .mobile-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 3.6rem;
+    right: 1rem;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-box);
+    border-radius: 6px;
+    z-index: 1000;
+  }
+
+  .mobile-dropdown.show {
+    display: flex;
+  }
+
+  .mobile-dropdown button {
+    padding: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .mobile-dropdown button:hover {
+    background-color: var(--color-box-hover);
+  }
 }
