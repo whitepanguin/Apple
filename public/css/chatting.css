@@ -221,6 +221,12 @@ a {
   padding: 0.3rem;
 }
 
+.edit_btn_container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
 @media screen and (max-width: 1155px) {
   #section__box {
     flex-direction: column;
