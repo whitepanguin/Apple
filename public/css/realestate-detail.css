@@ -153,7 +153,7 @@ a:visited {
   height: 40px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: #ff6f0f;
+  background-color: #27ee42;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -180,7 +180,7 @@ a:visited {
 }
 
 .contact-button:hover {
-  background-color: #e85d00;
+  background-color: #0c741a;
 }
 
 .map-box {
@@ -215,10 +215,6 @@ a:visited {
   flex-direction: column;
   gap: 10px;
   height: 800px;
-}
-
-.contact-button:hover {
-  background-color: #e85d00;
 }
 
 #edit-text {
