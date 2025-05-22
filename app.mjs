@@ -32,7 +32,7 @@ app.use(cors());
 
 // 1.ip당 15분에 100번 요청 가능
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15분
+  windowMs: 15 * 1000, // 15분
   max: 100, // 최대 요청 수
   message: {
     status: 429,
@@ -158,7 +158,9 @@ app.use((req, res, next) => {
 // 오류 처리리
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {
-    return res.status(400).json({ message: "파일 업로드 오류: " + err.message });
+    return res
+      .status(400)
+      .json({ message: "파일 업로드 오류: " + err.message });
   } else if (err) {
     return res.status(400).json({ message: err.message });
   }

@@ -185,3 +185,9 @@ if (!postId) {
       alert("해당 게시글을 찾을 수 없습니다.");
     });
 }
+
+document
+  .getElementsByClassName("contact-button")[0]
+  .addEventListener("click", () => {
+    location.href = `/chatting.html?id=${postId}`;
+  });
