@@ -324,10 +324,16 @@ a {
   font-weight: bold;
   color: #f0f0f0;
   margin-left: 10px;
-  white-space: nowrap;
+  /* white-space: nowrap;
   text-align: center;
   font-size: 1rem;
-  flex: 1;
+  flex: 1; */
+}
+
+.welcome-message {
+  font-weight: bold;
+  color: #f0f0f0;
+  margin-left: 10px;
 }
 
 .welcome-message {
@@ -345,44 +351,67 @@ a {
   font-weight: bold;
 }
 
+/* 모바일 */
+
+/* 기본값: 모바일 요소 숨김 (웹 포함) */
+.mobile-menu-toggle,
+.mobile-dropdown {
+  display: none;
+}
+
+/* 모바일 대응용 스타일 (웹에 영향 X) */
 @media (max-width: 768px) {
-  .header {
+  .header__right--pc {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 1rem;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
   }
 
-  /* 공통 속성만 묶기 */
-  .mobile-menu-toggle,
-  .mobile-dropdown {
-    position: absolute;
-    z-index: 1000;
-  }
-
-  /* 햄버거 버튼 위치 */
-  .mobile-menu-toggle {
-    display: block;
-    top: 0.6rem;
-    right: 0.6rem;
-    font-size: 1.6rem;
+  #welcome-message {
+    display: block !important;
+    text-align: center;
+    flex: 1;
+    font-size: 1rem;
     color: white;
+  }
+
+  .header__button__search {
     background: none;
     border: none;
-    z-index: 1001;
-    order: 3;
-    margin-top: 6px;
+    color: white;
+    font-size: 1.3rem;
+    margin-left: auto;
   }
 
-  /* 드롭다운 메뉴 위치 */
+  .mobile-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: white;
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+  }
+
+  #loginBtn,
+  #logoutBtn,
+  #mypageBtn {
+    display: none !important;
+  }
+
   .mobile-dropdown {
     display: none;
+    flex-direction: column;
+    position: absolute;
     top: 3.6rem;
     right: 1rem;
     background-color: var(--color-background);
     border: 1px solid var(--color-box);
     border-radius: 6px;
-    flex-direction: column;
+    z-index: 1000;
   }
 
   .mobile-dropdown.show {
@@ -400,49 +429,5 @@ a {
 
   .mobile-dropdown button:hover {
     background-color: var(--color-box-hover);
-  }
-
-  .header__logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .header__right--pc {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: center;
-    gap: 0.6rem;
-    position: relative;
-  }
-
-  .header__right--pc .welcome-message {
-    display: block !important;
-    white-space: nowrap;
-    font-size: 1rem;
-    color: white;
-    order: 1;
-    text-align: center;
-  }
-
-  .header__button__search {
-    background: none;
-    border: none;
-    font-size: 0.3rem;
-    color: white;
-    order: 2;
-    margin-left: 0.6rem;
-    position: relative;
-    top: 0.1rem;
-    margin-bottom: 5px;
-  }
-
-  /* 로그인, 로그아웃, 마이페이지 버튼은 모바일에서 숨김 */
-  #loginBtn,
-  #logoutBtn,
-  #mypageBtn {
-    display: none !important;
   }
 }
