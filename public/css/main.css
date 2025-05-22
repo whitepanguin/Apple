@@ -240,6 +240,34 @@ a {
 #close-region-box:hover {
   background-color: #e0e0e0;
 }
+/* 중고거래 선택창: 클릭시 나옴 */
+.main__selectCategoryBtn {
+  margin-left: 1rem;
+  color: white;
+  font-weight: bold;
+  background-color: transparent;
+  /* position: relative; */
+  /* z-index: 1; */
+}
+.main__selectCategoryBtn span {
+  margin-right: 0.3rem;
+}
+.main__category-dropdown {
+  position: absolute;
+  background: #1f1f1f;
+  /* border: 1px solid #ddd; */
+  list-style: none;
+  margin-top: 0.5rem;
+  padding: 0;
+  width: 100px;
+}
+.main__category-dropdown li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.main__category-dropdown li:hover {
+  background: #f0f0f0;
+}
 
 /* 이미지 검색창: 클릭시 나옴 */
 .image-search-panel {

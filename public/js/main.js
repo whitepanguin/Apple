@@ -16,12 +16,30 @@ fetch("header.html")
   .catch((err) => console.error("헤더 로딩 실패", err));
 
 // 2. 메인 검색 입력창 바인딩
+let selectedSearchType = "used";
+
 window.addEventListener("DOMContentLoaded", () => {
+  const dropdownBtn = document.getElementById("categoryDropdownBtn");
+  const dropdown = document.getElementById("categoryDropdown");
+  const categorySpan = document.getElementById("selectedCategory");
   const mainSearchInput = document.getElementById("mainSearchInput");
   const mainSearchBtn = document.getElementById("mainSearchBtn");
   const imageSearchPanel = document.getElementById("imageSearchPanel");
   const imageUploadBtn = document.querySelector(".upload-btn");
   const imageUploadInput = document.getElementById("imageUploadInput");
+
+  // 검색 index 종류 선택 (중고물품/부동산)
+  dropdownBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+  });
+  dropdown.querySelectorAll("li").forEach((item) => {
+    item.addEventListener("click", () => {
+      const type = item.dataset.type;
+      selectedSearchType = type;
+      categorySpan.textContent = item.textContent;
+      dropdown.classList.add("hidden");
+    });
+  });
 
   // Enter 키로 검색
   if (mainSearchInput) {
@@ -73,8 +91,10 @@ function handleSearch(inputElement) {
     alert("검색어를 입력해주세요.");
     return;
   }
-
-  window.location.href = `/search-results.html?q=${encodeURIComponent(query)}`;
+  // 타입에 따라 es 인덱스 선택됨.
+  window.location.href = `/search-results.html?q=${encodeURIComponent(
+    query
+  )}&type=${selectedSearchType}`;
 }
 
 function attachRegionClickHandlers() {
