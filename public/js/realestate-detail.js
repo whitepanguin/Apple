@@ -73,14 +73,28 @@ function renderRealestateDetail(data) {
   document.getElementById("realestate-dealing").textContent = data.price || "";
 
   // 가격 정보 표시
-  const priceText =
-    data.price === "월세"
-      ? `${data.deposit || 0} / ${data.monthly_rent || 0}`
-      : data.price === "전세"
-      ? `${data.deposit || 0}`
-      : `${data.sale}`;
+  let label = "가격";
+  let priceText = "";
+
+  switch (data.price) {
+    case "매매":
+      label = "가격";
+      priceText = data.sale || "-";
+      break;
+    case "전세":
+      label = "보증금";
+      priceText = data.deposit || "-";
+      break;
+    case "월세":
+      label = "보증금 / 월세";
+      priceText = `${data.deposit || "-"} / ${data.monthly_rent || "-"}`;
+      break;
+    default:
+      label = "가격";
+      priceText = "-";
+  }
   const div = document.createElement("div");
-  div.innerHTML = `<strong>가격:</strong> <span id="realestate-price">${priceText}</span>`;
+  div.innerHTML = `<strong>${label}:</strong> <span id="realestate-price">${priceText}</span>`;
   document.getElementsByClassName("price2")[0].appendChild(div);
 
   // 조건 출력

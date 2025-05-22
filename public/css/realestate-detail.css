@@ -215,6 +215,13 @@ a:visited {
   flex-direction: column;
   gap: 10px;
   height: 800px;
+  z-index: 9999; 
+  position: fixed;
+}
+
+#edit-modal{
+  z-index: 9999;
+  margin-top: 10px;
 }
 
 #edit-text {
