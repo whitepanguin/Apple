@@ -15,9 +15,14 @@ async function sendit(event) {
   const expEmailText = /^[A-Za-z0-9.-]+@[A-Za-z0-9-]+.[A-Za-z0-9-]+/;
   const expuserNameText = /^[가-힣]+$/;
 
-  if (userid.value === "") {
-    alert("아이디를 입력해주세요.");
-    userid.focus();
+  if (email.value === "") {
+    alert("이메일을 입력해주세요.");
+    email.focus();
+    return false;
+  }
+  if (!expEmailText.test(email.value)) {
+    alert("이메일 확인해주세요");
+    email.focus();
     return false;
   }
   if (password.value === "") {
@@ -42,16 +47,7 @@ async function sendit(event) {
     password__re.focus();
     return false;
   }
-  if (email.value === "") {
-    alert("이메일을 입력해주세요.");
-    email.focus();
-    return false;
-  }
-  if (!expEmailText.test(email.value)) {
-    alert("이메일 확인해주세요");
-    email.focus();
-    return false;
-  }
+
   if (name.value === "") {
     alert("이름을 입력해주세요.");
     name.focus();
@@ -62,7 +58,16 @@ async function sendit(event) {
     name.focus();
     return false;
   }
-
+  if (userid.value === "") {
+    alert("닉네임을 입력해주세요.");
+    userid.focus();
+    return false;
+  }
+  if (birth.value === "") {
+    alert("생년월일을 입력해주세요.");
+    birth.focus();
+    return false;
+  }
   if (hp.value === "") {
     alert("전화번호를 입력해주세요.");
     hp.focus();
