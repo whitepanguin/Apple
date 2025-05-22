@@ -1,58 +1,58 @@
 async function sendit(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const password__re = document.getElementById("password__re");
-    const name = document.getElementById("name");
-    const userid = document.getElementById("userid");
-    const birth = document.getElementById("birth");
-    const hp = document.getElementById("hp");
-    const checkbox = document.getElementById("checkbox");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const password__re = document.getElementById("password__re");
+  const name = document.getElementById("name");
+  const userid = document.getElementById("userid");
+  const birth = document.getElementById("birth");
+  const hp = document.getElementById("hp");
+  const checkbox = document.getElementById("checkbox");
 
-    const expPwText =
+  const expPwText =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*()]{8,20}$/;
-    const expEmailText = /^[A-Za-z0-9.-]+@[A-Za-z0-9-]+.[A-Za-z0-9-]+/;
-    const expuserNameText = /^[가-힣]+$/;
+  const expEmailText = /^[A-Za-z0-9.-]+@[A-Za-z0-9-]+.[A-Za-z0-9-]+/;
+  const expuserNameText = /^[가-힣]+$/;
 
-    if (userid.value === "") {
-        alert("아이디를 입력해주세요.");
-        userid.focus();
-        return false;
-    }
-    if (password.value === "") {
-        alert("비밀번호를 입력해주세요.");
-        password.focus();
-        return false;
-    }
-    if (!expPwText.test(password.value)) {
-        alert(
-            "비밀번호는 8자이상 20자이하의 영문자, 숫자, 특수문자를 한 자 이상 꼭 포함해야합니다."
-        );
-        password.focus();
-        return false;
-    } 
-    if (password__re.value === "") {
-        alert("비밀번호 확인을 입력해주세요.");
-        password__re.focus();
-        return false;
-    }
-    if (password.value != password__re.value) {
-        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다");
-        password__re.focus();
-        return false;
-    }
-    if (email.value === "") {
-        alert("이메일을 입력해주세요.");
-        email.focus();
-        return false;
-    }
-    if (!expEmailText.test(email.value)) {
-        alert("이메일 확인해주세요");
-        email.focus();
-        return false;
-    }
-    if (name.value === "") {
+  if (userid.value === "") {
+    alert("아이디를 입력해주세요.");
+    userid.focus();
+    return false;
+  }
+  if (password.value === "") {
+    alert("비밀번호를 입력해주세요.");
+    password.focus();
+    return false;
+  }
+  if (!expPwText.test(password.value)) {
+    alert(
+      "비밀번호는 8자이상 20자이하의 영문자, 숫자, 특수문자를 한 자 이상 꼭 포함해야합니다."
+    );
+    password.focus();
+    return false;
+  }
+  if (password__re.value === "") {
+    alert("비밀번호 확인을 입력해주세요.");
+    password__re.focus();
+    return false;
+  }
+  if (password.value != password__re.value) {
+    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다");
+    password__re.focus();
+    return false;
+  }
+  if (email.value === "") {
+    alert("이메일을 입력해주세요.");
+    email.focus();
+    return false;
+  }
+  if (!expEmailText.test(email.value)) {
+    alert("이메일 확인해주세요");
+    email.focus();
+    return false;
+  }
+  if (name.value === "") {
     alert("이름을 입력해주세요.");
     name.focus();
     return false;
@@ -95,10 +95,9 @@ async function sendit(event) {
 
     const data = await response.json();
     console.log("서버 응답:", data);
-if (response.ok) {
+    if (response.ok) {
       alert("회원가입 성공!");
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userid", data.userid);
+
       window.location.href = "/";
     } else {
       alert(data.message || "회원가입 실패");

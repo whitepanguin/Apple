@@ -1,6 +1,5 @@
-// ✅ 공통 토큰 가져오는 함수
-function getToken() {
-  return sessionStorage.getItem("token") || localStorage.getItem("token");
+if (!token) {
+  token = sessionStorage.getItem("token") || localStorage.getItem("token");
 }
 
 // 초기 프로필 불러오기
@@ -8,7 +7,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("/auth/me", {
       headers: {
-        Authorization: `Bearer ${getToken()}`, // ✅ 변경됨
+        Authorization: `Bearer ${token}`, // ✅ 변경됨
       },
     });
 
@@ -28,14 +27,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-
-function getToken() {
-  return sessionStorage.getItem("token") || localStorage.getItem("token");
-}
-
 async function loadData() {
-  const token = getToken(); // ✅ 수정된 토큰 가져오기
-
   try {
     const response = await fetch("/api/", {
       method: "GET",
@@ -57,7 +49,6 @@ async function loadData() {
   }
 }
 
-
 // 페이지 로드 시 데이터 불러오기
 window.onload = function () {
   loadData();
@@ -75,7 +66,6 @@ if (loginButton) {
 const retouchButton = document.querySelector(".retouch");
 if (retouchButton) {
   retouchButton.addEventListener("click", () => {
-    const token = sessionStorage.getItem("token") || localStorage.getItem("token"); // ✅ 둘 다 검사
     if (token) {
       // 로그인 상태라면 user.html로 이동
       window.location.href = "/user.html";
@@ -86,4 +76,3 @@ if (retouchButton) {
     }
   });
 }
-
