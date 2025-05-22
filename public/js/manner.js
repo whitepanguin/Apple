@@ -1,19 +1,29 @@
 if (!token) {
   token = sessionStorage.getItem("token") || localStorage.getItem("token");
+  console.log(token);
 }
 
-// 초기 프로필 불러오기
-window.addEventListener("DOMContentLoaded", async () => {
+async function loadData2() {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    alert("로그인이 필요합니다.");
+    location.href = "/login.html";
+    return;
+  }
   try {
-    const res = await fetch("/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`, // ✅ 변경됨
-      },
+    const userRes = await fetch("/auth/me", {
+      headers: { Authorization: `Bearer ${token}` },
     });
-
-    const data = await res.json();
-    if (res.ok && data.profile) {
-      document.getElementById("profilePreview").src = data.profile;
+    if (!userRes.ok) throw new Error("사용자 정보를 불러올 수 없습니다.");
+    const data = await userRes.json();
+    console.log(data);
+    console.log("Raw data:", data);
+    console.log("userid:", data.userid);
+    console.log("data.data?.userid:", data.data?.userid);
+    if (userRes.ok) {
+      if (data.profile) {
+        document.getElementById("profilePreview").src = data.profile;
+      }
 
       // ✅ 환영 메시지 표시
       const welcomeEl = document.getElementById("nickname");
@@ -23,9 +33,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }
   } catch (err) {
-    console.error("프로필 이미지 불러오기 실패:", err);
+    console.error("에러 발생:", err);
+    alert("데이터를 불러오는 중 오류가 발생했습니다.");
   }
-});
+}
 
 async function loadData() {
   try {
@@ -39,7 +50,7 @@ async function loadData() {
 
     const data = await response.json();
     if (response.ok) {
-      console.log(data);
+      // console.log(data);
     } else {
       alert(data.message || "데이터를 불러오는 데 실패했습니다.");
     }
@@ -52,6 +63,7 @@ async function loadData() {
 // 페이지 로드 시 데이터 불러오기
 window.onload = function () {
   loadData();
+  loadData2();
 };
 
 // 로그인 페이지 이동
