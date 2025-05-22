@@ -69,10 +69,65 @@ router.post("/", isAuth, realestateController.createReal);
  */
 router.get("/:id", realestateController.getRealById);
 
-// 수정 라우터
+/**
+ * @swagger
+ * /real/{id}:
+ *   patch:
+ *     summary: 부동산 정보 수정
+ *     tags: [RealEstate]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: 수정할 부동산 고유 ID
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "수정된 부동산 제목"
+ *               price:
+ *                 type: number
+ *                 example: 400000000
+ *               address:
+ *                 type: string
+ *                 example: "서울 마포구 독막로 100"
+ *               area:
+ *                 type: number
+ *                 example: 82
+ *     responses:
+ *       200:
+ *         description: 부동산 정보 수정 성공
+ */
 router.patch("/:id", isAuth, realestateController.updateReal);
 
-// 삭제 라우터
+/**
+ * @swagger
+ * /real/{id}:
+ *   delete:
+ *     summary: 부동산 정보 삭제
+ *     tags: [RealEstate]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: 삭제할 부동산 고유 ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: 부동산 삭제 성공
+ */
 router.delete("/:id", isAuth, realestateController.deleteReal);
 
 export default router;
