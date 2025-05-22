@@ -11,7 +11,7 @@ async function sendit(event) {
     const checkbox = document.getElementById("checkbox");
 
     const expPwText =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,20}$/;
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*()]{8,20}$/;
     const expEmailText = /^[A-Za-z0-9.-]+@[A-Za-z0-9-]+.[A-Za-z0-9-]+/;
     const expuserNameText = /^[가-힣]+$/;
 
