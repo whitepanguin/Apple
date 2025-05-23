@@ -3,7 +3,7 @@ const nickname = sessionStorage.getItem("userid");
 console.log(nickname);
 let currentChannel = localStorage.getItem("postId");
 
-if (!nickname || !currentChannel) {
+if (!nickname) {
   alert("닉네임 또는 채널 정보가 없습니다.");
   location.href = "chat.html";
 }
