@@ -3,6 +3,8 @@ import express from "express";
 import multer from "multer";
 import sharp from "sharp";
 import fs from "fs";
+import { createServer } from "http";
+import { Server } from "socket.io";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import postsRouter from "./router/post.mjs";
@@ -25,7 +27,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-
+//---
+const server = createServer(app);
+const io = new Server(server);
+const users = {};
+//---
 app.use(express.json());
 
 app.use(cors());
@@ -167,6 +173,109 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(config.host.port, () => {
+//---
+io.on("connection", (socket) => {
+  socket.on("join", ({ nickname, postId }) => {
+    socket.nickname = nickname;
+    socket.postId = postId;
+    users[socket.id] = { nickname, postId };
+    socket.join(postId);
+    // const msg = { user: "system", text: `` };
+    // to 서버의 이벤트
+    // io.to(postId).emit("message", msg);
+    // console.log("nickname: ", nickname, ", postId: ", postId);
+    // logMessage(postId, msg);
+
+    // const previousLog = getLog(postId);
+    // socket.emit("chatLog", previousLog);
+
+    // updateUserList();
+  });
+
+  socket.on("chat", ({ text, to }) => {
+    // console.log(text);
+    // console.log(to);
+    const sender = users[socket.id];
+    // console.log(sender);
+    if (!sender) return;
+    const payload = { user: sender.nickname, text };
+
+    // 귓속말 처리해야 함
+    if (to) {
+      const reciverSocket = Object.entries(users).find(
+        ([id, u]) => u.nickname === to
+      )?.[0];
+      //[0] 소켓id,, -(?.) 뭔가 ES7이후에 나온 문법이다. (옵셔널 체이닝): 값이 undefined일 경우 에러 없이 넘어가게 함(사용자가 없을 수도 있으니 안전하게 접근) 유저가 갑자기 나가거나 할때
+      if (reciverSocket) {
+        io.to(reciverSocket).emit("whisper", payload);
+        // 나한테도 보여지게 하는 방법
+        socket.emit("whisper", payload);
+      }
+    } else {
+      io.to(sender.postId).emit("message", payload);
+      // logMessage(sender.postId, payload);
+    }
+  });
+
+  socket.on("changepostId", ({ newpostId }) => {
+    const oldpostId = socket.postId;
+    const nickname = socket.nickname;
+    socket.leave(oldpostId);
+    // io.to(oldpostId).emit("message", {
+    //   user: "system",
+    //   text: `${nickname}님이 ${newpostId} 채널로 이동했습니다`,
+    // });
+    socket.postId = newpostId;
+    console.log(users[socket.id].postId);
+    users[socket.id].postId = newpostId;
+    socket.join(newpostId);
+
+    const joinMsg = { user: "system", text: `` };
+    // io.to(newpostId).emit("message", joinMsg);
+    // logMessage(newpostId, joinMsg);
+
+    // const previousLog = getLog(newpostId);
+    // socket.emit("chatLog", previousLog);
+
+    // updateUserList();
+  });
+
+  socket.on("disconnect", () => {
+    const user = users[socket.id];
+    if (user) {
+      const msg = {
+        user: "system",
+        text: ``,
+      };
+      io.to(user.postId).emit("message", msg);
+      // logMessage(user.postId, msg);
+      delete users[socket.id];
+
+      // updateUserList();
+    }
+  });
+
+  socket.on("refreshAll", () => {
+    io.emit("refresh");
+    location.reload();
+  });
+
+  socket.on("editChat", ({ postId, textId, newText, edited }) => {
+    io.to(postId).emit("editChat", { textId, newText, edited });
+  });
+
+  socket.on("deleteChat", ({ postId, textId }) => {
+    io.to(postId).emit("deleteChat", { textId });
+  });
+
+  function updateUserList() {
+    const userList = Object.values(users); // [{nickname, postId},..]
+    io.emit("userList", userList);
+  }
+});
+
+//---
+
+server.listen(config.host.port, () => {
   console.log("서버 실행 중");
 });

@@ -1,3 +1,81 @@
+const socket = io();
+const nickname = sessionStorage.getItem("userid");
+console.log(nickname);
+let currentChannel = localStorage.getItem("postId");
+
+if (!nickname || !currentChannel) {
+  alert("닉네임 또는 채널 정보가 없습니다.");
+  location.href = "chat.html";
+}
+
+const messages = document.getElementById("messages");
+const messageInput = document.getElementById("message");
+const toInput = document.getElementById("to");
+const emojiBtn = document.getElementById("emoji");
+const emojiBox = document.getElementById("emojiBox");
+
+document.getElementById("send").onclick = sendMessage;
+function sendMessage() {
+  // console.log("message send");
+  const text = messageInput.value.trim();
+  const to = toInput.value.trim();
+  // console.log(text);
+  // console.log(to);
+  if (text) {
+    socket.emit("chat", { text, to: to || null });
+  }
+}
+// messageInput.addEventListener("keydown", (e) => {
+//   if (e.key === "Enter") {
+//     sendMessage();
+//     document.getElementById("send").click();
+//   }
+// });
+
+socket.emit("join", { nickname, channel: currentChannel });
+
+socket.on("message", ({ user, text }) => {
+  console.log("user: ", user, "text: ", text);
+  if (text == "") {
+    return;
+  }
+  const div = document.createElement("div");
+  div.textContent = `${text} 실시간`;
+  if (user === "system") div.className = "system-msg";
+  messages.appendChild(div);
+
+  //---
+});
+
+socket.on("editChat", ({ textId, newText, edited }) => {
+  const chatDiv = document.querySelector(`[data-text-id="${textId}"]`);
+  if (chatDiv) {
+    const chatUserDiv = chatDiv.querySelector(".chat_user");
+    chatUserDiv.innerHTML = `${newText} ${
+      edited
+        ? '<span style="font-size: 0.8em; color: gray;">(수정됨)</span>'
+        : ""
+    }`;
+  }
+});
+
+socket.on("deleteChat", ({ textId }) => {
+  const chatDiv = document.querySelector(`[data-text-id="${textId}"]`);
+  if (chatDiv) {
+    chatDiv.remove();
+  }
+});
+
+socket.on("whisper", ({ user, text }) => {
+  const div = document.createElement("div");
+  div.textContent = `(귓속말) [${user}] ${text}`;
+  div.style.color = "deeppink";
+  messages.appendChild(div);
+});
+
+socket.on("refresh", () => {
+  location.reload();
+});
 const token = sessionStorage.getItem("token");
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
@@ -272,6 +350,12 @@ async function send(e) {
         const updated = await res.json();
         const isEdited = updated.edited;
 
+        socket.emit("editChat", {
+          postId,
+          textId,
+          newText: updated.chat || newText,
+          edited: isEdited,
+        });
         chatUserDiv.innerHTML = `${updated.chat || newText} ${
           isEdited
             ? '<span style="font-size: 0.8em; color: gray;">(수정됨)</span>'
@@ -309,7 +393,7 @@ async function send(e) {
         });
 
         if (!res.ok) throw new Error("삭제 실패");
-
+        socket.emit("deleteChat", { postId, textId });
         chatDiv.remove();
       } catch (err) {
         alert("삭제 실패");
@@ -353,4 +437,11 @@ window.onload = function () {
       document.getElementById("send").click();
     }
   });
+
+  document.getElementById("save_btn").onclick = () => {
+    socket.emit("refreshAll");
+  };
+  document.getElementById("delete_btn").onclick = () => {
+    socket.emit("refreshAll");
+  };
 };

@@ -123,6 +123,29 @@ function attachRegionClickHandlers() {
   });
 }
 
+async function getUserid() {
+  const usersToken = sessionStorage.getItem("token");
+  if (usersToken) {
+    fetch("/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("인증 실패");
+        return res.json();
+      })
+      .then((data) => {
+        // console.log(data.userid);
+        sessionStorage.setItem("userid", data.userid);
+      })
+      .catch((error) => {
+        console.error("에러 발생:", error);
+        alert("서버와 통신 중 문제가 발생했습니다.");
+      });
+  }
+}
+
 function updateRegionText(regionName) {
   const mainArea = document.getElementById("areaName");
   if (mainArea) {
@@ -205,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 8. 초기 위치 권한 확인용 로그 (선택적)
 window.onload = () => {
+  getUserid();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
