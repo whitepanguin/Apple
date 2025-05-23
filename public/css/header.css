@@ -346,19 +346,19 @@ a {
   display: none;
 }
 
-/* 모바일 대응용 스타일 (웹에 영향 X) */
+/*
+모바일 대응용 스타일 (웹에 영향 X)
 @media (max-width: 768px) {
   .header__right--pc {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* space-between 수정*/
+    justify-content: flex-start; 
     width: 100%;
     padding: 0 1rem;
-    gap: 0.4rem; /*추가*/
+    gap: 0.4rem; 
   }
 
   .header {
-    /* .header 추가*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -377,7 +377,7 @@ a {
     margin-left: 0.4rem;
   }
   .header__logo {
-    /* .header__logo 추가  */
+  
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -441,3 +441,4 @@ a {
     background-color: var(--color-box-hover);
   }
 }
+*/
