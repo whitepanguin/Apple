@@ -94,7 +94,7 @@ function handleSearch(inputElement) {
   // 타입에 따라 es 인덱스 선택됨.
   window.location.href = `/search-results.html?q=${encodeURIComponent(
     query
-  )}&type=${selectedSearchType}`;
+  )}&type=text&selectedSearchType=${selectedSearchType}`;
 }
 
 function attachRegionClickHandlers() {

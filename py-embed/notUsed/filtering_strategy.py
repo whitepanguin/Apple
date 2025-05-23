@@ -18,7 +18,7 @@ def search(
 
     try:
         response = es.search(
-            index="korean_market_index",  # ✅ 인덱스명 일치
+            index="posts_index",  # ✅ 인덱스명 일치
             body={
                 "query": {
                     "multi_match": {

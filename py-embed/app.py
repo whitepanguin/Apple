@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # from embed_server import router as embed_router
-from filtering_strategy import router as search_router
+from search import router as search_router
 
 app = FastAPI()
 
