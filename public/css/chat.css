@@ -37,9 +37,28 @@ a {
     color: white;
   }
 }
-
+/**/
 .sidebar {
   font-weight: bold;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transfrom 0.2s ease;
+  box-shadow: 0.2 ease;
+}
+
+.sidebar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 #section__box {
