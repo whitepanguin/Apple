@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    background-image: url(../img/aaa.png);
+    background-image: url(../img/login.png);
     background-repeat: no-repeat;        /* 반복 없이 */
     background-size: cover;              /* 화면 전체를 채우도록 */
     background-position: center center;  /* 중앙 정렬 */
@@ -37,6 +37,7 @@ input[type="password"]:focus {
     align-items: center;
     border: 1px solid #C6C6C6;
     border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .item__box__first {

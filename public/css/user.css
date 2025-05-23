@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url(../img/bbb.png);    background-repeat: no-repeat;        /* 반복 없이 */
+  background-image: url(../img/login.png);    background-repeat: no-repeat;        /* 반복 없이 */
   background-size: cover;              /* 화면 전체를 채우도록 */
   background-position: center center;  /* 중앙 정렬 */
   display: flex;
